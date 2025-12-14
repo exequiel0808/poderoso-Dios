@@ -1,0 +1,16 @@
+/* ---------------------------------
+   ESTILOS OPCIONALES
+   Aquí puedes agregar estilos
+   adicionales para otras secciones.
+   --------------------------------- */
+
+h2 {
+    color: #003366;
+}
+
+footer {
+    background: #003366;
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
