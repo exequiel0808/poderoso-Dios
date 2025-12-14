@@ -1,0 +1,103 @@
+/* ============ ESTILOS GENERALES ============ */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2; /* Gris suave */
+    color: #0a1f44; /* Azul oscuro para que se lea */
+}
+
+/* ============ NAVBAR ============ */
+header {
+    background-color: #0a1f44;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+header img {
+    width: 50px;
+    margin-right: 10px;
+}
+
+nav a {
+    color: white;
+    margin-left: 25px;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* ============ PORTADA (HERO) ============ */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 480px;
+    background: url("img/portada.jpg") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Capa oscura para que el texto se lea */
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.45); /* OSCURECE LA FOTO */
+}
+
+.hero-content {
+    position: relative;
+    color: white;
+    z-index: 1;
+}
+
+.hero-content h1 {
+    font-size: 55px;
+    font-weight: bold;
+}
+
+.hero-content p {
+    font-size: 20px;
+    margin-top: -10px;
+}
+
+/* ============ SECCIÓN VERSÍCULOS ============ */
+.section-title {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 32px;
+    color: #0a1f44;
+}
+
+.versiculos-container {
+    width: 90%;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.versiculo-card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* ============ FOOTER ============ */
+footer {
+    margin-top: 50px;
+    background: #0a1f44;
+    padding: 20px;
+    text-align: center;
+    color: white;
+}
