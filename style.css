@@ -1,103 +1,157 @@
-/* ============ ESTILOS GENERALES ============ */
-body {
+/* ===== RESET ===== */
+* {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2; /* Gris suave */
-    color: #0a1f44; /* Azul oscuro para que se lea */
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* ============ NAVBAR ============ */
-header {
-    background-color: #0a1f44;
-    padding: 15px 40px;
+/* ===== BODY ===== */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f7f9fc;
+    color: #1a1a1a;
+}
+
+/* ===== HEADER ===== */
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(10, 30, 60, 0.95);
+    color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: white;
+    padding: 15px 50px;
+    z-index: 100;
 }
 
-header img {
-    width: 50px;
-    margin-right: 10px;
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+}
+
+.logo img {
+    height: 40px;
 }
 
 nav a {
     color: white;
-    margin-left: 25px;
     text-decoration: none;
-    font-size: 18px;
+    margin-left: 25px;
+    font-weight: 500;
+    transition: color 0.3s;
 }
 
 nav a:hover {
-    text-decoration: underline;
+    color: #ffd369;
 }
 
-/* ============ PORTADA (HERO) ============ */
+/* ===== HERO ===== */
 .hero {
+    height: 100vh;
+    background-image: url("img/portada.jpg");
+    background-size: cover;
+    background-position: center;
     position: relative;
-    width: 100%;
-    height: 480px;
-    background: url("img/portada.jpg") center/cover no-repeat;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    margin-top: 70px;
 }
 
-/* Capa oscura para que el texto se lea */
-.hero::before {
-    content: "";
+/* Oscurecer imagen */
+.overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.45); /* OSCURECE LA FOTO */
+    inset: 0;
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.65),
+        rgba(0, 0, 0, 0.65)
+    );
 }
 
+/* Contenido */
 .hero-content {
     position: relative;
-    color: white;
     z-index: 1;
+    height: 100%;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
 }
 
 .hero-content h1 {
-    font-size: 55px;
-    font-weight: bold;
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    margin-bottom: 20px;
 }
 
 .hero-content p {
-    font-size: 20px;
-    margin-top: -10px;
+    max-width: 700px;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    opacity: 0.95;
 }
 
-/* ============ SECCIÓN VERSÍCULOS ============ */
-.section-title {
+/* ===== BOTÓN ===== */
+.btn-principal {
+    background: linear-gradient(135deg, #ffd369, #f4b942);
+    color: #1a1a1a;
+    padding: 15px 35px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn-principal:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* ===== VERSÍCULOS ===== */
+.versiculos {
+    padding: 100px 20px;
     text-align: center;
-    margin-top: 40px;
-    font-size: 32px;
-    color: #0a1f44;
 }
 
-.versiculos-container {
-    width: 90%;
+.versiculos h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #0b2a57;
+}
+
+.card-versiculo {
+    max-width: 700px;
     margin: auto;
     background: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
 }
 
-.versiculo-card img {
-    width: 100%;
-    border-radius: 10px;
+.card-versiculo p {
+    font-size: 1.2rem;
+    font-style: italic;
+    margin-bottom: 20px;
 }
 
-/* ============ FOOTER ============ */
-footer {
-    margin-top: 50px;
-    background: #0a1f44;
-    padding: 20px;
-    text-align: center;
+.card-versiculo span {
+    font-weight: bold;
+    color: #0b2a57;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    background: #0b2a57;
     color: white;
+    text-align: center;
+    padding: 25px;
+    font-size: 0.95rem;
 }

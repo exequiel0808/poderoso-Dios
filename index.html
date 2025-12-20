@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mi Página Cristiana</title>
+    <meta charset="UTF-8">
+    <title>Poderoso es Dios</title>
 
-    <!-- Archivo principal de estilos -->
+    <!-- Fuente elegante -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <!-- CSS principal -->
     <link rel="stylesheet" href="style.css">
-
-    <!-- Estilos extra -->
-    <link rel="stylesheet" href="css/estilos_extras.css">
-
 </head>
 <body>
 
-    <!-- NAVBAR (MENÚ SUPERIOR) -->
-    <header>
+    <!-- ===== HEADER ===== -->
+    <header class="header">
         <div class="logo">
             <img src="img/logo.png" alt="Logo Cristiano">
-            <h2>Mi Página Cristiana</h2>
+            <span>Poderoso es Dios</span>
         </div>
 
         <nav>
@@ -29,41 +27,41 @@
         </nav>
     </header>
 
-    <!-- SECCIÓN DE PORTADA -->
-    <section id="inicio" class="hero">
-        <img src="img/portada.jpg" alt="Portada Cristiana">
-        <div class="hero-text">
-            <h1>Dios es Amor</h1>
-            <p>Bienvenido a un lugar donde exaltamos el nombre de nuestro Señor.</p>
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="inicio">
+        <div class="overlay"></div>
+
+        <div class="hero-content">
+            <h1>✨ Dios es Amor</h1>
+            <p>
+                Un espacio creado para glorificar a Dios, fortalecer tu fe
+                y llenar tu corazón de esperanza.
+            </p>
+
+            <a href="#versiculos" class="btn-principal">
+                📖 Leer Versículo del Día
+            </a>
         </div>
     </section>
 
-    <!-- SECCIÓN VERSÍCULOS -->
-    <section id="versiculos" class="seccion">
-        <h2>Versículos del Día</h2>
-        <div class="versiculo-card">
-            <img src="img/versiculo1.png">
-            <p>"El Señor es mi pastor, nada me faltará." – Salmos 23:1</p>
+    <!-- ===== VERSÍCULOS ===== -->
+    <section class="versiculos" id="versiculos">
+        <h2>📖 Versículo del Día</h2>
+
+        <div class="card-versiculo">
+            <p>
+                “Porque yo sé los planes que tengo para vosotros,
+                dice Jehová, planes de bienestar y no de calamidad,
+                para daros un futuro y una esperanza.”
+            </p>
+            <span>— Jeremías 29:11</span>
         </div>
     </section>
 
-    <!-- SECCIÓN PRÉDICAS -->
-    <section id="predicas" class="seccion">
-        <h2>Prédicas</h2>
-        <video controls width="400">
-            <source src="predicas/video1.mp4" type="video/mp4">
-        </video>
-    </section>
-
-    <!-- FOOTER -->
-    <footer id="contacto">
-        <p>© 2025 Mi Página Cristiana – Todos los derechos reservados</p>
-        <p>Contacto: ejemplo@correo.com</p>
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <p>🙏 “Todo lo que respira, alabe a Jehová” – Salmos 150:6</p>
     </footer>
-
-    <!-- Scripts -->
-    <script src="script.js"></script>
-    <script src="js/efectos.js"></script>
 
 </body>
 </html>
