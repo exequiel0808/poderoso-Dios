@@ -14,3 +14,10 @@ document.querySelectorAll("nav a").forEach(enlace => {
         target.scrollIntoView({ behavior: "smooth" });
     });
 });
+function abrirFormulario() {
+  document.getElementById("modalOracion").style.display = "block";
+}
+
+function cerrarFormulario() {
+  document.getElementById("modalOracion").style.display = "none";
+}

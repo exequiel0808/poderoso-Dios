@@ -26,6 +26,10 @@
             <a href="#contacto">Contacto</a>
         </nav>
     </header>
+    <section class="mensaje-principal">
+  <h1>Poderoso es Dios</h1>
+  <button onclick="abrirFormulario()">🙏 Solicitar oración</button>
+</section>
 
     <!-- ===== HERO ===== -->
     <section class="hero" id="inicio">
@@ -57,11 +61,43 @@
             <span>— Jeremías 29:11</span>
         </div>
     </section>
+<section class="oracion-final">
+  <h2>¿Deseas que oremos por ti?</h2>
+  <p>Dios escucha cada clamor</p>
+
+  <form>
+    <input type="text" placeholder="Tu nombre" required>
+    <textarea rows="4" placeholder="Tu petición..." required></textarea>
+    <button type="submit">Enviar petición 🙏</button>
+  </form>
+</section>
 
     <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <p>🙏 “Todo lo que respira, alabe a Jehová” – Salmos 150:6</p>
     </footer>
+<div id="modalOracion" class="modal">
+  <div class="modal-contenido">
+    <span class="cerrar" onclick="cerrarFormulario()">×</span>
 
+    <h2>🙏 Petición de Oración</h2>
+
+    <form>
+      <input type="text" placeholder="Tu nombre" required>
+
+      <select required>
+        <option value="">Motivo de oración</option>
+        <option>Enfermedad</option>
+        <option>Familia</option>
+        <option>Ansiedad o tristeza</option>
+        <option>Otro</option>
+      </select>
+
+      <textarea rows="4" placeholder="Escribe tu petición..." required></textarea>
+
+      <button type="submit">Enviar 🙏</button>
+    </form>
+  </div>
+</div>
 </body>
 </html>
