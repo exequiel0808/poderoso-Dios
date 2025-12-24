@@ -2,18 +2,16 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Poderoso es Dios</title>
 
-  <!-- Fuentes -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- ===== HEADER ===== -->
   <header class="header">
     <div class="logo">
       <img src="img/logo.png" alt="Logo Cristiano">
@@ -28,7 +26,6 @@
     </nav>
   </header>
 
-  <!-- TEXTO FIJO BAJO EL TÍTULO -->
   <section class="mensaje-principal">
     <h1>Poderoso es Dios</h1>
     <button onclick="document.getElementById('oracion').scrollIntoView({behavior:'smooth'})">
@@ -36,7 +33,6 @@
     </button>
   </section>
 
-  <!-- ===== HERO ===== -->
   <section class="hero" id="inicio">
     <div class="overlay"></div>
     <div class="hero-content">
@@ -52,7 +48,6 @@
     </div>
   </section>
 
-  <!-- ===== VERSÍCULOS ===== -->
   <section class="versiculos" id="versiculos">
     <h2>📖 Versículo del Día</h2>
 
@@ -66,53 +61,54 @@
     </div>
   </section>
 
-  <!-- ===== FORMULARIO ORACIÓN ===== -->
   <section class="oracion-final" id="oracion">
     <h2>¿Deseas que oremos por ti?</h2>
     <p>Dios escucha cada clamor</p>
 
-   <form id="formOracion">
-
-      <input type="text" placeholder="Tu nombre" required>
-
-      <textarea rows="4" placeholder="Escribe tu petición..." required></textarea>
-
+    <form id="formOracion">
+      <input type="text" id="nombreInput" placeholder="Tu nombre" required>
+      <textarea id="peticionInput" rows="4" placeholder="Escribe tu petición..." required></textarea>
       <button type="submit">Enviar petición 🙏</button>
     </form>
   </section>
 
-  <!-- ===== FOOTER ===== -->
   <footer class="footer">
     <p>🙏 “Todo lo que respira, alabe a Jehová” – Salmos 150:6</p>
   </footer>
 
-  <!-- ===== FIREBASE ===== -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+    // Usamos la versión 10.7.1 para asegurar estabilidad total
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getFirestore, collection, addDoc, serverTimestamp } 
-      from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+      from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+    // Tu configuración actualizada del nuevo proyecto
     const firebaseConfig = {
-      apiKey: "AIzaSyDAWjDP8yQ6y7teb3IN5EsjQ7gdubgmtL4",
-      authDomain: "poderoso-es-dios.firebaseapp.com",
-      projectId: "poderoso-es-dios",
-      storageBucket: "poderoso-es-dios.firebasestorage.app",
-      messagingSenderId: "149474600868",
-      appId: "1:149474600868:web:f3d30364d1acc500754331"
+      apiKey: "AIzaSyBqaBUSSEza1hcpub0CzUTWTPoP0LBrfs0",
+      authDomain: "poderoso-es-dios-15744.firebaseapp.com",
+      projectId: "poderoso-es-dios-15744",
+      storageBucket: "poderoso-es-dios-15744.firebasestorage.app",
+      messagingSenderId: "99676155688",
+      appId: "1:99676155688:web:583160c8dd0200d8e52a1d"
     };
 
+    // Inicializar Firebase y Firestore
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-const form = document.getElementById("formOracion");
+    const form = document.getElementById("formOracion");
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-console.log("Formulario enviado");
-      const nombre = form.querySelector("input").value;
-      const peticion = form.querySelector("textarea").value;
+      
+      console.log("Iniciando envío de oración...");
+
+      // Captura de valores por ID
+      const nombre = document.getElementById("nombreInput").value;
+      const peticion = document.getElementById("peticionInput").value;
 
       try {
+        // Guardar en la colección "oraciones"
         await addDoc(collection(db, "oraciones"), {
           nombre: nombre,
           peticion: peticion,
@@ -121,16 +117,16 @@ console.log("Formulario enviado");
 
         alert("🙏 Tu petición fue enviada. Estamos orando por ti.");
         form.reset();
+        console.log("¡Éxito! Datos guardados en Firestore.");
 
       } catch (error) {
-        alert("❌ Error al enviar la petición");
-        console.error(error);
+        alert("❌ Error al enviar la petición. Revisa la consola.");
+        console.error("Error detallado:", error);
       }
     });
-    console.log("Firebase cargado correctamente");
 
+    console.log("Firebase conectado correctamente al proyecto: poderoso-es-dios-15744");
   </script>
 
 </body>
 </html>
-
