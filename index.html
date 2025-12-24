@@ -24,14 +24,13 @@
       <a href="#predicas">Prédicas</a>
       <a href="#contacto">Contacto</a>
     </nav>
-    <button onclick="document.getElementById('oracion').scrollIntoView({behavior:'smooth'})">
-  🙏 Solicitar oración
-</button>
   </header>
 
   <section class="mensaje-principal">
     <h1>Poderoso es Dios</h1>
-   
+    <button onclick="document.getElementById('oracion').scrollIntoView({behavior:'smooth'})">
+      🙏 Solicitar oración
+    </button>
   </section>
 
   <section class="hero" id="inicio">
@@ -84,7 +83,7 @@
       from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
     // Tu configuración actualizada del nuevo proyecto
-    const onfig = {
+    const firebaseConfig = {
       apiKey: "AIzaSyBqaBUSSEza1hcpub0CzUTWTPoP0LBrfs0",
       authDomain: "poderoso-es-dios-15744.firebaseapp.com",
       projectId: "poderoso-es-dios-15744",
