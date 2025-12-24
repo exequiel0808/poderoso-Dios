@@ -71,7 +71,8 @@
     <h2>¿Deseas que oremos por ti?</h2>
     <p>Dios escucha cada clamor</p>
 
-    <form>
+   <form id="formOracion">
+
       <input type="text" placeholder="Tu nombre" required>
 
       <textarea rows="4" placeholder="Escribe tu petición..." required></textarea>
@@ -103,11 +104,11 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    const form = document.querySelector(".oracion-final form");
+const form = document.getElementById("formOracion");
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-
+console.log("Formulario enviado");
       const nombre = form.querySelector("input").value;
       const peticion = form.querySelector("textarea").value;
 
