@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Administración - Poderoso es Dios</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-container { padding: 100px 20px; max-width: 500px; margin: auto; }
+        .peticion-card { background: white; padding: 15px; margin-bottom: 10px; border-radius: 10px; border-left: 5px solid #ffd369; }
+    </style>
+</head>
+<body>
+    <div class="admin-container" id="adminContent" style="display:none;">
+        <h2>🔑 Panel de Control</h2>
+        
+        <section>
+            <h3>Agregar Nuevo Versículo</h3>
+            <form id="formVersiculo">
+                <input type="text" id="catId" placeholder="ID (ej: sanidad)" required>
+                <input type="text" id="catNombre" placeholder="Nombre (ej: 🏥 Sanidad)" required>
+                <textarea id="catTexto" placeholder="Versículo bíblico..." required></textarea>
+                <input type="text" id="catCita" placeholder="Cita (ej: Salmos 103:3)" required>
+                <button type="submit" class="btn-enviar">Guardar Categoría</button>
+            </form>
+        </section>
+
+        <hr style="margin: 40px 0;">
+        
+        <h3>🙏 Peticiones Recibidas</h3>
+        <div id="listaPeticiones"></div>
+    </div>
+
+    <script type="module" src="admin.js"></script>
+</body>
+</html>
