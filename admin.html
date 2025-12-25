@@ -2,32 +2,34 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Panel de Administración - Poderoso es Dios</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin - Poderoso es Dios</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .admin-container { padding: 100px 20px; max-width: 500px; margin: auto; }
-        .peticion-card { background: white; padding: 15px; margin-bottom: 10px; border-radius: 10px; border-left: 5px solid #ffd369; }
+        /* Estilos rápidos para el panel */
+        .admin-body { background: #f0f2f5; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        .admin-card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 500px; }
+        .admin-card h2 { color: #0b2a57; margin-bottom: 20px; text-align: center; font-family: 'Playfair Display', serif; }
+        form { display: flex; flex-direction: column; gap: 15px; }
+        input, textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Poppins', sans-serif; }
+        .btn-admin { background: #0b2a57; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn-admin:hover { background: #1a3a6d; }
     </style>
 </head>
-<body>
-    <div class="admin-container" id="adminContent" style="display:none;">
-        <h2>🔑 Panel de Control</h2>
-        
-        <section>
-            <h3>Agregar Nuevo Versículo</h3>
-            <form id="formVersiculo">
-                <input type="text" id="catId" placeholder="ID (ej: sanidad)" required>
-                <input type="text" id="catNombre" placeholder="Nombre (ej: 🏥 Sanidad)" required>
-                <textarea id="catTexto" placeholder="Versículo bíblico..." required></textarea>
-                <input type="text" id="catCita" placeholder="Cita (ej: Salmos 103:3)" required>
-                <button type="submit" class="btn-enviar">Guardar Categoría</button>
-            </form>
-        </section>
+<body class="admin-body">
 
-        <hr style="margin: 40px 0;">
-        
-        <h3>🙏 Peticiones Recibidas</h3>
-        <div id="listaPeticiones"></div>
+    <div id="adminContent" style="display:none;" class="admin-card">
+        <h2>🔑 Panel de Versículos</h2>
+        <form id="formVersiculo">
+            <input type="text" id="catId" placeholder="ID único (ej: sanidad)" required>
+            <input type="text" id="catNombre" placeholder="Nombre Botón (ej: 🏥 Sanidad)" required>
+            <textarea id="catTexto" rows="4" placeholder="Escribe el versículo bíblico aquí..." required></textarea>
+            <input type="text" id="catCita" placeholder="Cita (ej: Salmos 103:3)" required>
+            <button type="submit" id="btnGuardar" class="btn-admin">Guardar Categoría</button>
+        </form>
+        <p style="text-align: center; margin-top: 20px;">
+            <a href="index.html" style="color: #666; text-decoration: none; font-size: 0.9rem;">← Volver al inicio</a>
+        </p>
     </div>
 
     <script type="module" src="admin.js"></script>
