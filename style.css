@@ -1,18 +1,18 @@
-/* ===== RESET ===== */
+/* ===== 1. RESET Y BASE ===== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* ===== BODY ===== */
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #f7f9fc;
     color: #1a1a1a;
+    scroll-behavior: smooth; /* Hace que el salto a las secciones sea suave */
 }
 
-/* ===== HEADER ===== */
+/* ===== 2. HEADER (Navegación Superior) ===== */
 .header {
     position: fixed;
     top: 0;
@@ -47,40 +47,47 @@ nav a {
 }
 
 nav a:hover {
-    color: #ffd369;
+    color: #ffd369; /* Color dorado al pasar el mouse */
 }
 
-/* ===== HERO ===== */
+/* Botón Solicitar Oración en el Header */
+.btn-solicitar-header {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.3s;
+}
+
+.btn-solicitar-header:hover {
+    transform: scale(1.05);
+}
+
+/* ===== 3. HERO (Portada Principal) ===== */
 .hero {
     height: 100vh;
-    background-image: url("img/portada.jpg");
+    background-image: url("img/portada.jpg"); /* Asegúrate de tener esta imagen en tu carpeta img */
     background-size: cover;
     background-position: center;
     position: relative;
-    margin-top: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Oscurecer imagen */
 .overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-        rgba(0, 0, 0, 0.65),
-        rgba(0, 0, 0, 0.65)
-    );
+    background: rgba(0, 0, 0, 0.6); /* Oscurece la imagen para que se lea el texto */
 }
 
-/* Contenido */
 .hero-content {
     position: relative;
     z-index: 1;
-    height: 100%;
     color: white;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     text-align: center;
     padding: 0 20px;
 }
@@ -91,117 +98,127 @@ nav a:hover {
     margin-bottom: 20px;
 }
 
-.hero-content p {
-    max-width: 700px;
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    opacity: 0.95;
-}
-
-/* ===== BOTÓN ===== */
-.btn-principal {
-    background: linear-gradient(135deg, #ffd369, #f4b942);
-    color: #1a1a1a;
-    padding: 15px 35px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.btn-principal:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-
-/* ===== VERSÍCULOS ===== */
+/* ===== 4. SECCIÓN VERSÍCULOS Y CATEGORÍAS ===== */
 .versiculos {
     padding: 100px 20px;
     text-align: center;
+    background: white;
 }
 
 .versiculos h2 {
     font-family: 'Playfair Display', serif;
     font-size: 2.5rem;
-    margin-bottom: 40px;
     color: #0b2a57;
+    margin-bottom: 30px;
 }
 
+/* Contenedor de botones de categorías */
+.categorias-container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 35px;
+}
+
+/* Botones de categoría individual */
+.btn-cat {
+    background-color: white;
+    border: 2px solid #0b2a57;
+    color: #0b2a57;
+    padding: 10px 22px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-cat:hover {
+    background-color: #0b2a57;
+    color: #ffd369; /* Dorado */
+    transform: translateY(-3px);
+}
+
+/* Cuadro donde aparece el versículo */
 .card-versiculo {
     max-width: 700px;
     margin: auto;
-    background: white;
+    background: #f9f9f9;
     padding: 40px;
     border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 4px solid #ffd369;
 }
 
 .card-versiculo p {
     font-size: 1.2rem;
     font-style: italic;
     margin-bottom: 20px;
+    transition: opacity 0.5s;
 }
 
 .card-versiculo span {
     font-weight: bold;
+    color: #f4b942;
+}
+
+/* ===== 5. FORMULARIO DE ORACIÓN ===== */
+.oracion-final {
+    padding: 80px 20px;
+    text-align: center;
+    background: #eef1f7;
+}
+
+.oracion-final h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    margin-bottom: 10px;
     color: #0b2a57;
 }
 
-/* ===== FOOTER ===== */
+form {
+    max-width: 450px;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+}
+
+.btn-enviar {
+    background: #0b2a57;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background 0.3s;
+}
+
+.btn-enviar:hover {
+    background: #1a3a6d;
+}
+
+/* ===== 6. FOOTER ===== */
 .footer {
     background: #0b2a57;
     color: white;
     text-align: center;
-    padding: 25px;
-    font-size: 0.95rem;
-}
-
-
-
-
-.mensaje-principal {
-  text-align: center;
-  padding: 30px;
-  background: #f4f6fb;
-}
-
-.mensaje-principal h1 {
-  font-size: 32px;
-  color: #1e2a4a;
-}
-
-.mensaje-principal button {
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
-  color: white;
-  border: none;
-  padding: 14px 30px;
-  border-radius: 25px;
-  cursor: pointer;
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-}
-
-.modal-contenido {
-  background: white;
-  max-width: 420px;
-  margin: 10% auto;
-  padding: 25px;
-  border-radius: 15px;
-}
-
-.cerrar {
-  float: right;
-  font-size: 22px;
-  cursor: pointer;
-}
-
-.oracion-final {
-  text-align: center;
-  padding: 40px;
-  background: #eef1f7;
+    padding: 30px;
+    font-size: 0.9rem;
 }

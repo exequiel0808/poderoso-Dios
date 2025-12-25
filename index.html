@@ -6,7 +6,6 @@
   <title>Poderoso es Dios</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -28,7 +27,7 @@
 
   <section class="mensaje-principal">
     <h1>Poderoso es Dios</h1>
-    <button onclick="document.getElementById('oracion').scrollIntoView({behavior:'smooth'})">
+    <button class="btn-solicitar-header" onclick="document.getElementById('oracion').scrollIntoView({behavior:'smooth'})">
       🙏 Solicitar oración
     </button>
   </section>
@@ -37,27 +36,25 @@
     <div class="overlay"></div>
     <div class="hero-content">
       <h1>✨ Dios es Amor</h1>
-      <p>
-        Un espacio creado para glorificar a Dios, fortalecer tu fe
-        y llenar tu corazón de esperanza.
-      </p>
-
-      <a href="#versiculos" class="btn-principal">
-        📖 Leer Versículo del Día
-      </a>
+      <p>Un espacio creado para glorificar a Dios, fortalecer tu fe y llenar tu corazón de esperanza.</p>
+      <a href="#versiculos" class="btn-principal">📖 Leer Versículo del Día</a>
     </div>
   </section>
 
   <section class="versiculos" id="versiculos">
-    <h2>📖 Versículo del Día</h2>
+    <h2>📖 Versículos por Necesidad</h2>
+    <p>Haz clic en una categoría para fortalecer tu alma:</p>
 
-    <div class="card-versiculo">
-      <p>
-        “Porque yo sé los planes que tengo para vosotros,
-        dice Jehová, planes de bienestar y no de calamidad,
-        para daros un futuro y una esperanza.”
-      </p>
-      <span>— Jeremías 29:11</span>
+    <div class="categorias-container">
+      <button class="btn-cat" onclick="mostrarVersiculo('pareja')">💑 Pareja</button>
+      <button class="btn-cat" onclick="mostrarVersiculo('paz')">🕊️ Paz</button>
+      <button class="btn-cat" onclick="mostrarVersiculo('fortaleza')">💪 Fortaleza</button>
+      <button class="btn-cat" onclick="mostrarVersiculo('esperanza')">✨ Esperanza</button>
+    </div>
+
+    <div class="card-versiculo" id="cuadro-versiculo">
+      <p id="texto-biblico">Selecciona una categoría para leer la Palabra de Dios.</p>
+      <span id="cita-biblica"></span>
     </div>
   </section>
 
@@ -68,7 +65,7 @@
     <form id="formOracion">
       <input type="text" id="nombreInput" placeholder="Tu nombre" required>
       <textarea id="peticionInput" rows="4" placeholder="Escribe tu petición..." required></textarea>
-      <button type="submit">Enviar petición 🙏</button>
+      <button type="submit" class="btn-enviar">Enviar petición 🙏</button>
     </form>
   </section>
 
@@ -76,57 +73,6 @@
     <p>🙏 “Todo lo que respira, alabe a Jehová” – Salmos 150:6</p>
   </footer>
 
-  <script type="module">
-    // Usamos la versión 10.7.1 para asegurar estabilidad total
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, serverTimestamp } 
-      from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-    // Tu configuración actualizada del nuevo proyecto
-    const firebaseConfig = {
-      apiKey: "AIzaSyBqaBUSSEza1hcpub0CzUTWTPoP0LBrfs0",
-      authDomain: "poderoso-es-dios-15744.firebaseapp.com",
-      projectId: "poderoso-es-dios-15744",
-      storageBucket: "poderoso-es-dios-15744.firebasestorage.app",
-      messagingSenderId: "99676155688",
-      appId: "1:99676155688:web:583160c8dd0200d8e52a1d"
-    };
-
-    // Inicializar Firebase y Firestore
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    const form = document.getElementById("formOracion");
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      
-      console.log("Iniciando envío de oración...");
-
-      // Captura de valores por ID
-      const nombre = document.getElementById("nombreInput").value;
-      const peticion = document.getElementById("peticionInput").value;
-
-      try {
-        // Guardar en la colección "oraciones"
-        await addDoc(collection(db, "oraciones"), {
-          nombre: nombre,
-          peticion: peticion,
-          fecha: serverTimestamp()
-        });
-
-        alert("🙏 Tu petición fue enviada. Estamos orando por ti.");
-        form.reset();
-        console.log("¡Éxito! Datos guardados en Firestore.");
-
-      } catch (error) {
-        alert("❌ Error al enviar la petición. Revisa la consola.");
-        console.error("Error detallado:", error);
-      }
-    });
-
-    console.log("Firebase conectado correctamente al proyecto: poderoso-es-dios-15744");
-  </script>
-
+  <script type="module" src="script.js"></script>
 </body>
 </html>
