@@ -1,8 +1,7 @@
-// 1. IMPORTAR MÓDULOS DE FIREBASE
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, collection, getDocs, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// 2. CONFIGURACIÓN DE TU PROYECTO (ID: 15744)
+// Tu configuración de Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyBqaBUSSEza1hcpub0CzUTWTPoP0LBrfs0",
     authDomain: "poderoso-es-dios-15744.firebaseapp.com",
@@ -16,98 +15,83 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-console.log("Página Cristiana y Firebase cargados correctamente");
+// --- 1. CARGAR CATEGORÍAS DINÁMICAMENTE ---
+async function cargarCategorias() {
+    const contenedor = document.getElementById('contenedorBotones');
+    const textoBiblico = document.getElementById('texto-biblico');
+    const citaBiblica = document.getElementById('cita-biblica');
 
-// ---------------------------------------------------------
-// 3. TUS FUNCIONES DE NAVEGACIÓN (Scroll Suave)
-// ---------------------------------------------------------
-document.querySelectorAll("nav a").forEach(enlace => {
-    enlace.addEventListener("click", function(e) {
-        const href = this.getAttribute("href");
-        if (href.startsWith("#")) {
-            e.preventDefault();
-            const target = document.querySelector(href);
-            if (target) {
-                target.scrollIntoView({ behavior: "smooth" });
-            }
+    if (!contenedor) return;
+
+    try {
+        // Obtenemos los documentos de la colección "categorias"
+        const querySnapshot = await getDocs(collection(db, "categorias"));
+        
+        // Limpiamos el mensaje de "Cargando..."
+        contenedor.innerHTML = "";
+
+        querySnapshot.forEach((doc) => {
+            const datos = doc.data();
+            
+            // Crear el botón para cada categoría
+            const boton = document.createElement('button');
+            boton.className = 'btn-cat';
+            boton.innerHTML = datos.nombre; // Ejemplo: "🙏 Fortaleza"
+
+            // Evento al hacer clic en el botón
+            boton.onclick = () => {
+                textoBiblico.style.opacity = 0;
+                setTimeout(() => {
+                    textoBiblico.innerText = datos.texto;
+                    citaBiblica.innerText = datos.cita;
+                    textoBiblico.style.opacity = 1;
+                }, 200);
+            };
+            
+            contenedor.appendChild(boton);
+        });
+
+        if (querySnapshot.empty) {
+            contenedor.innerHTML = "<p>Aún no hay categorías. Agrega una desde el panel.</p>";
         }
-    });
-});
 
-// ---------------------------------------------------------
-// 4. LÓGICA DEL FORMULARIO DE ORACIÓN (Envío a Firebase)
-// ---------------------------------------------------------
-const form = document.getElementById("formOracion");
+    } catch (error) {
+        console.error("Error al obtener categorías:", error);
+        contenedor.innerHTML = "<p>Error al cargar la Palabra. Revisa la conexión.</p>";
+    }
+}
 
-if (form) {
-    form.addEventListener("submit", async (e) => {
+// --- 2. ENVIAR PETICIONES DE ORACIÓN ---
+const formOracion = document.getElementById("formOracion");
+if (formOracion) {
+    formOracion.addEventListener("submit", async (e) => {
         e.preventDefault();
         
         const nombre = document.getElementById("nombreInput").value;
         const peticion = document.getElementById("peticionInput").value;
+        const btnEnviar = e.target.querySelector("button");
+
+        btnEnviar.innerText = "Enviando...";
+        btnEnviar.disabled = true;
 
         try {
-            // Guardamos en la colección "oraciones" de tu base de datos
             await addDoc(collection(db, "oraciones"), {
                 nombre: nombre,
                 peticion: peticion,
                 fecha: serverTimestamp()
             });
-
-            alert("🙏 Tu petición fue enviada. Estamos orando por ti.");
-            form.reset();
+            
+            alert("🙏 Tu petición ha sido enviada. Estaremos orando por ti.");
+            formOracion.reset();
         } catch (error) {
-            console.error("Error al enviar a Firebase:", error);
-            alert("❌ Hubo un error al enviar tu petición. Inténtalo de nuevo.");
+            console.error("Error al enviar oración:", error);
+            alert("Lo sentimos, hubo un error. Inténtalo más tarde.");
+        } finally {
+            btnEnviar.innerText = "Enviar Petición";
+            btnEnviar.disabled = false;
         }
     });
 }
 
-// ---------------------------------------------------------
-// 5. LÓGICA DE VERSÍCULOS POR CATEGORÍA
-// ---------------------------------------------------------
-window.mostrarVersiculo = function(categoria) {
-    const lista = {
-        'pareja': { 
-            texto: "“El amor es sufrido, es benigno; el amor no tiene envidia, el amor no es jactancioso, no se envanece.”", 
-            cita: "— 1 Corintios 13:4" 
-        },
-        'paz': { 
-            texto: "“La paz os dejo, mi paz os doy; yo no os la doy como el mundo la da. No se turbe vuestro corazón.”", 
-            cita: "— Juan 14:27" 
-        },
-        'fortaleza': { 
-            texto: "“Mira que te mando que te esfuerces y seas valiente; no temas ni desmayes, porque Jehová tu Dios estará contigo.”", 
-            cita: "— Josué 1:9" 
-        },
-        'esperanza': { 
-            texto: "“Porque yo sé los planes que tengo para vosotros, dice Jehová, planes de bienestar y no de calamidad.”", 
-            cita: "— Jeremías 29:11" 
-        }
-    };
-
-    const textoElem = document.getElementById('texto-biblico');
-    const citaElem = document.getElementById('cita-biblica');
-
-    if (textoElem && citaElem) {
-        textoElem.style.opacity = 0; // Efecto de parpadeo suave
-        setTimeout(() => {
-            textoElem.innerText = lista[categoria].texto;
-            citaElem.innerText = lista[categoria].cita;
-            textoElem.style.opacity = 1;
-        }, 200);
-    }
-};
-
-// ---------------------------------------------------------
-// 6. TUS FUNCIONES DE MODAL (Si decides usarlas después)
-// ---------------------------------------------------------
-window.abrirFormulario = function() {
-    const modal = document.getElementById("modalOracion");
-    if (modal) modal.style.display = "block";
-}
-
-window.cerrarFormulario = function() {
-    const modal = document.getElementById("modalOracion");
-    if (modal) modal.style.display = "none";
-}
+// Ejecutar la carga al iniciar la página
+window.addEventListener('DOMContentLoaded', cargarCategorias);
