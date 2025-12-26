@@ -1,4 +1,7 @@
 /* VARIABLES DE COLOR */
+html {
+    scroll-behavior: smooth;
+}
 :root {
     --primario: #0b2a57;
     --secundario: #f1c40f;
