@@ -1,4 +1,13 @@
-/* ===== 1. RESET Y BASE ===== */
+/* VARIABLES DE COLOR */
+:root {
+    --primario: #0b2a57;
+    --secundario: #f1c40f;
+    --fondo: #f8f9fa;
+    --blanco: #ffffff;
+    --gradiente: linear-gradient(135deg, #0b2a57 0%, #1e5fad 100%);
+    --sombra: 0 10px 30px rgba(0,0,0,0.1);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -7,23 +16,22 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f7f9fc;
-    color: #1a1a1a;
-    scroll-behavior: smooth; /* Hace que el salto a las secciones sea suave */
+    background-color: var(--fondo);
+    color: #333;
+    line-height: 1.6;
 }
 
-/* ===== 2. HEADER (Navegación Superior) ===== */
+/* HEADER Y NAVEGACIÓN */
 .header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: rgba(10, 30, 60, 0.95);
-    color: white;
+    background: var(--blanco);
+    padding: 1rem 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 50px;
-    z-index: 100;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
 .logo {
@@ -31,158 +39,112 @@ body {
     align-items: center;
     gap: 10px;
     font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primario);
+    font-size: 1.2rem;
 }
 
-.logo img {
-    height: 40px;
-}
+.logo img { height: 40px; }
 
 nav a {
-    color: white;
     text-decoration: none;
-    margin-left: 25px;
+    color: var(--primario);
+    margin-left: 20px;
     font-weight: 500;
-    transition: color 0.3s;
+    transition: 0.3s;
 }
 
-nav a:hover {
-    color: #ffd369; /* Color dorado al pasar el mouse */
-}
+nav a:hover { color: var(--secundario); }
 
-/* Botón Solicitar Oración en el Header */
-.btn-solicitar-header {
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: transform 0.3s;
-}
-
-.btn-solicitar-header:hover {
-    transform: scale(1.05);
-}
-
-/* ===== 3. HERO (Portada Principal) ===== */
+/* HERO SECTION */
 .hero {
-    height: 100vh;
-    background-image: url("img/portada.jpg"); /* Asegúrate de tener esta imagen en tu carpeta img */
-    background-size: cover;
-    background-position: center;
-    position: relative;
+    background: var(--gradiente);
+    height: 60vh;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.6); /* Oscurece la imagen para que se lea el texto */
-}
-
-.hero-content {
-    position: relative;
-    z-index: 1;
-    color: white;
     text-align: center;
+    color: var(--blanco);
     padding: 0 20px;
 }
 
 .hero-content h1 {
     font-family: 'Playfair Display', serif;
     font-size: 3.5rem;
-    margin-bottom: 20px;
+    margin-bottom: 1rem;
 }
 
-/* ===== 4. SECCIÓN VERSÍCULOS Y CATEGORÍAS ===== */
+/* SECCIÓN VERSÍCULOS */
 .versiculos {
-    padding: 100px 20px;
+    padding: 80px 5%;
+    max-width: 1000px;
+    margin: auto;
     text-align: center;
-    background: white;
 }
 
-.versiculos h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
-    color: #0b2a57;
-    margin-bottom: 30px;
-}
-
-/* Contenedor de botones de categorías */
 .categorias-container {
     display: flex;
-    justify-content: center;
-    gap: 12px;
     flex-wrap: wrap;
-    margin-bottom: 35px;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
 }
 
-/* Botones de categoría individual */
+/* DISEÑO DE BOTONES (Tus botones dinámicos) */
 .btn-cat {
-    background-color: white;
-    border: 2px solid #0b2a57;
-    color: #0b2a57;
-    padding: 10px 22px;
-    border-radius: 25px;
+    background: var(--blanco);
+    border: 2px solid var(--primario);
+    color: var(--primario);
+    padding: 12px 25px;
+    border-radius: 50px;
     cursor: pointer;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500;
+    font-weight: 600;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
 
 .btn-cat:hover {
-    background-color: #0b2a57;
-    color: #ffd369; /* Dorado */
+    background: var(--primario);
+    color: var(--blanco);
     transform: translateY(-3px);
+    box-shadow: var(--sombra);
 }
 
-/* Cuadro donde aparece el versículo */
+/* TARJETA DE VERSÍCULO (EL DISEÑO "HERMOSO") */
 .card-versiculo {
-    max-width: 700px;
-    margin: auto;
-    background: #f9f9f9;
-    padding: 40px;
+    background: var(--blanco);
+    padding: 50px;
     border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.05);
-    min-height: 200px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-bottom: 4px solid #ffd369;
+    box-shadow: var(--sombra);
+    position: relative;
+    overflow: hidden;
+    border-left: 8px solid var(--secundario);
 }
 
-.card-versiculo p {
-    font-size: 1.2rem;
-    font-style: italic;
-    margin-bottom: 20px;
-    transition: opacity 0.5s;
-}
-
-.card-versiculo span {
-    font-weight: bold;
-    color: #f4b942;
-}
-
-/* ===== 5. FORMULARIO DE ORACIÓN ===== */
-.oracion-final {
-    padding: 80px 20px;
-    text-align: center;
-    background: #eef1f7;
-}
-
-.oracion-final h2 {
+#texto-biblico {
     font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
-    margin-bottom: 10px;
-    color: #0b2a57;
+    font-size: 1.8rem;
+    color: var(--primario);
+    margin-bottom: 20px;
+    font-style: italic;
 }
 
-form {
-    max-width: 450px;
+#cita-biblica {
+    font-weight: 700;
+    color: var(--secundario);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* FORMULARIO DE ORACIÓN */
+.oracion-final {
+    background: #eef2f7;
+    padding: 80px 5%;
+    text-align: center;
+}
+
+#formOracion {
+    max-width: 600px;
     margin: 30px auto;
     display: flex;
     flex-direction: column;
@@ -190,35 +152,90 @@ form {
 }
 
 input, textarea {
-    width: 100%;
     padding: 15px;
+    border: 1px solid #ddd;
     border-radius: 10px;
-    border: 1px solid #ccc;
-    font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
+    font-family: inherit;
+    outline: none;
 }
 
 .btn-enviar {
-    background: #0b2a57;
+    background: var(--primario);
     color: white;
     border: none;
-    padding: 15px;
+    padding: 18px;
     border-radius: 10px;
-    cursor: pointer;
     font-weight: bold;
-    font-size: 1rem;
-    transition: background 0.3s;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-.btn-enviar:hover {
-    background: #1a3a6d;
-}
+.btn-enviar:hover { background: #1a3a6d; }
 
-/* ===== 6. FOOTER ===== */
-.footer {
-    background: #0b2a57;
+footer {
+    padding: 40px;
+    background: var(--primario);
     color: white;
     text-align: center;
-    padding: 30px;
-    font-size: 0.9rem;
+}
+/* Animación de carga */
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.corazon-latido {
+    font-size: 40px;
+    color: #e74c3c;
+    animation: latido 1.2s infinite;
+}
+
+@keyframes latido {
+    0% { transform: scale(1); }
+    15% { transform: scale(1.3); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.15); }
+    60% { transform: scale(1); }
+}
+
+.cargando-texto {
+    margin-top: 10px;
+    font-family: 'Poppins', sans-serif;
+    color: #666;
+    font-style: italic;
+}
+/* Animación del Corazón */
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.corazon-latido {
+    font-size: 50px;
+    animation: latido 1.2s infinite;
+    cursor: default;
+}
+
+@keyframes latido {
+    0% { transform: scale(1); }
+    15% { transform: scale(1.3); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.15); }
+    60% { transform: scale(1); }
+}
+
+.cargando-texto {
+    font-style: italic;
+    color: #666;
+    margin-top: 10px;
+}
+
+/* Para el efecto de desvanecimiento del texto */
+#texto-biblico {
+    transition: opacity 0.3s ease;
 }
