@@ -38,7 +38,7 @@
       <a href="#versiculos" class="btn-cat" style="background:var(--secundario); border:none; text-decoration:none;">📖 Leer Palabra</a>
     </div>
   </section>
-
+ 
   <section class="versiculos" id="versiculos">
     <div style="text-align: center; margin-bottom: 40px;">
         <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #0b2a57;">📖 Alimento para el Alma</h2>
@@ -69,6 +69,50 @@
   <footer class="footer">
     <p>🙏 “Todo lo que respira, alabe a Jehová” – Salmos 150:6</p>
   </footer>
+  <section class="contacto-seccion" id="contacto-seccion">
+    <div class="contacto-container">
+        
+        <div class="contacto-info">
+            <h2>Contáctanos</h2>
+            <p>¿Tienes alguna pregunta o te gustaría saber más sobre nosotros? Estamos aquí para servirte.</p>
+            
+            <div class="info-item">
+                <div class="info-icon">📍</div>
+                <div class="info-text">
+                    <strong>Ubicación</strong><br>
+                    <span>Calle Principal #123, Ciudad de Dios</span>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="info-icon">✉️</div>
+                <div class="info-text">
+                    <strong>Email</strong><br>
+                    <span>contacto@manantialdedios.com</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="contacto-card">
+            <form id="formContacto">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" id="nombreContacto" placeholder="Tu nombre" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="emailContacto" placeholder="tu@correo.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Mensaje</label>
+                    <textarea id="mensajeContacto" rows="4" placeholder="¿En qué podemos ayudarte?" required></textarea>
+                </div>
+                <button type="submit" class="btn-azul-mensaje">Enviar Mensaje</button>
+            </form>
+        </div>
+
+    </div>
+</section>
 
   <script type="module" src="script.js"></script>
 </body>
