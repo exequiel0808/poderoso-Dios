@@ -1,5 +1,14 @@
+// ===============================
+// FIREBASE CONFIG
+// ===============================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, getDocs, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { 
+    getFirestore, 
+    collection, 
+    getDocs, 
+    addDoc, 
+    serverTimestamp 
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBqaBUSSEza1hcpub0CzUTWTPoP0LBrfs0",
@@ -13,10 +22,13 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// ===============================
+// CARGAR CATEGORÍAS / VERSÍCULOS
+// ===============================
 async function cargarCategorias() {
-    const contenedor = document.getElementById('contenedorBotones');
-    const textoBiblico = document.getElementById('texto-biblico');
-    const citaBiblica = document.getElementById('cita-biblica');
+    const contenedor = document.getElementById("contenedorBotones");
+    const textoBiblico = document.getElementById("texto-biblico");
+    const citaBiblica = document.getElementById("cita-biblica");
 
     if (!contenedor) return;
 
@@ -38,53 +50,98 @@ async function cargarCategorias() {
 
         querySnapshot.forEach((doc) => {
             const datos = doc.data();
-            const boton = document.createElement('button');
-            boton.className = 'btn-cat';
-            boton.innerHTML = datos.nombre; 
+            const boton = document.createElement("button");
 
-            boton.onclick = () => {
-                if(textoBiblico) {
-                    textoBiblico.style.opacity = 0;
-                    setTimeout(() => {
-                        textoBiblico.innerText = datos.texto;
-                        if(citaBiblica) citaBiblica.innerText = datos.cita;
-                        textoBiblico.style.opacity = 1;
-                    }, 300);
-                }
-            };
+            boton.className = "btn-cat";
+            boton.textContent = datos.nombre;
+
+            boton.addEventListener("click", () => {
+                textoBiblico.style.opacity = 0;
+
+                setTimeout(() => {
+                    textoBiblico.textContent = datos.texto;
+                    citaBiblica.textContent = datos.cita;
+                    textoBiblico.style.opacity = 1;
+                }, 300);
+            });
+
             contenedor.appendChild(boton);
         });
+
     } catch (error) {
-        console.error("Error:", error);
-        contenedor.innerHTML = "<p>Error al conectar con la bendición.</p>";
+        console.error("Error cargando categorías:", error);
+        contenedor.innerHTML = "<p>Error al conectar con las bendiciones.</p>";
     }
 }
 
-// Lógica del Formulario
+// ===============================
+// FORMULARIO DE ORACIÓN
+// ===============================
 const formOracion = document.getElementById("formOracion");
+
 if (formOracion) {
     formOracion.addEventListener("submit", async (e) => {
         e.preventDefault();
-        const btnEnviar = e.target.querySelector("button");
-        btnEnviar.innerText = "Enviando...";
+
+        const btnEnviar = formOracion.querySelector("button");
+        btnEnviar.textContent = "Enviando...";
         btnEnviar.disabled = true;
 
         try {
             await addDoc(collection(db, "oraciones"), {
-                nombre: document.getElementById("nombreInput").value,
-                peticion: document.getElementById("peticionInput").value,
+                nombre: document.getElementById("nombreInput").value.trim(),
+                peticion: document.getElementById("peticionInput").value.trim(),
                 fecha: serverTimestamp()
             });
-            alert("🙏 Tu petición ha sido enviada.");
+
+            alert("🙏 Tu petición fue enviada. Estamos orando por ti.");
             formOracion.reset();
+
         } catch (error) {
-            alert("Error al enviar.");
+            console.error("Error al enviar oración:", error);
+            alert("❌ Ocurrió un error al enviar tu petición.");
         } finally {
-            btnEnviar.innerText = "Enviar petición 🙏";
+            btnEnviar.textContent = "Enviar petición 🙏";
             btnEnviar.disabled = false;
         }
     });
 }
 
-// Carga inicial
-window.onload = cargarCategorias;
+// ===============================
+// FORMULARIO DE CONTACTO
+// ===============================
+const formContacto = document.getElementById("formContacto");
+
+if (formContacto) {
+    formContacto.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const btn = formContacto.querySelector("button");
+        btn.textContent = "Enviando...";
+        btn.disabled = true;
+
+        try {
+            await addDoc(collection(db, "contacto"), {
+                nombre: document.getElementById("nombreContacto").value.trim(),
+                email: document.getElementById("emailContacto").value.trim(),
+                mensaje: document.getElementById("mensajeContacto").value.trim(),
+                fecha: serverTimestamp()
+            });
+
+            alert("📩 Mensaje enviado correctamente.");
+            formContacto.reset();
+
+        } catch (error) {
+            console.error("Error en contacto:", error);
+            alert("❌ No se pudo enviar el mensaje.");
+        } finally {
+            btn.textContent = "Enviar Mensaje";
+            btn.disabled = false;
+        }
+    });
+}
+
+// ===============================
+// INICIO
+// ===============================
+window.addEventListener("load", cargarCategorias);
