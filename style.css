@@ -189,7 +189,7 @@ nav a:hover::after {
     width: 100%;
     padding: 15px;
     border-radius: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #371edd;
     margin-bottom: 15px;
     font-family: inherit;
 }
