@@ -46,15 +46,20 @@ body {
 .logo {
     display: flex;
     align-items: center;
-    gap: 12px;
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--primario);
+    gap: 12px; /* Espacio entre la imagen y el texto */
 }
 
 .logo img {
-    height: 42px;
+    height: 50px; /* Ajusta este tamaño según prefieras */
+    width: auto;
+    object-fit: contain;
+}
+
+.logo span {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: var(--primario);
+    font-size: 1.4rem;
 }
 
 nav a {
