@@ -46,20 +46,14 @@ body {
 .logo {
     display: flex;
     align-items: center;
-    gap: 12px; /* Espacio entre la imagen y el texto */
+    gap: 12px;
 }
 
 .logo img {
-    height: 50px; /* Ajusta este tamaño según prefieras */
-    width: auto;
+    height: 50px; /* Altura ideal para el menú */
+    width: auto;  /* Mantiene la proporción */
+    display: block;
     object-fit: contain;
-}
-
-.logo span {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    color: var(--primario);
-    font-size: 1.4rem;
 }
 
 nav a {
