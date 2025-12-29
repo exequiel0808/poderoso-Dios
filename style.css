@@ -96,6 +96,17 @@ nav a:hover {
     margin-bottom: 1rem;
 }
 
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+
+.hero-content .btn-cat {
+    display: inline-block;
+    margin-top: 10px;
+}
+
 /* ===================================================
    4. SECCIÓN VERSÍCULOS
    =================================================== */
