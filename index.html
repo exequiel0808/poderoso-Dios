@@ -4,185 +4,119 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Poderoso es Dios</title>
-
-  <!-- FUENTES -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
-
-  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- ================= HEADER ================= -->
-<header class="header">
-<div class="logo">
-    <img src="imagen/logotipo.webp" alt="Logo Manantial de Dios">
-    <span>Poderoso es Dios</span>
-</div>
+  <header class="header">
+    <div class="logo">
+      <img src="imagen/logotipo.webp" alt="Logo Manantial de Dios">
+      <span>Poderoso es Dios</span>
+    </div>
+    <nav>
+      <a href="#inicio">Inicio</a>
+      <a href="#versiculos">Versículos</a>
+      <a href="#oracion">Oración</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
 
-  <nav>
-    <a href="#inicio">Inicio</a>
-    <a href="#versiculos">Versículos</a>
-    <a href="#oracion">Oración</a>
-    <a href="#contacto">Contacto</a>
-  </nav>
-</header>
+  <section class="hero" id="inicio">
+    <div class="hero-content">
+      <h1>✨ Dios es Amor</h1>
+      <p>Un espacio para fortalecer tu fe y tu espíritu</p>
+      <a href="#versiculos" class="btn-cat">📖 Leer la Palabra</a>
+    </div>
+  </section>
 
-<!-- ================= HERO ================= -->
-<section class="hero" id="inicio">
-  <div class="hero-content">
-    <h1>✨ Dios es Amor</h1>
-    <p>Un espacio para fortalecer tu fe y tu espíritu</p>
-    <a href="#versiculos" class="btn-cat">📖 Leer la Palabra</a>
-  </div>
-</section>
+  <section class="versiculos" id="versiculos">
+    <div style="text-align:center;margin-bottom:40px;">
+      <h2 style="font-family:'Playfair Display',serif;font-size:2.5rem;color:#0b2a57;">📖 Alimento para el Alma</h2>
+      <div style="width:60px;height:4px;background:#f1c40f;margin:10px auto;border-radius:2px;"></div>
+    </div>
+    <div class="categorias-container" id="contenedorBotones"></div>
+    <div class="card-versiculo">
+      <p id="texto-biblico">Selecciona una categoría y deja que Dios te hable.</p>
+      <span id="cita-biblica"></span>
+    </div>
+  </section>
 
-<!-- ================= VERSÍCULOS ================= -->
-<section class="versiculos" id="versiculos">
+  <section class="oracion-final" id="oracion">
+    <h2>🙏 ¿Deseas que oremos por ti?</h2>
+    <p>Dios escucha cada clamor</p>
+    <form id="formOracion">
+      <input type="text" id="nombreInput" placeholder="Tu nombre" required>
+      <textarea id="peticionInput" rows="4" placeholder="Escribe tu petición..." required></textarea>
+      <button type="submit" class="btn-cat">Enviar petición 🙏</button>
+    </form>
+  </section>
 
-  <div style="text-align:center;margin-bottom:40px;">
-    <h2 style="font-family:'Playfair Display',serif;font-size:2.5rem;color:#0b2a57;">
-      📖 Alimento para el Alma
-    </h2>
-    <div style="width:60px;height:4px;background:#f1c40f;margin:10px auto;border-radius:2px;"></div>
-  </div>
-
-  <!-- BOTONES DESDE FIREBASE -->
-  <div class="categorias-container" id="contenedorBotones">
-    <!-- JS inserta botones aquí -->
-  </div>
-
-  <!-- TEXTO BÍBLICO -->
-  <div class="card-versiculo">
-    <p id="texto-biblico">
-      Selecciona una categoría y deja que Dios te hable.
-    </p>
-    <span id="cita-biblica"></span>
-  </div>
-
-</section>
-
-<!-- ================= ORACIÓN ================= -->
-<section class="oracion-final" id="oracion" style="padding:80px 10%;background:#fff;text-align:center;">
-  <h2 style="font-family:'Playfair Display',serif;font-size:2.2rem;color:#0b2a57;">
-    🙏 ¿Deseas que oremos por ti?
-  </h2>
-  <p style="margin-bottom:30px;color:#555;">Dios escucha cada clamor</p>
-
-  <form id="formOracion" style="max-width:500px;margin:auto;">
-    <input
-      type="text"
-      id="nombreInput"
-      placeholder="Tu nombre"
-      required
-      style="width:100%;padding:15px;margin-bottom:15px;border-radius:8px;border:1px solid #ddd;"
-    >
-
-    <textarea
-      id="peticionInput"
-      rows="4"
-      placeholder="Escribe tu petición..."
-      required
-      style="width:100%;padding:15px;margin-bottom:20px;border-radius:8px;border:1px solid #ddd;"
-    ></textarea>
-
-    <button type="submit" class="btn-cat" style="width:100%;">
-      Enviar petición 🙏
-    </button>
-  </form>
-</section>
-
-<!-- ================= CONTACTO ================= -->
-<section class="contacto-seccion" id="contacto">
-  <div class="contacto-container">
-
-    <div class="contacto-info">
-      <h2>Contáctanos</h2>
-      <p>Estamos aquí para servirte y escucharte.</p>
-
-      <div class="info-item">
-        <div class="info-icon">📍</div>
-        <div class="info-text">
-          <strong>Ubicación</strong><br>
-          Ciudad de Dios
+  <section class="contacto-seccion" id="contacto">
+    <div class="contacto-container">
+      <div class="contacto-info">
+        <h2>Contáctanos</h2>
+        <p>Estamos aquí para servirte y escucharte.</p>
+        <div class="info-item">
+          <div class="info-icon">📍</div>
+          <div class="info-text"><strong>Ubicación</strong><br>Ciudad de Dios</div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">✉️</div>
+          <div class="info-text"><strong>Email</strong><br>contacto@poderosoesdios.com</div>
         </div>
       </div>
-
-      <div class="info-item">
-        <div class="info-icon">✉️</div>
-        <div class="info-text">
-          <strong>Email</strong><br>
-          contacto@poderosoesdios.com
-        </div>
+      <div class="contacto-card">
+        <form id="formContacto">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" id="nombreC" placeholder="Tu nombre" required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="emailC" placeholder="tu@email.com" required>
+          </div>
+          <div class="form-group">
+            <label>Mensaje</label>
+            <textarea id="mensajeC" rows="4" placeholder="Escribe tu mensaje" required></textarea>
+          </div>
+          <button type="submit" class="btn-azul-mensaje">Enviar mensaje</button>
+        </form>
       </div>
     </div>
+  </section>
 
-    <div class="contacto-card">
-      <form>
-        <div class="form-group">
-          <label>Nombre</label>
-          <input type="text" placeholder="Tu nombre">
-        </div>
-
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" placeholder="tu@email.com">
-        </div>
-
-        <div class="form-group">
-          <label>Mensaje</label>
-          <textarea rows="4" placeholder="Escribe tu mensaje"></textarea>
-        </div>
-
-        <button type="button" class="btn-azul-mensaje">
-          Enviar mensaje
-        </button>
-      </form>
-    </div>
-
-  </div>
-</section>
-
-<!-- ================= FOOTER ================= -->
-
-<footer class="footer-principal">
+  <footer class="footer-principal">
     <div class="footer-container">
       <div class="footer-col">
-    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
-        <img src="imagen/logotipo.webp" alt="Logo" style="height: 40px;">
-        <h3 style="margin-bottom: 0;">Manantial de Dios</h3>
-    </div>
-    <p>Llevando la palabra de Dios a cada corazón. Una comunidad de fe, esperanza y amor.</p>
-</div>
-
-        <div class="footer-col">
-            <h3>Enlaces Rápidos</h3>
-            <ul>
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#versiculos">Versículos</a></li>
-                <li><a href="#predicas">Prédicas</a></li>
-                <li><a href="#oracion">Peticiones de Oración</a></li>
-            </ul>
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+          <img src="imagen/logotipo.webp" alt="Logo" style="height: 40px;">
+          <h3 style="margin-bottom: 0;">Manantial de Dios</h3>
         </div>
-
-        <div class="footer-col">
-            <h3>Síguenos</h3>
-            <div class="social-icons">
-                <a href="#" class="social-link">facebook</a>
-                <a href="#" class="social-link">instagram</a>
-            </div>
+        <p>Llevando la palabra de Dios a cada corazón. Una comunidad de fe, esperanza y amor.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Enlaces Rápidos</h3>
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#versiculos">Versículos</a></li>
+          <li><a href="#oracion">Oración</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Síguenos</h3>
+        <div class="social-icons">
+          <a href="#" class="social-link">Facebook</a>
+          <a href="#" class="social-link">Instagram</a>
         </div>
+      </div>
     </div>
-
     <div class="footer-bottom">
-        <hr>
-        <p>&copy; 2025 Manantial de Dios. Todos los derechos reservados.</p>
+      <hr>
+      <p>&copy; 2025 Manantial de Dios. Todos los derechos reservados.</p>
     </div>
-</footer>
+  </footer>
 
-<!-- ================= JS ================= -->
-<script type="module" src="script.js"></script>
-
+  <script type="module" src="script.js"></script>
 </body>
 </html>
