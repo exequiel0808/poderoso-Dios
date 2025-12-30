@@ -19,8 +19,21 @@
       <a href="#versiculos">Versículos</a>
       <a href="#oracion">Oración</a>
       <a href="#contacto">Contacto</a>
+      <!-- Botón Modo Oscuro -->
+      <button id="btnModoOscuro" class="btn-modo-oscuro" title="Cambiar tema">
+        🌙
+      </button>
     </nav>
   </header>
+
+  <!-- VERSÍCULO DEL DÍA -->
+  <section class="versiculo-del-dia">
+    <div class="versiculo-dia-container">
+      <span class="versiculo-dia-etiqueta">✨ Versículo del Día</span>
+      <p id="versiculo-dia-texto" class="versiculo-dia-texto">Cargando versículo del día...</p>
+      <span id="versiculo-dia-cita" class="versiculo-dia-cita"></span>
+    </div>
+  </section>
 
   <section class="hero" id="inicio">
     <div class="hero-overlay"></div> 
@@ -32,6 +45,14 @@
   </section>
 
   <section class="versiculos" id="versiculos">
+    <!-- Control de Música -->
+    <div class="control-musica">
+      <button id="btnMusicaVersiculos" class="btn-musica">
+        <span class="musica-icon">🎵</span>
+        <span class="musica-texto">Música</span>
+      </button>
+    </div>
+
     <div style="text-align:center;margin-bottom:40px;">
       <h2 style="font-family:'Playfair Display',serif;font-size:2.5rem;color:#0b2a57;">📖 Alimento para el Alma</h2>
       <div style="width:60px;height:4px;background:#f1c40f;margin:10px auto;border-radius:2px;"></div>
@@ -44,12 +65,20 @@
   </section>
 
   <section class="oracion-final" id="oracion">
-    <h2>🙏 ¿Deseas que oremos por ti?</h2>
+    <!-- Control de Música para Oración -->
+    <div class="control-musica">
+      <button id="btnMusicaOracion" class="btn-musica">
+        <span class="musica-icon">🎵</span>
+        <span class="musica-texto">Música</span>
+      </button>
+    </div>
+
+    <h2>� ¿Deseas que oremos por ti?</h2>
     <p>Dios escucha cada clamor</p>
     <form id="formOracion">
       <input type="text" id="nombreInput" placeholder="Tu nombre" required>
       <textarea id="peticionInput" rows="4" placeholder="Escribe tu petición..." required></textarea>
-      <button type="submit" class="btn-cat">Enviar petición 🙏</button>
+      <button type="submit" class="btn-cat">Enviar petición �</button>
     </form>
   </section>
 
@@ -117,6 +146,14 @@
       <p>&copy; 2025 Manantial de Dios. Todos los derechos reservados.</p>
     </div>
   </footer>
+
+  <!-- Audio Elements (hidden) -->
+  <audio id="audioVersiculos" loop>
+    <source src="audio/instrumental-suave.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="audioOracion" loop>
+    <source src="audio/oracion-ambiente.mp3" type="audio/mpeg">
+  </audio>
 
   <script type="module" src="script.js"></script>
 </body>
