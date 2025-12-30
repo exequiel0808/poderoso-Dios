@@ -1,20 +1,30 @@
 /* ===================================================
+   DISEÑO RENOVADO - PODEROSO ES DIOS
+   Moderno, Elegante y Espiritual
+   =================================================== */
+
+/* ===================================================
    1. CONFIGURACIÓN GLOBAL Y VARIABLES
    =================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
 html {
     scroll-behavior: smooth;
 }
 
 :root {
-    --primario: #0b2a57;
-    --secundario: #f1c40f;
-    --fondo: #f8f9fa;
+    --primario: #1a1d3e;
+    --secundario: #d4af37;
+    --acento: #6366f1;
+    --fondo: #f8f9fc;
     --blanco: #ffffff;
-    --azul-boton: #3b82f6;
-    --texto-oscuro: #333333;
-    --texto-gris: #a0aec0;
-    --gradiente: linear-gradient(135deg, #0b2a57 0%, #1e5fad 100%);
-    --sombra: 0 10px 30px rgba(0,0,0,0.1);
+    --texto-oscuro: #2d3748;
+    --texto-gris: #718096;
+    --gradiente-hero: linear-gradient(135deg, rgba(26, 29, 62, 0.95) 0%, rgba(99, 102, 241, 0.85) 100%);
+    --gradiente-card: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --sombra-suave: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --sombra-media: 0 10px 40px rgba(0, 0, 0, 0.12);
+    --sombra-fuerte: 0 20px 60px rgba(0, 0, 0, 0.15);
 }
 
 * {
@@ -24,64 +34,87 @@ html {
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Inter', sans-serif;
     background-color: var(--fondo);
     color: var(--texto-oscuro);
-    line-height: 1.6;
+    line-height: 1.7;
+    overflow-x: hidden;
 }
 
 /* ===================================================
-   2. HEADER Y NAVEGACIÓN
+   2. HEADER MODERNO CON GLASSMORPHISM
    =================================================== */
 .header {
-    background: var(--blanco);
-    padding: 1rem 5%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 1.2rem 6%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 15px;
 }
 
 .logo img {
-    height: 50px;
+    height: 55px;
     width: auto;
     object-fit: contain;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.1));
 }
 
 .logo span {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', serif;
     font-weight: 700;
     color: var(--primario);
-    font-size: 1.3rem;
+    font-size: 1.5rem;
+    letter-spacing: 0.5px;
 }
 
 nav a {
     text-decoration: none;
-    color: var(--primario);
-    margin-left: 20px;
+    color: var(--texto-oscuro);
+    margin-left: 35px;
     font-weight: 500;
-    transition: 0.3s;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background: var(--acento);
+    transition: width 0.3s ease;
 }
 
 nav a:hover {
-    color: var(--secundario);
+    color: var(--acento);
+}
+
+nav a:hover::after {
+    width: 100%;
 }
 
 /* ===================================================
-   3. HERO SECTION (IMAGEN + AZUL BORROSO)
+   3. HERO SECTION IMPACTANTE
    =================================================== */
 .hero {
     position: relative;
-    height: 65vh;
+    height: 85vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -91,247 +124,510 @@ nav a:hover {
     background: url('img/manos.jpg') no-repeat center center/cover;
 }
 
-.hero-overlay {
+.hero::before {
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(11, 42, 87, 0.6); /* Azul semitransparente */
-    backdrop-filter: blur(8px);       /* Efecto borroso */
-    -webkit-backdrop-filter: blur(8px);
+    right: 0;
+    bottom: 0;
+    background: var(--gradiente-hero);
     z-index: 1;
+}
+
+.hero-overlay {
+    display: none;
 }
 
 .hero-content {
     position: relative;
     z-index: 2;
-    padding: 20px;
+    padding: 40px;
+    animation: fadeInUp 1s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .hero-content h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
-    text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    letter-spacing: 1px;
 }
 
 .hero-content p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
+    font-size: 1.4rem;
+    margin-bottom: 40px;
     font-weight: 300;
+    opacity: 0.95;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* ===================================================
-   4. SECCIÓN VERSÍCULOS
+   4. SECCIÓN VERSÍCULOS ELEGANTE
    =================================================== */
 .versiculos {
-    padding: 80px 5%;
-    max-width: 1000px;
+    padding: 100px 6%;
+    max-width: 1200px;
     margin: auto;
     text-align: center;
+    position: relative;
+}
+
+.versiculos h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    color: var(--primario);
+    margin-bottom: 15px;
 }
 
 .categorias-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 15px;
-    margin-bottom: 40px;
+    gap: 20px;
+    margin-bottom: 60px;
+    margin-top: 50px;
 }
 
 .btn-cat {
     background: var(--blanco);
-    border: 2px solid var(--primario);
+    border: 2px solid transparent;
     color: var(--primario);
-    padding: 12px 25px;
+    padding: 14px 32px;
     border-radius: 50px;
     cursor: pointer;
     font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    font-size: 0.95rem;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: var(--sombra-suave);
     text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-cat::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--gradiente-card);
+    transition: left 0.5s ease;
+    z-index: -1;
 }
 
 .btn-cat:hover {
-    background: var(--primario);
     color: var(--blanco);
-    transform: translateY(-3px);
-    box-shadow: var(--sombra);
+    transform: translateY(-5px);
+    box-shadow: var(--sombra-media);
+    border-color: transparent;
+}
+
+.btn-cat:hover::before {
+    left: 0;
 }
 
 .card-versiculo {
     background: var(--blanco);
-    padding: 50px;
-    border-radius: 20px;
-    box-shadow: var(--sombra);
+    padding: 60px 50px;
+    border-radius: 30px;
+    box-shadow: var(--sombra-media);
     position: relative;
     overflow: hidden;
-    border-left: 8px solid var(--secundario);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.card-versiculo::before {
+    content: '"';
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    font-size: 120px;
+    font-family: 'Cormorant Garamond', serif;
+    color: rgba(212, 175, 55, 0.15);
+    line-height: 1;
+}
+
+.card-versiculo:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--sombra-fuerte);
 }
 
 #texto-biblico {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
     color: var(--primario);
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     font-style: italic;
+    line-height: 1.6;
+    font-weight: 400;
+    transition: opacity 0.3s ease;
 }
 
 #cita-biblica {
     font-weight: 700;
     color: var(--secundario);
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
+    font-size: 0.9rem;
+    display: inline-block;
+    padding: 8px 20px;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 20px;
 }
 
 /* ===================================================
-   5. FORMULARIO DE ORACIÓN
+   5. SECCIÓN ORACIÓN CON FONDO DEGRADADO
    =================================================== */
 .oracion-final {
-    background: #eef2f7;
-    padding: 80px 5%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 100px 6%;
     text-align: center;
+    color: var(--blanco);
+    position: relative;
+    overflow: hidden;
+}
+
+.oracion-final::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+}
+
+.oracion-final::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -5%;
+    width: 400px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+}
+
+.oracion-final h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 1;
+}
+
+.oracion-final p {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    opacity: 0.95;
+    position: relative;
+    z-index: 1;
 }
 
 #formOracion {
-    max-width: 600px;
+    max-width: 650px;
     margin: 30px auto;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
+    position: relative;
+    z-index: 1;
 }
 
-input, textarea {
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
+#formOracion input,
+#formOracion textarea {
+    padding: 18px 24px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
     font-family: inherit;
     outline: none;
+    background: rgba(255, 255, 255, 0.95);
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+#formOracion input:focus,
+#formOracion textarea:focus {
+    border-color: var(--blanco);
+    background: var(--blanco);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+#formOracion .btn-cat {
+    background: var(--blanco);
+    color: var(--acento);
+    border: none;
+    padding: 18px 40px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+#formOracion .btn-cat::before {
+    background: linear-gradient(135deg, #1a1d3e 0%, #6366f1 100%);
+}
+
+#formOracion .btn-cat:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
 }
 
 /* ===================================================
-   6. SECCIÓN CONTACTO
+   6. SECCIÓN CONTACTO MODERNA
    =================================================== */
 .contacto-seccion {
-    padding: 80px 5%;
-    background-color: #f9fbff;
+    padding: 100px 6%;
+    background: linear-gradient(180deg, #f8f9fc 0%, #ffffff 100%);
 }
 
 .contacto-container {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 50px;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 60px;
     align-items: center;
 }
 
 .contacto-info h2 {
-    font-size: 2.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
     color: var(--primario);
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+}
+
+.contacto-info p {
+    font-size: 1.15rem;
+    color: var(--texto-gris);
+    margin-bottom: 40px;
+    line-height: 1.7;
 }
 
 .info-item {
     display: flex;
     align-items: center;
     gap: 20px;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: var(--blanco);
+    border-radius: 15px;
+    box-shadow: var(--sombra-suave);
+    transition: all 0.3s ease;
+}
+
+.info-item:hover {
+    transform: translateX(10px);
+    box-shadow: var(--sombra-media);
 }
 
 .info-icon {
-    width: 50px;
-    height: 50px;
-    background: #e7f0ff;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--azul-boton);
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.info-text {
+    text-align: left;
+}
+
+.info-text strong {
+    display: block;
+    color: var(--primario);
+    margin-bottom: 5px;
+    font-size: 1.05rem;
 }
 
 .contacto-card {
     background: var(--blanco);
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    padding: 50px;
+    border-radius: 25px;
+    box-shadow: var(--sombra-media);
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     text-align: left;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: var(--primario);
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-family: inherit;
+    outline: none;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--acento);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
 }
 
 .btn-azul-mensaje {
     width: 100%;
-    background: var(--azul-boton);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
-    padding: 15px;
-    border-radius: 8px;
-    font-weight: bold;
+    padding: 18px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.05rem;
     cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+.btn-azul-mensaje:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
 }
 
 /* ===================================================
-   7. FOOTER OSCURO
+   7. FOOTER ELEGANTE Y OSCURO
    =================================================== */
 .footer-principal {
-    background-color: #0b1322;
+    background: linear-gradient(135deg, #1a1d3e 0%, #2d3748 100%);
     color: var(--blanco);
-    padding: 60px 5% 20px;
+    padding: 80px 6% 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.footer-principal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.5), transparent);
 }
 
 .footer-container {
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr;
-    gap: 40px;
+    grid-template-columns: 1.8fr 1fr 1fr;
+    gap: 50px;
+    margin-bottom: 50px;
 }
 
 .footer-col h3 {
-    margin-bottom: 20px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+    color: var(--secundario);
+}
+
+.footer-col p {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.8;
+    font-size: 0.95rem;
 }
 
 .footer-col ul {
     list-style: none;
 }
 
+.footer-col ul li {
+    margin-bottom: 12px;
+}
+
 .footer-col ul li a {
-    color: var(--texto-gris);
+    color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.footer-col ul li a:hover {
+    color: var(--secundario);
+    transform: translateX(5px);
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
 .social-link {
     color: var(--blanco);
     text-decoration: none;
-    background: rgba(255,255,255,0.1);
-    padding: 8px 15px;
-    border-radius: 5px;
-    margin-right: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 12px 24px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.social-link:hover {
+    background: var(--secundario);
+    border-color: var(--secundario);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
 }
 
 .footer-bottom {
     text-align: center;
-    margin-top: 40px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 20px;
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-bottom p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+}
+
+.footer-bottom hr {
+    display: none;
 }
 
 /* ===================================================
-   8. ANIMACIONES Y RESPONSIVO
+   8. ANIMACIONES Y LOADER
    =================================================== */
 @keyframes latido {
-    0% { transform: scale(1); }
+    0%, 100% { transform: scale(1); }
     15% { transform: scale(1.3); }
     30% { transform: scale(1); }
     45% { transform: scale(1.15); }
@@ -340,46 +636,116 @@ input, textarea {
 
 .corazon-latido {
     animation: latido 1.2s infinite;
+    font-size: 3rem;
 }
 
-@media (max-width: 850px) {
-    .contacto-container, .footer-container {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-    .info-item { justify-content: center; }
-    .hero-content h1 { font-size: 2.5rem; }
+.loader-container {
+    padding: 60px 20px;
+    text-align: center;
 }
-/* Agrega esto al final de tu style.css */
+
+.cargando-texto {
+    margin-top: 20px;
+    color: var(--texto-gris);
+    font-size: 1.1rem;
+    font-weight: 500;
+}
 
 /* ===================================================
-   BOTÓN DE PETICIÓN DE ORACIÓN (ESPECÃFICO)
+   9. RESPONSIVE DESIGN
    =================================================== */
-#formOracion .btn-cat {
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-    border: none;
-    color: var(--blanco);
-    padding: 15px 30px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-    text-decoration: none;
+@media (max-width: 1024px) {
+    .hero-content h1 {
+        font-size: 3.5rem;
+    }
+    
+    .contacto-container,
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
 }
 
-#formOracion .btn-cat:hover {
-    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+@media (max-width: 768px) {
+    .header {
+        padding: 1rem 4%;
+    }
+    
+    nav a {
+        margin-left: 20px;
+        font-size: 0.9rem;
+    }
+    
+    .hero {
+        height: 70vh;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-content p {
+        font-size: 1.1rem;
+    }
+    
+    .versiculos,
+    .oracion-final,
+    .contacto-seccion {
+        padding: 60px 5%;
+    }
+    
+    .versiculos h2,
+    .oracion-final h2,
+    .contacto-info h2 {
+        font-size: 2.2rem;
+    }
+    
+    #texto-biblico {
+        font-size: 1.5rem;
+    }
+    
+    .card-versiculo {
+        padding: 40px 30px;
+    }
+    
+    .contacto-card {
+        padding: 35px;
+    }
+    
+    .info-item {
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .footer-container {
+        text-align: center;
+    }
 }
 
-#formOracion .btn-cat:active {
-    transform: translateY(-1px);
-}
-
-#formOracion .btn-cat:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
+@media (max-width: 480px) {
+    .logo span {
+        font-size: 1.2rem;
+    }
+    
+    nav a {
+        margin-left: 12px;
+        font-size: 0.85rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .btn-cat {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+    }
+    
+    .card-versiculo {
+        padding: 30px 20px;
+    }
+    
+    #texto-biblico {
+        font-size: 1.3rem;
+    }
 }
