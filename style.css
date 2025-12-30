@@ -350,3 +350,36 @@ input, textarea {
     .info-item { justify-content: center; }
     .hero-content h1 { font-size: 2.5rem; }
 }
+/* Agrega esto al final de tu style.css */
+
+/* ===================================================
+   BOTÓN DE PETICIÓN DE ORACIÓN (ESPECÃFICO)
+   =================================================== */
+#formOracion .btn-cat {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    border: none;
+    color: var(--blanco);
+    padding: 15px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    text-decoration: none;
+}
+
+#formOracion .btn-cat:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+}
+
+#formOracion .btn-cat:active {
+    transform: translateY(-1px);
+}
+
+#formOracion .btn-cat:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
