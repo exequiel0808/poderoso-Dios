@@ -106,4 +106,41 @@ if (formContacto) {
 }
 
 window.addEventListener("load", cargarCategorias);
+// ==========================================
+// LÓGICA VERSÍCULO DIARIO (JSON GITHUB)
+// ==========================================
+async function cargarVersiculoDiario() {
+    const URL_JSON = "TU_URL_RAW_DE_GITHUB_AQUI"; // REEMPLAZA ESTO
+    const textoDia = document.getElementById("texto-dia");
+    const citaDia = document.getElementById("cita-dia");
 
+    try {
+        const respuesta = await fetch(URL_JSON);
+        const biblia = await respuesta.json();
+
+        // Usamos el día del año para elegir un versículo fijo por 24h
+        const hoy = new Date();
+        const inicioAnio = new Date(hoy.getFullYear(), 0, 0);
+        const dif = hoy - inicioAnio;
+        const diaDelAnio = Math.floor(dif / (1000 * 60 * 60 * 24));
+
+        // Seleccionamos un versículo basado en el día
+        // Asumiendo que tu JSON es un array de objetos {texto, cita}
+        const indice = diaDelAnio % biblia.length;
+        const versiculoSeleccionado = biblia[indice];
+
+        textoDia.textContent = `"${versiculoSeleccionado.texto}"`;
+        citaDia.textContent = versiculoSeleccionado.cita;
+
+    } catch (error) {
+        console.error("Error cargando la Biblia:", error);
+        textoDia.textContent = "Lámpara es a mis pies tu palabra, y lumbrera a mi camino.";
+        citaDia.textContent = "Salmos 119:105";
+    }
+}
+
+// Llama a la función al cargar la página
+window.addEventListener("load", () => {
+    cargarVersiculoDiario(); // Nueva función
+    cargarCategorias();      // Tu función existente de Firebase
+});

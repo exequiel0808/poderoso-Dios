@@ -1051,3 +1051,37 @@ body.modo-oscuro .btn-musica:hover {
         font-size: 1.3rem;
     }
 }
+.versiculo-del-dia {
+    background: linear-gradient(135deg, #1a1d3e 0%, #6366f1 100%);
+    padding: 60px 6%;
+    text-align: center;
+    color: #ffffff;
+}
+
+.versiculo-dia-etiqueta {
+    display: inline-block;
+    background: rgba(212, 175, 55, 0.2);
+    color: #d4af37;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+    border: 1px solid #d4af37;
+}
+
+.versiculo-dia-texto {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-style: italic;
+    max-width: 800px;
+    margin: 0 auto 20px;
+    line-height: 1.4;
+}
+
+.versiculo-dia-cita {
+    font-weight: 600;
+    letter-spacing: 2px;
+    opacity: 0.8;
+}
