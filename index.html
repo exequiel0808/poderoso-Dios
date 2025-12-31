@@ -1,160 +1,115 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Poderoso es Dios</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poderoso es Dios | Un espacio de fe</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <header class="header">
-    <div class="logo">
-      <img src="img/logo.png" alt="Logo Poderoso es Dios">
-      <span>Poderoso es Dios</span>
-    </div>
-    <nav>
-      <a href="#inicio">Inicio</a>
-      <a href="#versiculos">Versículos</a>
-      <a href="#oracion">Oración</a>
-      <a href="#contacto">Contacto</a>
-      <!-- Botón Modo Oscuro -->
-      <button id="btnModoOscuro" class="btn-modo-oscuro" title="Cambiar tema">
-        🌙
-      </button>
-    </nav>
-  </header>
-
-  <!-- VERSÍCULO DEL DÍA -->
-  <section class="versiculo-del-dia">
-    <div class="versiculo-dia-container">
-      <span class="versiculo-dia-etiqueta">✨ Versículo del Día</span>
-      <p id="versiculo-dia-texto" class="versiculo-dia-texto">Cargando versículo del día...</p>
-      <span id="versiculo-dia-cita" class="versiculo-dia-cita"></span>
-    </div>
-  </section>
-
-  <section class="hero" id="inicio">
-    <div class="hero-overlay"></div> 
-    <div class="hero-content">
-      <h1>✨ Dios es Amor</h1>
-      <p>Un espacio para fortalecer tu fe y tu espíritu</p>
-      <a href="#versiculos" class="btn-cat">📖 Leer la Palabra</a>
-    </div>
-  </section>
-
-  <section class="versiculos" id="versiculos">
-    <!-- Control de Música -->
-    <div class="control-musica">
-      <button id="btnMusicaVersiculos" class="btn-musica">
-        <span class="musica-icon">🎵</span>
-        <span class="musica-texto">Música</span>
-      </button>
-    </div>
-
-    <div style="text-align:center;margin-bottom:40px;">
-      <h2 style="font-family:'Playfair Display',serif;font-size:2.5rem;color:#0b2a57;">📖 Alimento para el Alma</h2>
-      <div style="width:60px;height:4px;background:#f1c40f;margin:10px auto;border-radius:2px;"></div>
-    </div>
-    <div class="categorias-container" id="contenedorBotones"></div>
-    <div class="card-versiculo">
-      <p id="texto-biblico">Selecciona una categoría y deja que Dios te hable.</p>
-      <span id="cita-biblica"></span>
-    </div>
-  </section>
-
-  <section class="oracion-final" id="oracion">
-    <!-- Control de Música para Oración -->
-    <div class="control-musica">
-      <button id="btnMusicaOracion" class="btn-musica">
-        <span class="musica-icon">🎵</span>
-        <span class="musica-texto">Música</span>
-      </button>
-    </div>
-
-    <h2>� ¿Deseas que oremos por ti?</h2>
-    <p>Dios escucha cada clamor</p>
-    <form id="formOracion">
-      <input type="text" id="nombreInput" placeholder="Tu nombre" required>
-      <textarea id="peticionInput" rows="4" placeholder="Escribe tu petición..." required></textarea>
-      <button type="submit" class="btn-cat">Enviar petición �</button>
-    </form>
-  </section>
-
-  <section class="contacto-seccion" id="contacto">
-    <div class="contacto-container">
-      <div class="contacto-info">
-        <h2>Contáctanos</h2>
-        <p>Estamos aquí para servirte y escucharte.</p>
-        <div class="info-item">
-          <div class="info-icon">📍</div>
-          <div class="info-text"><strong>Ubicación</strong><br>Ciudad de Dios</div>
+    <header class="header">
+        <div class="logo">
+            <img src="img/logo.png" alt="Logo Poderoso es Dios">
+            <span>Poderoso es Dios</span>
         </div>
-        <div class="info-item">
-          <div class="info-icon">✉️</div>
-          <div class="info-text"><strong>Email</strong><br>contacto@poderosoesdios.com</div>
+        <nav>
+            <a href="#inicio">Inicio</a>
+            <a href="#versiculos">Versículos</a>
+            <a href="#oracion">Oración</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>Dios es Amor</h1>
+            <p>Un espacio para fortalecer tu fe y encontrar descanso en Su palabra.</p>
+            <a href="#versiculos" class="btn-cat">📖 Leer la Palabra</a>
         </div>
-      </div>
-      <div class="contacto-card">
-        <form id="formContacto">
-          <div class="form-group">
-            <label>Nombre</label>
-            <input type="text" id="nombreC" placeholder="Tu nombre" required>
-          </div>
-          <div class="form-group">
-            <label>Email</label>
-            <input type="email" id="emailC" placeholder="tu@email.com" required>
-          </div>
-          <div class="form-group">
-            <label>Mensaje</label>
-            <textarea id="mensajeC" rows="4" placeholder="Escribe tu mensaje" required></textarea>
-          </div>
-          <button type="submit" class="btn-azul-mensaje">Enviar mensaje</button>
+    </section>
+
+    <section class="versiculos" id="versiculos">
+        <h2>Alimento para el Alma</h2>
+        <div class="categorias-container" id="contenedorBotones">
+            </div>
+        <div class="card-versiculo">
+            <p id="texto-biblico">Selecciona una categoría para recibir una promesa...</p>
+            <span id="cita-biblica"></span>
+        </div>
+    </section>
+
+    <section class="oracion-final" id="oracion">
+        <h2>🙏 ¿Deseas que oremos por ti?</h2>
+        <p>Dios escucha cada clamor. Déjanos tu petición abajo.</p>
+        <form id="formOracion">
+            <input type="text" id="nombreInput" placeholder="Tu nombre completo" required>
+            <textarea id="peticionInput" rows="4" placeholder="Escribe aquí tu motivo de oración..." required></textarea>
+            <button type="submit" class="btn-cat">Enviar petición 🙏</button>
         </form>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <footer class="footer-principal">
-    <div class="footer-container">
-      <div class="footer-col">
-        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
-          <img src="img/logo.png" alt="Logo Footer" style="height: 40px;">
-          <h3 style="margin-bottom: 0;">Manantial de Dios</h3>
+    <section class="contacto-seccion" id="contacto">
+        <div class="contacto-container">
+            <div class="contacto-info">
+                <h2>Contáctanos</h2>
+                <p>Estamos aquí para servirte, escucharte y caminar contigo en fe.</p>
+                <div class="info-item">
+                    <div class="info-icon">📍</div>
+                    <div class="info-text"><strong>Ubicación</strong>Ciudad de Dios</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">✉️</div>
+                    <div class="info-text"><strong>Email</strong>contacto@poderosoesdios.com</div>
+                </div>
+            </div>
+            <div class="contacto-card">
+                <form id="formContacto">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" id="nombreC" placeholder="Tu nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="emailC" placeholder="tu@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Mensaje</label>
+                        <textarea id="mensajeC" rows="4" placeholder="¿En qué podemos ayudarte?" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-azul-mensaje">Enviar mensaje</button>
+                </form>
+            </div>
         </div>
-        <p>Llevando la palabra de Dios a cada corazón. Una comunidad de fe, esperanza y amor.</p>
-      </div>
-      <div class="footer-col">
-        <h3>Enlaces Rápidos</h3>
-        <ul>
-          <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#versiculos">Versículos</a></li>
-          <li><a href="#oracion">Oración</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h3>Síguenos</h3>
-        <div class="social-icons">
-          <a href="#" class="social-link">Facebook</a>
-          <a href="#" class="social-link">Instagram</a>
+    </section>
+
+    <footer class="footer-principal">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3 style="color: white; font-family: 'Cormorant Garamond';">Poderoso es Dios</h3>
+                <p>Llevando la palabra de Dios a cada corazón. Una comunidad de fe, esperanza y amor para el mundo entero.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Enlaces</h3>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#versiculos">Versículos</a></li>
+                    <li><a href="#oracion">Oración</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Comunidad</h3>
+                <div class="social-icons">
+                    <a href="#" class="social-link">Facebook</a>
+                    <a href="#" class="social-link">Instagram</a>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <hr>
-      <p>&copy; 2025 Manantial de Dios. Todos los derechos reservados.</p>
-    </div>
-  </footer>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Poderoso es Dios. Todos los derechos reservados.</p>
+        </div>
+    </footer>
 
-  <!-- Audio Elements (hidden) -->
-  <audio id="audioVersiculos" loop>
-    <source src="audio/instrumental-suave.mp3" type="audio/mpeg">
-  </audio>
-  <audio id="audioOracion" loop>
-    <source src="audio/oracion-ambiente.mp3" type="audio/mpeg">
-  </audio>
-
-  <script type="module" src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
