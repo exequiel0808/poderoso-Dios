@@ -2,174 +2,427 @@
 // FIREBASE CONFIG
 // ===============================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  addDoc,
-  serverTimestamp
+import { 
+    getFirestore, 
+    collection, 
+    getDocs, 
+    addDoc, 
+    serverTimestamp 
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBqaBUSSEza1hcpub0CzUTWTPoP0LBrfs0",
-  authDomain: "poderoso-es-dios-15744.firebaseapp.com",
-  projectId: "poderoso-es-dios-15744",
-  storageBucket: "poderoso-es-dios-15744.firebasestorage.app",
-  messagingSenderId: "99676155688",
-  appId: "1:99676155688:web:583160c8dd0200d8e52a1d"
+    apiKey: "AIzaSyBqaBUSSEza1hcpub0CzUTWTPoP0LBrfs0",
+    authDomain: "poderoso-es-dios-15744.firebaseapp.com",
+    projectId: "poderoso-es-dios-15744",
+    storageBucket: "poderoso-es-dios-15744.firebasestorage.app",
+    messagingSenderId: "99676155688",
+    appId: "1:99676155688:web:583160c8dd0200d8e52a1d"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // ===============================
-// VERSÍCULO DEL DÍA (DESDE JSON)
+// VERSÍCULOS DEL DÍA (ROTACIÓN AUTOMÁTICA)
 // ===============================
-function cargarVersiculoDelDia() {
-  fetch("biblia_rvr1960.json")
-    .then(res => res.json())
-    .then(data => {
-      const libros = Object.keys(data.libros);
-      const libro = libros[Math.floor(Math.random() * libros.length)];
+const versiculosDelDia = [
+    {
+        texto: "Porque de tal manera amó Dios al mundo, que ha dado a su Hijo unigénito, para que todo aquel que en él cree, no se pierda, mas tenga vida eterna.",
+        cita: "Juan 3:16"
+    },
+    {
+        texto: "Todo lo puedo en Cristo que me fortalece.",
+        cita: "Filipenses 4:13"
+    },
+    {
+        texto: "Jehová es mi pastor; nada me faltará.",
+        cita: "Salmos 23:1"
+    },
+    {
+        texto: "No temas, porque yo estoy contigo; no desmayes, porque yo soy tu Dios que te esfuerzo.",
+        cita: "Isaías 41:10"
+    },
+    {
+        texto: "Confía en Jehová con todo tu corazón, y no te apoyes en tu propia prudencia.",
+        cita: "Proverbios 3:5"
+    },
+    {
+        texto: "Pedid, y se os dará; buscad, y hallaréis; llamad, y se os abrirá.",
+        cita: "Mateo 7:7"
+    },
+    {
+        texto: "La paz os dejo, mi paz os doy; yo no os la doy como el mundo la da. No se turbe vuestro corazón, ni tenga miedo.",
+        cita: "Juan 14:27"
+    },
+    {
+        texto: "Jehová está conmigo; no temeré lo que me pueda hacer el hombre.",
+        cita: "Salmos 118:6"
+    },
+    {
+        texto: "El Señor es mi luz y mi salvación; ¿de quién temeré?",
+        cita: "Salmos 27:1"
+    },
+    {
+        texto: "Porque mis pensamientos no son vuestros pensamientos, ni vuestros caminos mis caminos, dice Jehová.",
+        cita: "Isaías 55:8"
+    },
+    {
+        texto: "Y sabemos que a los que aman a Dios, todas las cosas les ayudan a bien.",
+        cita: "Romanos 8:28"
+    },
+    {
+        texto: "Echa sobre Jehová tu carga, y él te sustentará; no dejará para siempre caído al justo.",
+        cita: "Salmos 55:22"
+    },
+    {
+        texto: "Bendito el hombre que confía en Jehová, y cuya confianza es Jehová.",
+        cita: "Jeremías 17:7"
+    },
+    {
+        texto: "El que habita al abrigo del Altísimo morará bajo la sombra del Omnipotente.",
+        cita: "Salmos 91:1"
+    }
+];
 
-      const caps = Object.keys(data.libros[libro]);
-      const cap = caps[Math.floor(Math.random() * caps.length)];
-
-      const vers = Object.keys(data.libros[libro][cap]);
-      const v = vers[Math.floor(Math.random() * vers.length)];
-
-      document.getElementById("versiculo-dia-texto").textContent =
-        `"${data.libros[libro][cap][v]}"`;
-
-      document.getElementById("versiculo-dia-cita").textContent =
-        `${libro} ${cap}:${v}`;
-    })
-    .catch(err => {
-      console.error("Error cargando Biblia:", err);
-      document.getElementById("versiculo-dia-texto").textContent =
-        "No se pudo cargar el versículo 🙏";
-    });
+function mostrarVersiculoDelDia() {
+    const hoy = new Date();
+    const numeroDia = hoy.getDate() + hoy.getMonth(); // Combinación de día y mes
+    const indice = numeroDia % versiculosDelDia.length; // Rotación basada en el día
+    
+    const versiculoHoy = versiculosDelDia[indice];
+    
+    const textoElemento = document.getElementById("versiculo-dia-texto");
+    const citaElemento = document.getElementById("versiculo-dia-cita");
+    
+    if (textoElemento && citaElemento) {
+        textoElemento.textContent = `"${versiculoHoy.texto}"`;
+        citaElemento.textContent = versiculoHoy.cita;
+    }
 }
 
 // ===============================
 // MODO OSCURO
 // ===============================
 function inicializarModoOscuro() {
-  const btn = document.getElementById("btnModoOscuro");
-  if (!btn) return;
-
-  const modo = localStorage.getItem("modoOscuro");
-  if (modo === "on") {
-    document.body.classList.add("modo-oscuro");
-    btn.textContent = "☀️";
-  }
-
-  btn.addEventListener("click", () => {
-    document.body.classList.toggle("modo-oscuro");
-    const activo = document.body.classList.contains("modo-oscuro");
-    btn.textContent = activo ? "☀️" : "🌙";
-    localStorage.setItem("modoOscuro", activo ? "on" : "off");
-  });
+    const btnModoOscuro = document.getElementById("btnModoOscuro");
+    const body = document.body;
+    
+    // Verificar si hay preferencia guardada
+    const modoGuardado = localStorage.getItem("modoOscuro");
+    if (modoGuardado === "activado") {
+        body.classList.add("modo-oscuro");
+        btnModoOscuro.textContent = "☀️";
+    }
+    
+    btnModoOscuro.addEventListener("click", () => {
+        body.classList.toggle("modo-oscuro");
+        
+        if (body.classList.contains("modo-oscuro")) {
+            btnModoOscuro.textContent = "☀️";
+            localStorage.setItem("modoOscuro", "activado");
+        } else {
+            btnModoOscuro.textContent = "🌙";
+            localStorage.setItem("modoOscuro", "desactivado");
+        }
+    });
 }
 
 // ===============================
-// MÚSICA
+// MÚSICA DE FONDO
 // ===============================
 function inicializarMusica() {
-  const audioV = document.getElementById("audioVersiculos");
-  const audioO = document.getElementById("audioOracion");
-  const btnV = document.getElementById("btnMusicaVersiculos");
-  const btnO = document.getElementById("btnMusicaOracion");
-
-  if (audioV) audioV.volume = 0.3;
-  if (audioO) audioO.volume = 0.3;
-
-  btnV?.addEventListener("click", () => {
-    audioV.paused ? audioV.play() : audioV.pause();
-  });
-
-  btnO?.addEventListener("click", () => {
-    audioO.paused ? audioO.play() : audioO.pause();
-  });
+    const audioVersiculos = document.getElementById("audioVersiculos");
+    const audioOracion = document.getElementById("audioOracion");
+    const btnMusicaVersiculos = document.getElementById("btnMusicaVersiculos");
+    const btnMusicaOracion = document.getElementById("btnMusicaOracion");
+    
+    let musicaVersiculosActiva = false;
+    let musicaOracionActiva = false;
+    
+    // Volumen suave
+    if (audioVersiculos) audioVersiculos.volume = 0.3;
+    if (audioOracion) audioOracion.volume = 0.3;
+    
+    // Control música versículos
+    if (btnMusicaVersiculos && audioVersiculos) {
+        btnMusicaVersiculos.addEventListener("click", () => {
+            musicaVersiculosActiva = !musicaVersiculosActiva;
+            
+            if (musicaVersiculosActiva) {
+                audioVersiculos.play().catch(e => console.log("Error al reproducir:", e));
+                btnMusicaVersiculos.classList.add("activo");
+            } else {
+                audioVersiculos.pause();
+                btnMusicaVersiculos.classList.remove("activo");
+            }
+        });
+    }
+    
+    // Control música oración
+    if (btnMusicaOracion && audioOracion) {
+        btnMusicaOracion.addEventListener("click", () => {
+            musicaOracionActiva = !musicaOracionActiva;
+            
+            if (musicaOracionActiva) {
+                audioOracion.play().catch(e => console.log("Error al reproducir:", e));
+                btnMusicaOracion.classList.add("activo");
+            } else {
+                audioOracion.pause();
+                btnMusicaOracion.classList.remove("activo");
+            }
+        });
+    }
+    
+    // Pausar música al salir de la sección
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) {
+                if (entry.target.id === "versiculos" && audioVersiculos) {
+                    audioVersiculos.pause();
+                    if (btnMusicaVersiculos) btnMusicaVersiculos.classList.remove("activo");
+                    musicaVersiculosActiva = false;
+                }
+                if (entry.target.id === "oracion" && audioOracion) {
+                    audioOracion.pause();
+                    if (btnMusicaOracion) btnMusicaOracion.classList.remove("activo");
+                    musicaOracionActiva = false;
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+    
+    const seccionVersiculos = document.getElementById("versiculos");
+    const seccionOracion = document.getElementById("oracion");
+    
+    if (seccionVersiculos) observer.observe(seccionVersiculos);
+    if (seccionOracion) observer.observe(seccionOracion);
 }
 
 // ===============================
-// CARGAR CATEGORÍAS (FIRESTORE)
+// CARGAR CATEGORÍAS / VERSÍCULOS
 // ===============================
 async function cargarCategorias() {
-  const contenedor = document.getElementById("contenedorBotones");
-  const texto = document.getElementById("texto-biblico");
-  const cita = document.getElementById("cita-biblica");
-  if (!contenedor) return;
+    const contenedor = document.getElementById("contenedorBotones");
+    const textoBiblico = document.getElementById("texto-biblico");
+    const citaBiblica = document.getElementById("cita-biblica");
 
-  contenedor.innerHTML = "Cargando promesas...";
+    if (!contenedor) return;
 
-  try {
-    const snap = await getDocs(collection(db, "categorias"));
-    contenedor.innerHTML = "";
+    contenedor.innerHTML = `
+        <div class="loader-container">
+            <div class="corazon-latido">❤️</div>
+            <p class="cargando-texto">Buscando promesas para ti...</p>
+        </div>
+    `;
 
-    snap.forEach(doc => {
-      const d = doc.data();
-      const btn = document.createElement("button");
-      btn.className = "btn-cat";
-      btn.textContent = d.nombre;
-      btn.onclick = () => {
-        texto.textContent = d.texto;
-        cita.textContent = d.cita;
-      };
-      contenedor.appendChild(btn);
-    });
-  } catch (e) {
-    contenedor.innerHTML = "Error al cargar versículos";
-  }
+    try {
+        const querySnapshot = await getDocs(collection(db, "categorias"));
+        contenedor.innerHTML = "";
+
+        if (querySnapshot.empty) {
+            contenedor.innerHTML = "<p>Pronto añadiremos más bendiciones.</p>";
+            return;
+        }
+
+        querySnapshot.forEach((doc) => {
+            const datos = doc.data();
+            const boton = document.createElement("button");
+
+            boton.className = "btn-cat";
+            boton.textContent = datos.nombre;
+
+            boton.addEventListener("click", () => {
+                textoBiblico.style.opacity = 0;
+
+                setTimeout(() => {
+                    textoBiblico.textContent = datos.texto;
+                    citaBiblica.textContent = datos.cita;
+                    textoBiblico.style.opacity = 1;
+                }, 300);
+            });
+
+            contenedor.appendChild(boton);
+        });
+
+    } catch (error) {
+        console.error("Error cargando categorías:", error);
+        contenedor.innerHTML = "<p>Error al conectar con las bendiciones.</p>";
+    }
 }
 
 // ===============================
-// FORMULARIO ORACIÓN
+// FORMULARIO DE ORACIÓN
 // ===============================
 const formOracion = document.getElementById("formOracion");
+
 if (formOracion) {
-  formOracion.addEventListener("submit", async e => {
-    e.preventDefault();
+    formOracion.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-    await addDoc(collection(db, "oraciones"), {
-      nombre: document.getElementById("nombreInput").value,
-      peticion: document.getElementById("peticionInput").value,
-      fecha: serverTimestamp()
+        const btnEnviar = formOracion.querySelector("button");
+        btnEnviar.textContent = "Enviando...";
+        btnEnviar.disabled = true;
+
+        try {
+            await addDoc(collection(db, "oraciones"), {
+                nombre: document.getElementById("nombreInput").value.trim(),
+                peticion: document.getElementById("peticionInput").value.trim(),
+                fecha: serverTimestamp()
+            });
+
+            alert("🙏 Tu petición fue enviada. Estamos orando por ti.");
+            formOracion.reset();
+
+        } catch (error) {
+            console.error("Error al enviar oración:", error);
+            alert("❌ Ocurrió un error al enviar tu petición.");
+        } finally {
+            btnEnviar.textContent = "Enviar petición 🙏";
+            btnEnviar.disabled = false;
+        }
     });
-
-    alert("🙏 Oración enviada");
-    formOracion.reset();
-  });
 }
 
 // ===============================
-// FORMULARIO CONTACTO
+// FORMULARIO DE CONTACTO
 // ===============================
 const formContacto = document.getElementById("formContacto");
+
 if (formContacto) {
-  formContacto.addEventListener("submit", async e => {
-    e.preventDefault();
+    formContacto.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-    await addDoc(collection(db, "contacto"), {
-      nombre: document.getElementById("nombreC").value,
-      email: document.getElementById("emailC").value,
-      mensaje: document.getElementById("mensajeC").value,
-      fecha: serverTimestamp()
+        const btn = formContacto.querySelector("button");
+        btn.textContent = "Enviando...";
+        btn.disabled = true;
+
+        try {
+            await addDoc(collection(db, "contacto"), {
+                nombre: document.getElementById("nombreC").value.trim(),
+                email: document.getElementById("emailC").value.trim(),
+                mensaje: document.getElementById("mensajeC").value.trim(),
+                fecha: serverTimestamp()
+            });
+
+            alert("📩 Mensaje enviado correctamente.");
+            formContacto.reset();
+
+        } catch (error) {
+            console.error("Error en contacto:", error);
+            alert("❌ No se pudo enviar el mensaje.");
+        } finally {
+            btn.textContent = "Enviar mensaje";
+            btn.disabled = false;
+        }
     });
-
-    alert("📩 Mensaje enviado");
-    formContacto.reset();
-  });
 }
 
 // ===============================
 // INICIO
 // ===============================
 window.addEventListener("load", () => {
-  cargarVersiculoDelDia();
-  cargarCategorias();
-  inicializarModoOscuro();
-  inicializarMusica();
+    cargarCategorias();
+    mostrarVersiculoDelDia();
+    inicializarModoOscuro();
+    inicializarMusica();
 });
 
+// ===============================
+// FORMULARIO DE ORACIÓN
+// ===============================
+const formOracion = document.getElementById("formOracion");
+
+if (formOracion) {
+    formOracion.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const btnEnviar = formOracion.querySelector("button");
+        btnEnviar.textContent = "Enviando...";
+        btnEnviar.disabled = true;
+
+        try {
+            await addDoc(collection(db, "oraciones"), {
+                nombre: document.getElementById("nombreInput").value.trim(),
+                peticion: document.getElementById("peticionInput").value.trim(),
+                fecha: serverTimestamp()
+            });
+
+            alert("🙏 Tu petición fue enviada. Estamos orando por ti.");
+            formOracion.reset();
+
+        } catch (error) {
+            console.error("Error al enviar oración:", error);
+            alert("❌ Ocurrió un error al enviar tu petición.");
+        } finally {
+            btnEnviar.textContent = "Enviar petición 🙏";
+            btnEnviar.disabled = false;
+        }
+    });
+}
+
+// ===============================
+// FORMULARIO DE CONTACTO
+// ===============================
+const formContacto = document.getElementById("formContacto");
+
+if (formContacto) {
+    formContacto.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const btn = formContacto.querySelector("button");
+        btn.textContent = "Enviando...";
+        btn.disabled = true;
+
+        try {
+            await addDoc(collection(db, "contacto"), {
+                nombre: document.getElementById("nombreContacto").value.trim(),
+                email: document.getElementById("emailContacto").value.trim(),
+                mensaje: document.getElementById("mensajeContacto").value.trim(),
+                fecha: serverTimestamp()
+            });
+
+            alert("📩 Mensaje enviado correctamente.");
+            formContacto.reset();
+
+        } catch (error) {
+            console.error("Error en contacto:", error);
+            alert("❌ No se pudo enviar el mensaje.");
+        } finally {
+            btn.textContent = "Enviar Mensaje";
+            btn.disabled = false;
+        }
+    });
+}
+
+// ===============================
+// INICIO
+// ===============================
+window.addEventListener("load", cargarCategorias);
+fetch("biblia_rvr1960.json")
+  .then(res => res.json())
+  .then(data => {
+    const libros = Object.keys(data.libros);
+    const libro = libros[Math.floor(Math.random() * libros.length)];
+
+    const caps = Object.keys(data.libros[libro]);
+    const cap = caps[Math.floor(Math.random() * caps.length)];
+
+    const vers = Object.keys(data.libros[libro][cap]);
+    const v = vers[Math.floor(Math.random() * vers.length)];
+
+    document.getElementById("versiculo-dia-texto").textContent =
+      data.libros[libro][cap][v];
+
+    document.getElementById("versiculo-dia-cita").textContent =
+      `${libro} ${cap}:${v}`;
+  });
+async function verificarColecciones() {
+  try {
+    const snap = await getDocs(collection(db, "categorias"));
+    console.log("📦 categorias existe, documentos:", snap.size);
+  } catch (e) {
+    console.error("❌ No puedo leer categorias:", e.message);
+  }
+}
+
+verificarColecciones();
