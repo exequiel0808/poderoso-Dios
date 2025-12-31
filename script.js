@@ -110,7 +110,7 @@ window.addEventListener("load", cargarCategorias);
 // LÓGICA VERSÍCULO DIARIO (JSON GITHUB)
 // ==========================================
 async function cargarVersiculoDiario() {
-    const URL_JSON = "TU_URL_RAW_DE_GITHUB_AQUI"; // REEMPLAZA ESTO
+    const URL_JSON = "https://github.com/exequiel0808/poderoso-Dios/blob/main/biblia-completa-rv1960.json"; // REEMPLAZA ESTO
     const textoDia = document.getElementById("texto-dia");
     const citaDia = document.getElementById("cita-dia");
 
