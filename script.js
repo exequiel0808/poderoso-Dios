@@ -398,3 +398,21 @@ if (formContacto) {
 // INICIO
 // ===============================
 window.addEventListener("load", cargarCategorias);
+fetch("biblia_rvr1960.json")
+  .then(res => res.json())
+  .then(data => {
+    const libros = Object.keys(data.libros);
+    const libro = libros[Math.floor(Math.random() * libros.length)];
+
+    const caps = Object.keys(data.libros[libro]);
+    const cap = caps[Math.floor(Math.random() * caps.length)];
+
+    const vers = Object.keys(data.libros[libro][cap]);
+    const v = vers[Math.floor(Math.random() * vers.length)];
+
+    document.getElementById("versiculo-dia-texto").textContent =
+      data.libros[libro][cap][v];
+
+    document.getElementById("versiculo-dia-cita").textContent =
+      `${libro} ${cap}:${v}`;
+  });
