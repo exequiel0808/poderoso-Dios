@@ -17,7 +17,7 @@ const db = getFirestore(app);
 async function cargarCategorias() {
     const contenedor = document.getElementById("contenedorBotones");
     const textoBiblico = document.getElementById("texto-biblico");
-    const citaBiblica = document.getElementById("cita-biblica");
+    const citaBiblica = document.getElementById("cita-biblica");Q
     
     if (!contenedor) return;
 
@@ -107,37 +107,48 @@ if (formContacto) {
 
 window.addEventListener("load", cargarCategorias);
 // ==========================================
-// LÓGICA VERSÍCULO DIARIO (JSON GITHUB)
+// VERSÍCULO DEL DÍA (JSON DESDE GITHUB)
 // ==========================================
+document.addEventListener("DOMContentLoaded", () => {
+    cargarVersiculoDiario();
+});
+
 async function cargarVersiculoDiario() {
-    const URL_JSON = "https://github.com/exequiel0808/poderoso-Dios/blob/main/biblia-completa-rv1960.json"; // REEMPLAZA ESTO
-    const textoDia = document.getElementById("texto-dia");
-    const citaDia = document.getElementById("cita-dia");
+    const URL_JSON = "https://raw.githubusercontent.com/exequiel0808/poderoso-Dios/main/biblia-completa-rv1960.json";
+
+    const textoDia = document.getElementById("versiculo-dia-texto");
+    const citaDia = document.getElementById("versiculo-dia-cita");
+
+    if (!textoDia || !citaDia) {
+        console.error("❌ No se encontraron los elementos del versículo del día");
+        return;
+    }
 
     try {
-        const respuesta = await fetch(URL_JSON);
+        const respuesta = await fetch(URL_JSON + "?v=" + new Date().getTime());
         const biblia = await respuesta.json();
 
-        // Usamos el día del año para elegir un versículo fijo por 24h
         const hoy = new Date();
         const inicioAnio = new Date(hoy.getFullYear(), 0, 0);
         const dif = hoy - inicioAnio;
         const diaDelAnio = Math.floor(dif / (1000 * 60 * 60 * 24));
 
-        // Seleccionamos un versículo basado en el día
-        // Asumiendo que tu JSON es un array de objetos {texto, cita}
         const indice = diaDelAnio % biblia.length;
-        const versiculoSeleccionado = biblia[indice];
+        const versiculo = biblia[indice];
 
-        textoDia.textContent = `"${versiculoSeleccionado.texto}"`;
-        citaDia.textContent = versiculoSeleccionado.cita;
+        textoDia.textContent = `"${versiculo.texto}"`;
+        citaDia.textContent = versiculo.cita;
+
+        console.log("✅ Versículo del día cargado:", versiculo.cita);
 
     } catch (error) {
-        console.error("Error cargando la Biblia:", error);
+        console.error("❌ Error cargando el versículo del día:", error);
         textoDia.textContent = "Lámpara es a mis pies tu palabra, y lumbrera a mi camino.";
         citaDia.textContent = "Salmos 119:105";
     }
 }
+
+
 
 // Llama a la función al cargar la página
 window.addEventListener("load", () => {
