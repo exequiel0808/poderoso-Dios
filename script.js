@@ -114,44 +114,50 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 async function cargarVersiculoDiario() {
-    const URL_JSON = "https://raw.githubusercontent.com/exequiel0808/poderoso-Dios/main/biblia-completa-rv1960.json";
+  const URL_JSON =
+    "https://raw.githubusercontent.com/exequiel0808/poderoso-Dios/main/biblia-completa-rv1960.json";
 
-    const textoDia = document.getElementById("versiculo-dia-texto");
-    const citaDia = document.getElementById("versiculo-dia-cita");
+  const texto = document.getElementById("texto-dia");
+  const cita = document.getElementById("cita-dia");
 
-    if (!textoDia || !citaDia) {
-        console.error("❌ No se encontraron los elementos del versículo del día");
-        return;
+  if (!texto || !cita) {
+    console.error("❌ IDs del versículo no encontrados");
+    return;
+  }
+
+  try {
+    const res = await fetch(URL_JSON + "?d=" + new Date().toISOString().slice(0, 10));
+    const data = await res.json();
+
+    const versiculos = [];
+
+    for (const libro in data.libros) {
+      for (const cap in data.libros[libro]) {
+        for (const v in data.libros[libro][cap]) {
+          versiculos.push({
+            texto: data.libros[libro][cap][v],
+            cita: `${libro} ${cap}:${v}`
+          });
+        }
+      }
     }
 
-    try {
-        const respuesta = await fetch(URL_JSON + "?v=" + new Date().getTime());
-        const biblia = await respuesta.json();
+    const hoy = new Date();
+    const inicio = new Date(hoy.getFullYear(), 0, 0);
+    const dia = Math.floor((hoy - inicio) / 86400000);
 
-        const hoy = new Date();
-        const inicioAnio = new Date(hoy.getFullYear(), 0, 0);
-        const dif = hoy - inicioAnio;
-        const diaDelAnio = Math.floor(dif / (1000 * 60 * 60 * 24));
+    const seleccionado = versiculos[dia % versiculos.length];
 
-        const indice = diaDelAnio % biblia.length;
-        const versiculo = biblia[indice];
+    texto.textContent = `"${seleccionado.texto}"`;
+    cita.textContent = seleccionado.cita;
 
-        textoDia.textContent = `"${versiculo.texto}"`;
-        citaDia.textContent = versiculo.cita;
+    console.log("✅ Versículo del día cargado:", seleccionado.cita);
 
-        console.log("✅ Versículo del día cargado:", versiculo.cita);
-
-    } catch (error) {
-        console.error("❌ Error cargando el versículo del día:", error);
-        textoDia.textContent = "Lámpara es a mis pies tu palabra, y lumbrera a mi camino.";
-        citaDia.textContent = "Salmos 119:105";
-    }
+  } catch (e) {
+    console.error("❌ Error Biblia:", e);
+    texto.textContent =
+      "Lámpara es a mis pies tu palabra, y lumbrera a mi camino.";
+    cita.textContent = "Salmos 119:105";
+  }
 }
-
-
-
-// Llama a la función al cargar la página
-window.addEventListener("load", () => {
-    cargarVersiculoDiario(); // Nueva función
-    cargarCategorias();      // Tu función existente de Firebase
-});
+window.addEventListener("DOMContentLoaded", cargarVersiculoDiario);
