@@ -13,11 +13,85 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// ==========================================
+// VERSÍCULO DEL DÍA (CORREGIDO)
+// ==========================================
+async function cargarVersiculoDiario() {
+  const URL_JSON = "https://raw.githubusercontent.com/exequiel0808/poderoso-Dios/main/biblia-completa-rv1960.json";
+  const texto = document.getElementById("texto-dia");
+  const cita = document.getElementById("cita-dia");
+
+  if (!texto || !cita) {
+    console.error("❌ IDs del versículo no encontrados");
+    return;
+  }
+
+  try {
+    // Agregar timestamp para evitar caché
+    const cacheBuster = new Date().toISOString().slice(0, 10);
+    const res = await fetch(`${URL_JSON}?v=${cacheBuster}`);
+    
+    if (!res.ok) {
+      throw new Error(`Error HTTP: ${res.status}`);
+    }
+    
+    const data = await res.json();
+    
+    // Extraer todos los versículos
+    const versiculos = [];
+    
+    for (const libro in data) {
+      const bookData = data[libro];
+      if (bookData.chapters && Array.isArray(bookData.chapters)) {
+        bookData.chapters.forEach(chapter => {
+          if (chapter.verses && Array.isArray(chapter.verses)) {
+            chapter.verses.forEach(v => {
+              versiculos.push({
+                texto: v.text,
+                cita: `${bookData.book} ${chapter.chapter}:${v.verse}`
+              });
+            });
+          }
+        });
+      }
+    }
+
+    if (versiculos.length === 0) {
+      throw new Error("No se encontraron versículos en el JSON");
+    }
+
+    // Calcular día del año para versículo consistente
+    const hoy = new Date();
+    const inicio = new Date(hoy.getFullYear(), 0, 0);
+    const diferencia = hoy - inicio;
+    const diaDelAnio = Math.floor(diferencia / 86400000);
+
+    // Seleccionar versículo basado en el día
+    const indice = diaDelAnio % versiculos.length;
+    const seleccionado = versiculos[indice];
+
+    // Mostrar versículo
+    texto.textContent = `"${seleccionado.texto}"`;
+    cita.textContent = seleccionado.cita;
+
+    console.log("✅ Versículo del día cargado:", seleccionado.cita);
+    console.log("📅 Día del año:", diaDelAnio);
+    console.log("📖 Total versículos:", versiculos.length);
+
+  } catch (error) {
+    console.error("❌ Error cargando versículo:", error);
+    texto.textContent = "Lámpara es a mis pies tu palabra, y lumbrera a mi camino.";
+    cita.textContent = "Salmos 119:105";
+  }
+}
+
+// ==========================================
 // CARGAR CATEGORÍAS
+// ==========================================
 async function cargarCategorias() {
     const contenedor = document.getElementById("contenedorBotones");
     const textoBiblico = document.getElementById("texto-biblico");
-    const citaBiblica = document.getElementById("cita-biblica");Q
+    const citaBiblica = document.getElementById("cita-biblica");
     
     if (!contenedor) return;
 
@@ -52,7 +126,9 @@ async function cargarCategorias() {
     }
 }
 
+// ==========================================
 // FORMULARIO DE ORACIÓN
+// ==========================================
 const formOracion = document.getElementById("formOracion");
 if (formOracion) {
     formOracion.addEventListener("submit", async (e) => {
@@ -70,6 +146,7 @@ if (formOracion) {
             alert("🙏 Tu petición ha sido recibida. Estaremos orando por ti.");
             formOracion.reset();
         } catch (error) {
+            console.error("Error:", error);
             alert("❌ Lo sentimos, el límite de peticiones diarias se ha alcanzado. Intenta de nuevo mañana.");
         } finally {
             btn.textContent = "Enviar petición 🙏";
@@ -78,7 +155,9 @@ if (formOracion) {
     });
 }
 
+// ==========================================
 // FORMULARIO DE CONTACTO
+// ==========================================
 const formContacto = document.getElementById("formContacto");
 if (formContacto) {
     formContacto.addEventListener("submit", async (e) => {
@@ -97,6 +176,7 @@ if (formContacto) {
             alert("📩 Mensaje enviado con éxito.");
             formContacto.reset();
         } catch (error) {
+            console.error("Error:", error);
             alert("❌ Hubo un error al enviar el mensaje.");
         } finally {
             btn.textContent = "Enviar mensaje";
@@ -105,59 +185,10 @@ if (formContacto) {
     });
 }
 
-window.addEventListener("load", cargarCategorias);
 // ==========================================
-// VERSÍCULO DEL DÍA (JSON DESDE GITHUB)
+// INICIALIZACIÓN
 // ==========================================
-document.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", () => {
     cargarVersiculoDiario();
+    cargarCategorias();
 });
-
-async function cargarVersiculoDiario() {
-  const URL_JSON =
-    "https://raw.githubusercontent.com/exequiel0808/poderoso-Dios/main/biblia-completa-rv1960.json";
-
-  const texto = document.getElementById("texto-dia");
-  const cita = document.getElementById("cita-dia");
-
-  if (!texto || !cita) {
-    console.error("❌ IDs del versículo no encontrados");
-    return;
-  }
-
-  try {
-    const res = await fetch(URL_JSON + "?d=" + new Date().toISOString().slice(0, 10));
-    const data = await res.json();
-
-    const versiculos = [];
-
-    for (const libro in data.libros) {
-      for (const cap in data.libros[libro]) {
-        for (const v in data.libros[libro][cap]) {
-          versiculos.push({
-            texto: data.libros[libro][cap][v],
-            cita: `${libro} ${cap}:${v}`
-          });
-        }
-      }
-    }
-
-    const hoy = new Date();
-    const inicio = new Date(hoy.getFullYear(), 0, 0);
-    const dia = Math.floor((hoy - inicio) / 86400000);
-
-    const seleccionado = versiculos[dia % versiculos.length];
-
-    texto.textContent = `"${seleccionado.texto}"`;
-    cita.textContent = seleccionado.cita;
-
-    console.log("✅ Versículo del día cargado:", seleccionado.cita);
-
-  } catch (e) {
-    console.error("❌ Error Biblia:", e);
-    texto.textContent =
-      "Lámpara es a mis pies tu palabra, y lumbrera a mi camino.";
-    cita.textContent = "Salmos 119:105";
-  }
-}
-window.addEventListener("DOMContentLoaded", cargarVersiculoDiario);
