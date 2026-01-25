@@ -14,6 +14,89 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // ==========================================
+// MODO OSCURO
+// ==========================================
+const btnModoOscuro = document.getElementById('btnModoOscuro');
+const iconoModo = document.getElementById('iconoModo');
+
+// Cargar preferencia guardada
+if (localStorage.getItem('modoOscuro') === 'true') {
+    document.body.classList.add('modo-oscuro');
+    if (iconoModo) iconoModo.textContent = '☀️';
+}
+
+if (btnModoOscuro) {
+    btnModoOscuro.addEventListener('click', () => {
+        document.body.classList.toggle('modo-oscuro');
+        const esModoOscuro = document.body.classList.contains('modo-oscuro');
+        if (iconoModo) iconoModo.textContent = esModoOscuro ? '☀️' : '🌙';
+        localStorage.setItem('modoOscuro', esModoOscuro);
+    });
+}
+
+// ==========================================
+// MENÚ MÓVIL
+// ==========================================
+const menuToggle = document.getElementById('menuToggle');
+const navMenu = document.getElementById('navMenu');
+
+if (menuToggle && navMenu) {
+    menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+    
+    // Cerrar menú al hacer clic en un enlace
+    navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+    });
+}
+
+// ==========================================
+// HEADER SCROLL EFFECT
+// ==========================================
+window.addEventListener('scroll', () => {
+    const header = document.querySelector('.header');
+    if (!header) return;
+    
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll > 100) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+});
+
+// ==========================================
+// NAVEGACIÓN ACTIVA
+// ==========================================
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('nav a');
+
+window.addEventListener('scroll', () => {
+    let current = '';
+    
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= sectionTop - 200) {
+            current = section.getAttribute('id');
+        }
+    });
+    
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+            link.classList.add('active');
+        }
+    });
+});
+
+// ==========================================
 // VERSÍCULO DEL DÍA (CORREGIDO)
 // ==========================================
 async function cargarVersiculoDiario() {

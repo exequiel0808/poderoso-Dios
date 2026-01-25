@@ -13,20 +13,35 @@
             <img src="img/logo.png" alt="Logo Poderoso es Dios">
             <span>Poderoso es Dios</span>
         </div>
-        <nav>
-            <a href="#inicio">Inicio</a>
+        
+        <button class="menu-toggle" id="menuToggle" aria-label="Menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <nav id="navMenu">
+            <a href="#inicio" class="active">Inicio</a>
             <a href="#versiculos">Versículos</a>
             <a href="#oracion">Oración</a>
             <a href="#contacto">Contacto</a>
         </nav>
+        
+        <div class="header-actions">
+            <button class="btn-modo-oscuro" id="btnModoOscuro" aria-label="Cambiar modo oscuro">
+                <span id="iconoModo">🌙</span>
+            </button>
+        </div>
     </header>
-<section class="versiculo-del-dia">
-    <div class="versiculo-dia-container">
-        <span class="versiculo-dia-etiqueta">Versículo del Día</span>
-        <p id="texto-dia" class="versiculo-dia-texto">Cargando palabra de vida...</p>
-        <span id="cita-dia" class="versiculo-dia-cita"></span>
-    </div>
-</section>
+
+    <section class="versiculo-del-dia">
+        <div class="versiculo-dia-container">
+            <span class="versiculo-dia-etiqueta">Versículo del Día</span>
+            <p id="texto-dia" class="versiculo-dia-texto">Cargando palabra de vida...</p>
+            <span id="cita-dia" class="versiculo-dia-cita"></span>
+        </div>
+    </section>
+
     <section class="hero" id="inicio">
         <div class="hero-content">
             <h1>Dios es Amor</h1>
@@ -37,8 +52,7 @@
 
     <section class="versiculos" id="versiculos">
         <h2>Alimento para el Alma</h2>
-        <div class="categorias-container" id="contenedorBotones">
-            </div>
+        <div class="categorias-container" id="contenedorBotones"></div>
         <div class="card-versiculo">
             <p id="texto-biblico">Selecciona una categoría para recibir una promesa...</p>
             <span id="cita-biblica"></span>
