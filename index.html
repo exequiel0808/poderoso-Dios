@@ -42,13 +42,27 @@
         </div>
     </section>
 
-    <section class="hero" id="inicio">
-        <div class="hero-content">
-            <h1>Dios es Amor</h1>
-            <p>Un espacio para fortalecer tu fe y encontrar descanso en Su palabra.</p>
-            <a href="#versiculos" class="btn-cat">📖 Leer la Palabra</a>
-        </div>
-    </section>
+   <section class="hero" id="inicio">
+    <!-- Control de Música -->
+    <div class="control-musica">
+        <button class="btn-musica" id="btnMusica">
+            <span class="musica-icon">🎵</span>
+            <span class="musica-texto">Música</span>
+        </button>
+    </div>
+
+    <!-- Audio oculto -->
+    <audio id="audioFondo" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-slowmotion.mp3" type="audio/mpeg">
+        Tu navegador no soporta audio.
+    </audio>
+
+    <div class="hero-content">
+        <h1>Dios es Amor</h1>
+        <p>Un espacio para fortalecer tu fe y encontrar descanso en Su palabra.</p>
+        <a href="#versiculos" class="btn-cat">📖 Leer la Palabra</a>
+    </div>
+</section>
 
     <section class="versiculos" id="versiculos">
         <h2>Alimento para el Alma</h2>
