@@ -277,4 +277,59 @@ if (formContacto) {
 window.addEventListener("load", () => {
     cargarVersiculoDiario();
     cargarCategorias();
+    // ==========================================
+// CONTROL DE MÚSICA DE AMBIENTE
+// ==========================================
+const btnMusica = document.getElementById('btnMusica');
+const audioFondo = document.getElementById('audioFondo');
+
+// Estado inicial: música pausada
+let musicaActiva = false;
+
+if (btnMusica && audioFondo) {
+    // Configurar volumen inicial (50%)
+    audioFondo.volume = 0.3;
+
+    btnMusica.addEventListener('click', () => {
+        if (musicaActiva) {
+            // Pausar música
+            audioFondo.pause();
+            btnMusica.classList.remove('activo');
+            btnMusica.querySelector('.musica-icon').textContent = '🎵';
+            musicaActiva = false;
+        } else {
+            // Reproducir música
+            audioFondo.play().catch(error => {
+                console.log('Error reproduciendo audio:', error);
+                alert('No se pudo reproducir la música. Algunos navegadores requieren interacción del usuario primero.');
+            });
+            btnMusica.classList.add('activo');
+            btnMusica.querySelector('.musica-icon').textContent = '🔊';
+            musicaActiva = true;
+        }
+    });
+
+    // Guardar preferencia del usuario
+    const musicaGuardada = localStorage.getItem('musicaActiva');
+    if (musicaGuardada === 'true') {
+        // Auto-reproducir si estaba activa (algunos navegadores lo bloquean)
+        setTimeout(() => {
+            audioFondo.play().catch(() => {
+                // Si falla, no hacemos nada
+            });
+            btnMusica.classList.add('activo');
+            btnMusica.querySelector('.musica-icon').textContent = '🔊';
+            musicaActiva = true;
+        }, 1000);
+    }
+
+    // Guardar estado al cambiar
+    audioFondo.addEventListener('play', () => {
+        localStorage.setItem('musicaActiva', 'true');
+    });
+
+    audioFondo.addEventListener('pause', () => {
+        localStorage.setItem('musicaActiva', 'false');
+    });
+}
 });
