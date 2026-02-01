@@ -20,7 +20,6 @@ html {
     --blanco: #ffffff;
     --texto-oscuro: #2d3748;
     --texto-gris: #718096;
-    --gradiente-hero: linear-gradient(135deg, rgba(26, 29, 62, 0.95) 0%, rgba(99, 102, 241, 0.85) 100%);
     --gradiente-card: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     --sombra-suave: 0 4px 20px rgba(0, 0, 0, 0.08);
     --sombra-media: 0 10px 40px rgba(0, 0, 0, 0.12);
@@ -114,36 +113,35 @@ nav a:hover::after {
    =================================================== */
 .hero {
     position: relative;
-    height: 85vh;
+    height: 90vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: var(--blanco);
-    overflow: hidden;
+    color: #ffffff;
     background: url('img/manos.jpg') no-repeat center center/cover;
 }
 
 .hero::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--gradiente-hero);
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.55),
+        rgba(0, 0, 0, 0.75)
+    );
     z-index: 1;
 }
 
 .hero-overlay {
     display: none;
 }
-
 .hero-content {
     position: relative;
     z-index: 2;
+    max-width: 800px;
     padding: 40px;
-    animation: fadeInUp 1s ease;
 }
 
 @keyframes fadeInUp {
@@ -159,21 +157,17 @@ nav a:hover::after {
 
 .hero-content h1 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 4.5rem;
-    margin-bottom: 1.5rem;
+    font-size: 4.8rem;
     font-weight: 700;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     letter-spacing: 1px;
+    margin-bottom: 20px;
 }
 
 .hero-content p {
-    font-size: 1.4rem;
-    margin-bottom: 40px;
+    font-size: 1.3rem;
     font-weight: 300;
+    line-height: 1.8;
     opacity: 0.95;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 /* ===================================================
@@ -204,43 +198,24 @@ nav a:hover::after {
 }
 
 .btn-cat {
-    background: var(--blanco);
-    border: 2px solid transparent;
-    color: var(--primario);
-    padding: 14px 32px;
-    border-radius: 50px;
-    cursor: pointer;
+    background: #ffffff;
+    color: #1a1d3e;
     font-weight: 600;
-    font-size: 0.95rem;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: var(--sombra-suave);
-    text-decoration: none;
-    position: relative;
-    overflow: hidden;
+    padding: 16px 36px;
+    border-radius: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    transition: all 0.3s ease;
 }
 
 .btn-cat::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: var(--gradiente-card);
-    transition: left 0.5s ease;
-    z-index: -1;
+    display: none; /* elimina el efecto raro */
 }
 
 .btn-cat:hover {
-    color: var(--blanco);
-    transform: translateY(-5px);
-    box-shadow: var(--sombra-media);
-    border-color: transparent;
+    transform: translateY(-3px);
+    box-shadow: 0 15px 45px rgba(0,0,0,0.35);
 }
 
-.btn-cat:hover::before {
-    left: 0;
-}
 
 .card-versiculo {
     background: var(--blanco);
