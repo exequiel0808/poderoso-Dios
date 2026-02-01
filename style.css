@@ -1383,3 +1383,49 @@ body.modo-oscuro .btn-modo-oscuro:hover {
         right: 60px !important;
     }
 }
+.predicas-seccion {
+    padding: 100px 6%;
+    text-align: center;
+    background: var(--fondo);
+}
+
+.predicas-seccion h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    color: var(--primario);
+    margin-bottom: 15px;
+}
+
+.predicas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--sombra-media);
+    background: #000;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Ajuste para Modo Oscuro */
+body.modo-oscuro .predicas-seccion {
+    background: #0f1419;
+}
