@@ -142,6 +142,7 @@ nav a:hover::after {
     z-index: 2;
     max-width: 800px;
     padding: 40px;
+    margin-bottom: 100px;
 }
 
 @keyframes fadeInUp {
@@ -198,13 +199,11 @@ nav a:hover::after {
 }
 
 .btn-cat {
-    background: #ffffff;
-    color: #1a1d3e;
-    font-weight: 600;
-    padding: 16px 36px;
-    border-radius: 40px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.15); /* Fondo semi-transparente */
+    backdrop-filter: blur(5px);           /* Efecto de cristalizado */
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: white;
+    margin-top: 30px;                     /* Espacio extra sobre el botón */
 }
 
 .btn-cat::before {
@@ -212,8 +211,8 @@ nav a:hover::after {
 }
 
 .btn-cat:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 45px rgba(0,0,0,0.35);
+    background: var(--blanco);
+    color: var(--primario);
 }
 
 
