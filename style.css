@@ -1429,3 +1429,29 @@ body.modo-oscuro .btn-modo-oscuro:hover {
 body.modo-oscuro .predicas-seccion {
     background: #0f1419;
 }
+/* Contenedor principal con esquinas redondeadas */
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* Relación 16:9 */
+    border-radius: 20px;
+    overflow: hidden; /* Esto corta lo que sobra */
+    box-shadow: var(--sombra-media);
+    background: #000;
+}
+
+/* El "limpiador" que estira el video para sacar los logos de cuadro */
+.video-cleaner {
+    position: absolute;
+    top: -5%;    /* Empuja hacia arriba el logo de arriba */
+    left: -5%;   /* Empuja a la izquierda */
+    width: 110%; /* Lo hace más ancho para ocultar los lados */
+    height: 110%;/* Lo hace más alto */
+}
+
+.video-cleaner iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    pointer-events: auto;
+}
