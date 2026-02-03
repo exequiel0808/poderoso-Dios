@@ -552,3 +552,118 @@ body.modo-oscuro #cita-biblica {
     margin-top: 20px;
     display: block;
 }
+
+/* ==========================================================================
+   14. REGLAS DE RESPONSIVIDAD (MOBILE FIRST ADAPTATION)
+   ========================================================================== */
+
+/* --- Pantallas Medianas y Móviles (Hasta 768px) --- */
+@media (max-width: 768px) {
+    
+    /* 1. Navbar y Logo */
+    .navbar {
+        padding: 0 5%;
+        height: 70px;
+    }
+
+    .logo {
+        font-size: 1.4rem;
+    }
+
+    .nav-links {
+        display: none; /* Se oculta para usar menú lateral/hamburguesa */
+    }
+
+    .menu-toggle {
+        display: block !important;
+        font-size: 1.5rem;
+        color: white;
+        cursor: pointer;
+        background: none;
+        border: none;
+    }
+
+    /* 2. Hero Section (Dios es Amor) */
+    .hero-content h1 {
+        font-size: 2.5rem !important;
+        margin-top: 40px;
+        line-height: 1.2;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+        padding: 0 15px;
+        line-height: 1.5;
+    }
+
+    /* 3. Botones Adaptables (Stack Vertical) */
+    .hero-btns {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .btn-gold, 
+    .btn-outline {
+        width: 85%;
+        margin: 0 !important;
+        padding: 15px 0;
+        text-align: center;
+    }
+
+    /* 4. Control de Música Flotante */
+    .control-musica {
+        top: 85px;
+        right: 15px;
+    }
+
+    .btn-musica {
+        padding: 8px 15px;
+        font-size: 0.75rem;
+    }
+
+    /* 5. Ajustes de Espaciado en Secciones */
+    .section {
+        padding: 60px 0;
+    }
+
+    .title-gold {
+        font-size: 2.2rem !important;
+        padding: 0 10px;
+    }
+
+    .about-card {
+        padding: 30px 20px;
+        margin: 0 15px;
+    }
+
+    /* 6. Formulario y Grid de Contacto */
+    .contacto-wrapper {
+        grid-template-columns: 1fr; /* Apilado vertical */
+        gap: 30px;
+    }
+
+    .contacto-form-card {
+        padding: 25px;
+        margin: 0 10px;
+    }
+}
+
+/* --- Pantallas Extra Pequeñas (Hasta 380px) --- */
+@media (max-width: 380px) {
+    .hero-content h1 {
+        font-size: 2rem !important;
+    }
+
+    .logo {
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+    }
+
+    .btn-gold, 
+    .btn-outline {
+        width: 95%;
+        font-size: 0.9rem;
+    }
+}
