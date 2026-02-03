@@ -14,46 +14,11 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // ==========================================
-// 1. MODO OSCURO (Súper Compatible)
+// MODO OSCURO
 // ==========================================
 const btnModoOscuro = document.getElementById('btnModoOscuro');
 const iconoModo = document.getElementById('iconoModo');
 
-/**
- * Actualiza visualmente el botón y la clase del cuerpo
- * @param {boolean} esOscuro 
- */
-function actualizarInterfazModo(esOscuro) {
-    if (!iconoModo) return; // Seguridad
-
-    document.body.classList.toggle('modo-oscuro', esOscuro);
-
-    const esEmoji = iconoModo.tagName === 'SPAN';
-    const esIcono = iconoModo.tagName === 'I';
-
-    if (esOscuro) {
-        if (esEmoji) iconoModo.textContent = '☀️';
-        if (esIcono) iconoModo.className = 'fas fa-sun';
-    } else {
-        if (esEmoji) iconoModo.textContent = '🌙';
-        if (esIcono) iconoModo.className = 'fas fa-moon';
-    }
-}
-
-// Inicialización: Cargar preferencia guardada
-const preferenciaGuardada = localStorage.getItem('modoOscuro') === 'true';
-actualizarInterfazModo(preferenciaGuardada);
-
-// Evento de clic
-if (btnModoOscuro) {
-    btnModoOscuro.addEventListener('click', () => {
-        const estadoActual = document.body.classList.contains('modo-oscuro');
-        const nuevoEstado = !estadoActual;
-        
-        actualizarInterfazModo(nuevoEstado);
-        localStorage.setItem('modoOscuro', nuevoEstado);
-    });
-}
 // Cargar preferencia guardada
 if (localStorage.getItem('modoOscuro') === 'true') {
     document.body.classList.add('modo-oscuro');
@@ -199,168 +164,166 @@ async function cargarVersiculoDiario() {
     cita.textContent = "Salmos 119:105";
   }
 }
-// ==========================================
-// 2. NAVEGACIÓN Y MENÚ MÓVIL
-// ==========================================
-function inicializarMenuMovil() {
-    const menuToggle = document.getElementById('menuToggle');
-    const navMenu = document.getElementById('navMenu');
-    const header = document.querySelector('.navbar');
-
-    if (menuToggle && navMenu) {
-        menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            const icon = menuToggle.querySelector('i');
-            if (icon) icon.classList.toggle('fa-times');
-        });
-
-        // Cerrar menú al hacer click en un enlace
-        navMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                const icon = menuToggle.querySelector('i');
-                if (icon) icon.classList.remove('fa-times');
-            });
-        });
-    }
-
-    // Efecto de scroll en Header
-    window.addEventListener('scroll', () => {
-        if (header) header.classList.toggle('scrolled', window.scrollY > 50);
-    });
-}
 
 // ==========================================
-// 3. ACORDEÓN DE FE (FAQ)
-// ==========================================
-function inicializarAcordeon() {
-    const faqItems = document.querySelectorAll('.faq-item');
-    
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        const answer = item.querySelector('.faq-answer');
-
-        if (question && answer) {
-            question.addEventListener('click', () => {
-                const isCurrentlyOpen = answer.style.display === 'block';
-
-                // Cerrar todos los demás para un efecto limpio
-                document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
-                document.querySelectorAll('.faq-question i').forEach(i => {
-                    i.classList.replace('fa-minus', 'fa-plus');
-                });
-
-                // Abrir el actual si estaba cerrado
-                if (!isCurrentlyOpen) {
-                    answer.style.display = 'block';
-                    question.querySelector('i').classList.replace('fa-plus', 'fa-minus');
-                }
-            });
-        }
-    });
-}
-
-// ==========================================
-// 4. VERSÍCULO DEL DÍA (API JSON)
-// ==========================================
-async function cargarVersiculoDiario() {
-    const URL_JSON = "https://raw.githubusercontent.com/exequiel0808/poderoso-Dios/main/biblia-completa-rv1960.json";
-    const contenedorTexto = document.getElementById("texto-dia");
-    const contenedorCita = document.getElementById("cita-dia");
-
-    if (!contenedorTexto) return;
-
-    try {
-        const res = await fetch(`${URL_JSON}?v=${new Date().getDate()}`);
-        const data = await res.json();
-        const todosLosVersiculos = [];
-        
-        // Aplanamiento del JSON para selección aleatoria
-        Object.values(data).forEach(libro => {
-            libro.chapters.forEach(cap => {
-                cap.verses.forEach(v => {
-                    todosLosVersiculos.push({ 
-                        texto: v.text, 
-                        cita: `${libro.book} ${cap.chapter}:${v.verse}` 
-                    });
-                });
-            });
-        });
-
-        const random = todosLosVersiculos[Math.floor(Math.random() * todosLosVersiculos.length)];
-        contenedorTexto.textContent = `"${random.texto}"`;
-        if (contenedorCita) contenedorCita.textContent = random.cita;
-
-    } catch (error) {
-        console.error("Error cargando versículo:", error);
-        contenedorTexto.textContent = "Lámpara es a mis pies tu palabra...";
-        if (contenedorCita) contenedorCita.textContent = "Salmos 119:105";
-    }
-}
-
-// ==========================================
-// 5. CONTROL DE MÚSICA AMBIENTAL
-// ==========================================
-function inicializarMusica() {
-    const btnMusica = document.getElementById('btnMusica');
-    const audio = document.getElementById('audioFondo');
-
-    if (!btnMusica || !audio) return;
-
-    audio.volume = 0.3; // Volumen suave por defecto
-
-    btnMusica.addEventListener('click', () => {
-        const isPaused = audio.paused;
-        
-        if (isPaused) {
-            audio.play();
-            btnMusica.classList.add('activo');
-            btnMusica.querySelector('span').textContent = 'Pausar Paz';
-        } else {
-            audio.pause();
-            btnMusica.classList.remove('activo');
-            btnMusica.querySelector('span').textContent = 'Música de Paz';
-        }
-    });
-}
-
-// ==========================================
-// 6. CARGA DE CATEGORÍAS (Firebase / Dinámico)
+// CARGAR CATEGORÍAS
 // ==========================================
 async function cargarCategorias() {
     const contenedor = document.getElementById("contenedorBotones");
-    const displayTexto = document.getElementById("texto-biblico");
-    const displayCita = document.getElementById("cita-biblica");
-
+    const textoBiblico = document.getElementById("texto-biblico");
+    const citaBiblica = document.getElementById("cita-biblica");
+    
     if (!contenedor) return;
 
-    try {
-        // Nota: Asegúrate de que 'db' y 'getDocs' estén disponibles globalmente
-        const querySnapshot = await getDocs(collection(db, "categorias"));
-        contenedor.innerHTML = "";
+    contenedor.innerHTML = `
+        <div class="loader-container">
+            <div class="corazon-latido">❤️</div>
+            <p class="cargando-texto">Buscando promesas para ti...</p>
+        </div>`;
 
-        querySnapshot.forEach(doc => {
-            const data = doc.data();
+    try {
+        const snapshot = await getDocs(collection(db, "categorias"));
+        contenedor.innerHTML = "";
+        
+        snapshot.forEach(doc => {
+            const datos = doc.data();
             const btn = document.createElement("button");
-            
-            btn.className = "btn-cat-dinamico";
-            btn.textContent = data.nombre;
-            
-            btn.onclick = () => {
-                // Efecto de transición suave
-                if (displayTexto) {
-                    displayTexto.style.opacity = 0;
-                    setTimeout(() => {
-                        displayTexto.textContent = data.texto;
-                        if (displayCita) displayCita.textContent = data.cita;
-                        displayTexto.style.opacity = 1;
-                    }, 300);
-                }
-            };
+            btn.className = "btn-cat";
+            btn.textContent = datos.nombre;
+            btn.addEventListener("click", () => {
+                textoBiblico.style.opacity = 0;
+                setTimeout(() => {
+                    textoBiblico.textContent = datos.texto;
+                    citaBiblica.textContent = datos.cita;
+                    textoBiblico.style.opacity = 1;
+                }, 300);
+            });
             contenedor.appendChild(btn);
         });
     } catch (error) {
-        console.warn("Firebase no detectado o error de red. Usando marcadores de posición.");
-        contenedor.innerHTML = "<p style='opacity:0.6'>Conectando con la palabra...</p>";
+        console.error("Error Firebase:", error);
+        contenedor.innerHTML = "<p>El servicio está descansando por hoy. Por favor, vuelve mañana para ver más versículos.</p>";
     }
 }
+
+// ==========================================
+// FORMULARIO DE ORACIÓN
+// ==========================================
+const formOracion = document.getElementById("formOracion");
+if (formOracion) {
+    formOracion.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const btn = formOracion.querySelector("button");
+        btn.textContent = "Enviando...";
+        btn.disabled = true;
+
+        try {
+            await addDoc(collection(db, "oraciones"), {
+                nombre: document.getElementById("nombreInput").value.trim(),
+                peticion: document.getElementById("peticionInput").value.trim(),
+                fecha: serverTimestamp()
+            });
+            alert("🙏 Tu petición ha sido recibida. Estaremos orando por ti.");
+            formOracion.reset();
+        } catch (error) {
+            console.error("Error:", error);
+            alert("❌ Lo sentimos, el límite de peticiones diarias se ha alcanzado. Intenta de nuevo mañana.");
+        } finally {
+            btn.textContent = "Enviar petición 🙏";
+            btn.disabled = false;
+        }
+    });
+}
+
+// ==========================================
+// FORMULARIO DE CONTACTO
+// ==========================================
+const formContacto = document.getElementById("formContacto");
+if (formContacto) {
+    formContacto.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const btn = formContacto.querySelector(".btn-azul-mensaje");
+        btn.textContent = "Enviando...";
+        btn.disabled = true;
+
+        try {
+            await addDoc(collection(db, "contacto"), {
+                nombre: document.getElementById("nombreC").value.trim(),
+                email: document.getElementById("emailC").value.trim(),
+                mensaje: document.getElementById("mensajeC").value.trim(),
+                fecha: serverTimestamp()
+            });
+            alert("📩 Mensaje enviado con éxito.");
+            formContacto.reset();
+        } catch (error) {
+            console.error("Error:", error);
+            alert("❌ Hubo un error al enviar el mensaje.");
+        } finally {
+            btn.textContent = "Enviar mensaje";
+            btn.disabled = false;
+        }
+    });
+}
+
+// ==========================================
+// INICIALIZACIÓN
+// ==========================================
+window.addEventListener("load", () => {
+    cargarVersiculoDiario();
+    cargarCategorias();
+    // ==========================================
+// CONTROL DE MÚSICA DE AMBIENTE
+// ==========================================
+const btnMusica = document.getElementById('btnMusica');
+const audioFondo = document.getElementById('audioFondo');
+
+// Estado inicial: música pausada
+let musicaActiva = false;
+
+if (btnMusica && audioFondo) {
+    // Configurar volumen inicial (50%)
+    audioFondo.volume = 0.3;
+
+    btnMusica.addEventListener('click', () => {
+        if (musicaActiva) {
+            // Pausar música
+            audioFondo.pause();
+            btnMusica.classList.remove('activo');
+            btnMusica.querySelector('.musica-icon').textContent = '🎵';
+            musicaActiva = false;
+        } else {
+            // Reproducir música
+            audioFondo.play().catch(error => {
+                console.log('Error reproduciendo audio:', error);
+                alert('No se pudo reproducir la música. Algunos navegadores requieren interacción del usuario primero.');
+            });
+            btnMusica.classList.add('activo');
+            btnMusica.querySelector('.musica-icon').textContent = '🔊';
+            musicaActiva = true;
+        }
+    });
+
+    // Guardar preferencia del usuario
+    const musicaGuardada = localStorage.getItem('musicaActiva');
+    if (musicaGuardada === 'true') {
+        // Auto-reproducir si estaba activa (algunos navegadores lo bloquean)
+        setTimeout(() => {
+            audioFondo.play().catch(() => {
+                // Si falla, no hacemos nada
+            });
+            btnMusica.classList.add('activo');
+            btnMusica.querySelector('.musica-icon').textContent = '🔊';
+            musicaActiva = true;
+        }, 1000);
+    }
+
+    // Guardar estado al cambiar
+    audioFondo.addEventListener('play', () => {
+        localStorage.setItem('musicaActiva', 'true');
+    });
+
+    audioFondo.addEventListener('pause', () => {
+        localStorage.setItem('musicaActiva', 'false');
+    });
+}
+});
