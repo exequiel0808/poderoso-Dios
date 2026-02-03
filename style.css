@@ -667,3 +667,41 @@ body.modo-oscuro #cita-biblica {
         font-size: 0.9rem;
     }
 }
+.versiculo-del-dia {
+    background: linear-gradient(135deg, var(--azul-deep) 0%, var(--azul-prime) 100%);
+    padding: 40px 6%;
+    text-align: center;
+    color: white;
+    margin-top: 85px; /* Para que no lo tape la navbar */
+}
+
+.versiculo-dia-etiqueta {
+    display: inline-block;
+    background: rgba(197, 160, 89, 0.2);
+    color: var(--dorado-lux);
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+    border: 1px solid var(--dorado-lux);
+}
+
+.versiculo-dia-texto {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-style: italic;
+    max-width: 850px;
+    margin: 0 auto 15px;
+    line-height: 1.4;
+    color: white;
+}
+
+.versiculo-dia-cita {
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--dorado-lux);
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
