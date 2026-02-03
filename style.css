@@ -404,3 +404,81 @@ body.modo-oscuro .input-group-lux textarea {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
+/* ==========================================================================
+   11. VISIBILIDAD INTELIGENTE (ADAPTACIÓN DE COLOR)
+   ========================================================================== */
+
+/* Colores base para Modo Claro */
+.section h2, .section p, 
+.about-card h3, .about-card p, 
+.contacto-info-box h4, .contacto-info-box p, 
+.input-group-lux label {
+    color: var(--azul-prime);
+    transition: color 0.3s ease;
+}
+
+/* Cambio automático a BLANCO en Modo Oscuro */
+body.modo-oscuro .section h2, 
+body.modo-oscuro .section p:not(.testimonio-text), 
+body.modo-oscuro .about-card h3, 
+body.modo-oscuro .about-card p,
+body.modo-oscuro .contacto-info-box h4, 
+body.modo-oscuro .contacto-info-box p,
+body.modo-oscuro .input-group-lux label,
+body.modo-oscuro .title-gold {
+    color: white !important;
+}
+
+/* Resaltado Dorado Permanente */
+body.modo-oscuro .title-gold, 
+body.modo-oscuro .card-icon {
+    color: var(--dorado-lux) !important;
+}
+
+/* ==========================================================================
+   12. CATEGORÍAS Y BOTONES DINÁMICOS
+   ========================================================================== */
+.categorias-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+/* Botones generados por Script */
+.categorias-container button, 
+.btn-cat-dinamico {
+    background: var(--azul-prime);
+    color: white;
+    padding: 12px 25px;
+    border: 2px solid var(--azul-prime);
+    border-radius: 50px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: capitalize;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.categorias-container button:hover {
+    background: var(--dorado-lux);
+    border-color: var(--dorado-lux);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(197, 160, 89, 0.3);
+}
+
+.categorias-container button.active {
+    background: var(--dorado-lux);
+    border-color: var(--blanco);
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+}
+
+body.modo-oscuro .categorias-container button {
+    background: rgba(255,255,255,0.1);
+    border-color: var(--dorado-lux);
+}
+#texto-biblico, #cita-biblica {
+    transition: opacity 0.4s ease-in-out;
+}
