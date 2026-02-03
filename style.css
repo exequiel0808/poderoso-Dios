@@ -12,8 +12,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Montserrat:wght@300;400;600;700&display=swap');
 
 :root {
-  --azul-prime: #002d5b;
-  --azul-deep: #001a33;
+  --azul-prime: #0b2a57;
+  --azul-deep: #061a33;
+  --azul-medio: #154a7d;
   --dorado-lux: #c5a059;
   --blanco-puro: #ffffff;
   --sombra-soft: 0 10px 30px rgba(0,0,0,0.1);
@@ -103,7 +104,7 @@ nav a:hover::after {
    =================================================== */
 .hero {
   height: 100vh;
-  background: linear-gradient(rgba(0, 26, 51, 0.6), rgba(0, 26, 51, 0.8)), url('https://images.unsplash.com/photo-1515162305285-0293e4767cc2?q=80&w=2071&auto=format&fit=crop');
+  background: linear-gradient(rgba(6, 26, 51, 0.7), rgba(11, 42, 87, 0.8)), url('https://images.unsplash.com/photo-1515162305285-0293e4767cc2?q=80&w=2071&auto=format&fit=crop');
   background-size: cover;
   background-attachment: fixed;
   display: flex;
@@ -158,16 +159,41 @@ nav a:hover::after {
     margin-top: 50px;
 }
 
+/* BOTONES DE CATEGORÍA MEJORADOS */
 .btn-cat {
-   background: var(--azul-prime);
-  color: white;
-  padding: 18px 45px;
-  text-decoration: none;
-  font-weight: 700;
-  border-radius: 50px;
-  box-shadow: 0 10px 20px rgba(0, 45, 91, 0.3);
-  transition: 0.4s;
-  display: inline-block;
+    background: var(--azul-prime);
+    color: white;
+    padding: 18px 45px;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 50px;
+    border: 2px solid var(--azul-prime);
+    box-shadow: 0 10px 20px rgba(11, 42, 87, 0.3);
+    transition: all 0.4s ease;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.btn-cat:hover {
+    background: var(--dorado-lux);
+    border-color: var(--dorado-lux);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(197, 160, 89, 0.4);
+    color: white;
+}
+
+/* MODO OSCURO - Botones de categoría */
+body.modo-oscuro .btn-cat {
+    background: var(--azul-medio);
+    border-color: var(--azul-medio);
+    color: white;
+    box-shadow: 0 10px 20px rgba(21, 74, 125, 0.5);
+}
+
+body.modo-oscuro .btn-cat:hover {
+    background: var(--dorado-lux);
+    border-color: var(--dorado-lux);
+    box-shadow: 0 15px 25px rgba(197, 160, 89, 0.6);
 }
 
 /* --- SECCIONES ELEGANTES --- */
@@ -233,13 +259,7 @@ footer {
   text-align: center;
 }
 
-.btn-cat:hover {
-  background: var(--dorado-lux);
-  transform: translateY(-5px);
-  box-shadow: 0 15px 25px rgba(197, 160, 89, 0.4);
-}
-
-
+/* TARJETA DE VERSÍCULO MEJORADA CON BORDE VISIBLE */
 .card-versiculo {
     background: var(--blanco);
     padding: 60px 50px;
@@ -247,7 +267,7 @@ footer {
     box-shadow: var(--sombra-media);
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 3px solid var(--azul-prime);
     transition: all 0.3s ease;
 }
 
@@ -258,13 +278,24 @@ footer {
     left: 30px;
     font-size: 120px;
     font-family: 'Cormorant Garamond', serif;
-    color: rgba(212, 175, 55, 0.15);
+    color: rgba(11, 42, 87, 0.1);
     line-height: 1;
 }
 
 .card-versiculo:hover {
     transform: translateY(-5px);
     box-shadow: var(--sombra-fuerte);
+    border-color: var(--dorado-lux);
+}
+
+/* MODO OSCURO - Tarjeta de versículo */
+body.modo-oscuro .card-versiculo {
+    background: #1a202c;
+    border-color: var(--azul-medio);
+}
+
+body.modo-oscuro .card-versiculo:hover {
+    border-color: var(--dorado-lux);
 }
 
 #texto-biblico {
@@ -291,10 +322,10 @@ footer {
 }
 
 /* ===================================================
-   5. SECCIÓN ORACIÓN CON FONDO DEGRADADO
+   5. SECCIÓN ORACIÓN - AZUL OSCURO EN LUGAR DE MORADO
    =================================================== */
 .oracion-final {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--azul-deep) 0%, var(--azul-prime) 100%);
     padding: 100px 6%;
     text-align: center;
     color: var(--blanco);
@@ -309,7 +340,7 @@ footer {
     right: -10%;
     width: 500px;
     height: 500px;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(197, 160, 89, 0.05);
     border-radius: 50%;
 }
 
@@ -320,7 +351,7 @@ footer {
     left: -5%;
     width: 400px;
     height: 400px;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(197, 160, 89, 0.05);
     border-radius: 50%;
 }
 
@@ -372,21 +403,20 @@ footer {
 
 #formOracion .btn-cat {
     background: var(--blanco);
-    color: var(--acento);
-    border: none;
+    color: var(--azul-deep);
+    border: 2px solid var(--blanco);
     padding: 18px 40px;
     font-size: 1.05rem;
     font-weight: 700;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
-#formOracion .btn-cat::before {
-    background: linear-gradient(135deg, #1a1d3e 0%, #6366f1 100%);
-}
-
 #formOracion .btn-cat:hover {
     transform: translateY(-3px) scale(1.02);
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+    background: var(--dorado-lux);
+    border-color: var(--dorado-lux);
+    color: white;
 }
 
 /* ===================================================
@@ -440,7 +470,7 @@ footer {
 .info-icon {
     width: 60px;
     height: 60px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--azul-prime) 0%, var(--azul-medio) 100%);
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -495,13 +525,13 @@ footer {
 
 .form-group input:focus,
 .form-group textarea:focus {
-    border-color: var(--acento);
-    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    border-color: var(--azul-prime);
+    box-shadow: 0 0 0 4px rgba(11, 42, 87, 0.1);
 }
 
 .btn-azul-mensaje {
     width: 100%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--azul-prime) 0%, var(--azul-medio) 100%);
     color: white;
     border: none;
     padding: 18px;
@@ -510,19 +540,19 @@ footer {
     font-size: 1.05rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 8px 20px rgba(11, 42, 87, 0.3);
 }
 
 .btn-azul-mensaje:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 12px 30px rgba(11, 42, 87, 0.4);
 }
 
 /* ===================================================
    7. FOOTER ELEGANTE Y OSCURO
    =================================================== */
 .footer-principal {
-    background: linear-gradient(135deg, #1a1d3e 0%, #2d3748 100%);
+    background: linear-gradient(135deg, var(--azul-deep) 0%, #2d3748 100%);
     color: var(--blanco);
     padding: 80px 6% 30px;
     position: relative;
@@ -650,10 +680,10 @@ footer {
 }
 
 /* ===================================================
-   9. VERSÍCULO DEL DÍA
+   9. VERSÍCULO DEL DÍA - AZUL EN LUGAR DE MORADO
    =================================================== */
 .versiculo-del-dia {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--azul-deep) 0%, var(--azul-prime) 100%);
     padding: 30px 6%;
     text-align: center;
     color: var(--blanco);
@@ -695,7 +725,7 @@ footer {
 
 .versiculo-dia-etiqueta {
     display: inline-block;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(197, 160, 89, 0.2);
     padding: 8px 20px;
     border-radius: 20px;
     font-size: 0.85rem;
@@ -703,6 +733,7 @@ footer {
     letter-spacing: 1px;
     margin-bottom: 15px;
     text-transform: uppercase;
+    border: 1px solid rgba(197, 160, 89, 0.4);
 }
 
 .versiculo-dia-texto {
@@ -729,9 +760,9 @@ footer {
    10. MODO OSCURO
    =================================================== */
 .btn-modo-oscuro {
-    background: rgba(99, 102, 241, 0.1);
-    border: 2px solid rgba(99, 102, 241, 0.3);
-    color: var(--primario);
+    background: rgba(11, 42, 87, 0.1);
+    border: 2px solid rgba(11, 42, 87, 0.3);
+    color: var(--azul-prime);
     padding: 10px 18px;
     border-radius: 50px;
     cursor: pointer;
@@ -741,10 +772,10 @@ footer {
 }
 
 .btn-modo-oscuro:hover {
-    background: var(--acento);
+    background: var(--azul-prime);
     color: var(--blanco);
     transform: scale(1.1) rotate(20deg);
-    border-color: var(--acento);
+    border-color: var(--azul-prime);
 }
 
 /* Estilos para modo oscuro */
@@ -777,27 +808,6 @@ body.modo-oscuro .contacto-info h2 {
     color: #e2e8f0;
 }
 
-body.modo-oscuro .btn-cat {
-    background: #1a202c;
-    color: #e2e8f0;
-    border-color: rgba(99, 102, 241, 0.3);
-}
-
-body.modo-oscuro .btn-cat:hover {
-    color: var(--blanco);
-}
-
-body.modo-oscuro .card-versiculo,
-body.modo-oscuro .contacto-card,
-body.modo-oscuro .info-item {
-    background: #1a202c;
-    border-color: rgba(255, 255, 255, 0.1);
-}
-
-body.modo-oscuro #texto-biblico {
-    color: #e2e8f0;
-}
-
 body.modo-oscuro .contacto-info p,
 body.modo-oscuro .info-text {
     color: #a0aec0;
@@ -824,7 +834,7 @@ body.modo-oscuro .form-group input:focus,
 body.modo-oscuro .form-group textarea:focus,
 body.modo-oscuro #formOracion input:focus,
 body.modo-oscuro #formOracion textarea:focus {
-    border-color: var(--acento);
+    border-color: var(--azul-medio);
     background: #1a202c;
 }
 
@@ -832,6 +842,10 @@ body.modo-oscuro .btn-modo-oscuro {
     background: rgba(212, 175, 55, 0.2);
     border-color: rgba(212, 175, 55, 0.4);
     color: var(--secundario);
+}
+
+body.modo-oscuro .info-icon {
+    background: linear-gradient(135deg, var(--azul-medio) 0%, var(--azul-prime) 100%);
 }
 
 /* ===================================================
@@ -845,9 +859,9 @@ body.modo-oscuro .btn-modo-oscuro {
 }
 
 .btn-musica {
-    background: rgba(255, 255, 255, 0.95);
-    border: 2px solid rgba(99, 102, 241, 0.3);
-    color: var(--primario);
+    background: rgba(11, 42, 87, 0.9);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
     padding: 12px 24px;
     border-radius: 50px;
     cursor: pointer;
@@ -857,21 +871,21 @@ body.modo-oscuro .btn-modo-oscuro {
     display: flex;
     align-items: center;
     gap: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .btn-musica:hover {
-    background: var(--acento);
+    background: var(--azul-medio);
     color: var(--blanco);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
-    border-color: var(--acento);
+    box-shadow: 0 6px 20px rgba(21, 74, 125, 0.4);
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
 .btn-musica.activo {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--azul-prime) 0%, var(--azul-medio) 100%);
     color: var(--blanco);
-    border-color: transparent;
+    border-color: var(--dorado-lux);
     animation: pulso 2s ease infinite;
 }
 
@@ -907,17 +921,17 @@ body.modo-oscuro .btn-modo-oscuro {
 
 .oracion-final .btn-musica.activo {
     background: rgba(255, 255, 255, 0.95);
-    color: var(--acento);
+    color: var(--azul-prime);
 }
 
 body.modo-oscuro .btn-musica {
     background: #1a202c;
     color: #e2e8f0;
-    border-color: rgba(99, 102, 241, 0.3);
+    border-color: rgba(21, 74, 125, 0.5);
 }
 
 body.modo-oscuro .btn-musica:hover {
-    background: var(--acento);
+    background: var(--azul-medio);
     color: var(--blanco);
 }
 
@@ -1049,42 +1063,9 @@ body.modo-oscuro .btn-musica:hover {
         font-size: 1.3rem;
     }
 }
-.versiculo-del-dia {
-    background: linear-gradient(135deg, #1a1d3e 0%, #6366f1 100%);
-    padding: 60px 6%;
-    text-align: center;
-    color: #ffffff;
-}
 
-.versiculo-dia-etiqueta {
-    display: inline-block;
-    background: rgba(212, 175, 55, 0.2);
-    color: #d4af37;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    margin-bottom: 20px;
-    border: 1px solid #d4af37;
-}
-
-.versiculo-dia-texto {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.2rem;
-    font-style: italic;
-    max-width: 800px;
-    margin: 0 auto 20px;
-    line-height: 1.4;
-}
-
-.versiculo-dia-cita {
-    font-weight: 600;
-    letter-spacing: 2px;
-    opacity: 0.8;
-}
 /* ===================================================
-   HEADER MINIMALISTA PREMIUM - REEMPLAZO
+   HEADER MINIMALISTA PREMIUM
    =================================================== */
 
 /* Variables actualizadas para header */
@@ -1092,16 +1073,16 @@ body.modo-oscuro .btn-musica:hover {
     --header-bg: #ffffff;
     --header-text: #1a1a1a;
     --header-border: rgba(0, 0, 0, 0.08);
-    --header-hover: #6366f1;
+    --header-hover: #0b2a57;
     --header-shadow: 0 2px 20px rgba(0, 0, 0, 0.04);
-    --logo-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    --logo-gradient: linear-gradient(135deg, #0b2a57 0%, #154a7d 100%);
 }
 
 body.modo-oscuro {
     --header-bg: #0f1419;
     --header-text: #ffffff;
     --header-border: rgba(255, 255, 255, 0.1);
-    --header-hover: #8b5cf6;
+    --header-hover: #c5a059;
     --header-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
 }
 
@@ -1138,7 +1119,7 @@ body.modo-oscuro {
     border-radius: 12px !important;
     padding: 8px !important;
     background: var(--logo-gradient) !important;
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2) !important;
+    box-shadow: 0 4px 12px rgba(11, 42, 87, 0.2) !important;
     transition: transform 0.3s ease !important;
     filter: none !important;
 }
@@ -1197,7 +1178,7 @@ nav a::after {
 
 nav a:hover {
     color: var(--header-hover) !important;
-    background: rgba(99, 102, 241, 0.06) !important;
+    background: rgba(11, 42, 87, 0.06) !important;
 }
 
 nav a:hover::before {
@@ -1206,7 +1187,7 @@ nav a:hover::before {
 
 nav a.active {
     color: var(--header-hover) !important;
-    background: rgba(99, 102, 241, 0.1) !important;
+    background: rgba(11, 42, 87, 0.1) !important;
 }
 
 nav a.active::before {
@@ -1223,8 +1204,8 @@ nav a.active::before {
 
 /* Botón modo oscuro actualizado */
 .btn-modo-oscuro {
-    background: rgba(99, 102, 241, 0.08) !important;
-    border: 1.5px solid rgba(99, 102, 241, 0.2) !important;
+    background: rgba(11, 42, 87, 0.08) !important;
+    border: 1.5px solid rgba(11, 42, 87, 0.2) !important;
     color: var(--header-text) !important;
     width: 44px !important;
     height: 44px !important;
@@ -1240,10 +1221,10 @@ nav a.active::before {
 }
 
 .btn-modo-oscuro:hover {
-    background: rgba(99, 102, 241, 0.15) !important;
-    border-color: rgba(99, 102, 241, 0.4) !important;
+    background: rgba(11, 42, 87, 0.15) !important;
+    border-color: rgba(11, 42, 87, 0.4) !important;
     transform: translateY(-2px) !important;
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2) !important;
+    box-shadow: 0 4px 12px rgba(11, 42, 87, 0.2) !important;
 }
 
 .btn-modo-oscuro:active {
@@ -1286,14 +1267,22 @@ nav a.active::before {
 
 /* Modo oscuro específico */
 body.modo-oscuro .btn-modo-oscuro {
-    background: rgba(139, 92, 246, 0.12) !important;
-    border-color: rgba(139, 92, 246, 0.3) !important;
+    background: rgba(197, 160, 89, 0.12) !important;
+    border-color: rgba(197, 160, 89, 0.3) !important;
 }
 
 body.modo-oscuro .btn-modo-oscuro:hover {
-    background: rgba(139, 92, 246, 0.2) !important;
-    border-color: rgba(139, 92, 246, 0.5) !important;
-    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3) !important;
+    background: rgba(197, 160, 89, 0.2) !important;
+    border-color: rgba(197, 160, 89, 0.5) !important;
+    box-shadow: 0 4px 12px rgba(197, 160, 89, 0.3) !important;
+}
+
+body.modo-oscuro nav a:hover {
+    background: rgba(197, 160, 89, 0.1) !important;
+}
+
+body.modo-oscuro nav a.active {
+    background: rgba(197, 160, 89, 0.15) !important;
 }
 
 /* Header con scroll */
@@ -1400,6 +1389,7 @@ body.modo-oscuro .btn-modo-oscuro:hover {
         right: 60px !important;
     }
 }
+
 .predicas-seccion {
     padding: 100px 6%;
     text-align: center;
@@ -1426,7 +1416,7 @@ body.modo-oscuro .btn-modo-oscuro:hover {
 .video-container {
     position: relative;
     width: 100%;
-    padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+    padding-bottom: 56.25%;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: var(--sombra-media);
@@ -1442,192 +1432,6 @@ body.modo-oscuro .btn-modo-oscuro:hover {
     border: none;
 }
 
-/* Ajuste para Modo Oscuro */
 body.modo-oscuro .predicas-seccion {
     background: #0f1419;
-}
-/* ============================= */
-/* DISEÑO PREMIUM IMPORTADO */
-/* ============================= */
-
-.section {
-  padding: 100px 10%;
-  text-align: center;
-}
-
-.section-dark {
-  background: #001f3f;
-  color: white;
-  padding: 100px 10%;
-}
-
-.title-gold {
-  font-family: 'Playfair Display', serif;
-  font-size: 3rem;
-  color: #0b2a57;
-  margin-bottom: 50px;
-}
-
-/* CARDS */
-.about-card {
-  background: white;
-  padding: 50px;
-  border-radius: 20px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-  border-top: 5px solid #c5a059;
-  transition: 0.3s;
-}
-.about-card:hover {
-  transform: scale(1.02);
-}
-
-/* FAQ */
-.faq-item {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(197,160,89,0.2);
-  margin-bottom: 15px;
-  border-radius: 12px;
-}
-.faq-question {
-  background: none;
-  width: 100%;
-  padding: 25px;
-  color: #c5a059;
-  font-family: 'Playfair Display', serif;
-  font-size: 1.3rem;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-}
-
-/* FOOTER PREMIUM */
-footer {
-  background: #000b1a;
-  color: #aaa;
-  padding: 60px 0;
-  text-align: center;
-}
-.header {
-  background: rgba(0,31,63,0.95);
-  backdrop-filter: blur(8px);
-}
-
-.header.scrolled {
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-/* ============================= */
-/* FIX BOTÓN DE MÚSICA */
-/* ============================= */
-
-.hero {
-  position: relative; /* referencia para el botón */
-}
-
-.control-musica {
-  position: absolute;
-  top: 30px;
-  right: 30px;
-  z-index: 50;
-}
-
-.btn-musica {
-  background: rgba(11, 42, 87, 0.9);
-  color: #fff;
-  border: 1px solid rgba(255,255,255,0.3);
-  padding: 10px 16px;
-  border-radius: 30px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  backdrop-filter: blur(6px);
-}
-
-.btn-musica:hover {
-  background: rgba(11, 42, 87, 1);
-}
-.navbar {
-  background: linear-gradient(90deg, #061a33, #0b2a57);
-  padding: 1.5rem 8%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.nav-links a {
-  color: white;
-  font-weight: 500;
-  text-decoration: none;
-}
-
-.nav-links a:hover {
-  color: var(--dorado-lux);
-}
-.logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.8rem;
-  letter-spacing: 1px;
-}
-
-.logo-azul {
-  color: #0b2a57;
-}
-
-.logo-dorado {
-  color: var(--dorado-lux);
-}
-.logo span {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.6rem;
-  font-weight: 700;
-}
-
-.logo-azul {
-  color: white;
-}
-
-.logo-dorado {
-  color: var(--dorado-lux);
-}
-.section-dark {
-  background: linear-gradient(180deg, var(--azul-deep), var(--azul-prime));
-  color: white;
-  padding: 100px 10%;
-}
-
-.title-gold {
-  font-family: 'Playfair Display', serif;
-  color: var(--dorado-lux);
-  font-size: 2.8rem;
-  margin-bottom: 50px;
-}
-.faq-item {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(197,160,89,0.25);
-  border-radius: 14px;
-  margin-bottom: 20px;
-  overflow: hidden;
-}
-
-.faq-question {
-  background: none;
-  border: none;
-  width: 100%;
-  padding: 22px;
-  color: var(--dorado-lux);
-  font-family: 'Playfair Display', serif;
-  font-size: 1.4rem;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-}
-
-.faq-answer {
-  display: none;
-  padding: 0 22px 22px;
-  color: #eee;
 }
