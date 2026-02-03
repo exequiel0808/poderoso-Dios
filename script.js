@@ -12,50 +12,193 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+
+// ==========================================
+// 1. MODO OSCURO (Súper Compatible)
+// ==========================================
+const btnModoOscuro = document.getElementById('btnModoOscuro');
+const iconoModo = document.getElementById('iconoModo');
+
 /**
- * SCRIPT MAESTRO - PODEROSO ES DIOS
- * Organización Unificada, Optimizada y Segura
+ * Actualiza visualmente el botón y la clase del cuerpo
+ * @param {boolean} esOscuro 
  */
+function actualizarInterfazModo(esOscuro) {
+    if (!iconoModo) return; // Seguridad
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Inicializar funciones críticas
-    inicializarModoOscuro();
-    inicializarMenuMovil();
-    inicializarMusica();
-    inicializarAcordeon();
-    
-    // Cargas asíncronas
-    cargarVersiculoDiario();
-    cargarCategorias();
-});
+    document.body.classList.toggle('modo-oscuro', esOscuro);
 
-// ==========================================
-// 1. GESTIÓN DE MODO OSCURO
-// ==========================================
-function inicializarModoOscuro() {
-    const btnModoOscuro = document.getElementById('btnModoOscuro');
-    const iconoModo = document.getElementById('iconoModo');
+    const esEmoji = iconoModo.tagName === 'SPAN';
+    const esIcono = iconoModo.tagName === 'I';
 
-    const aplicarTema = (esOscuro) => {
-        document.body.classList.toggle('modo-oscuro', esOscuro);
-        if (iconoModo) {
-            iconoModo.classList.replace(esOscuro ? 'fa-moon' : 'fa-sun', esOscuro ? 'fa-sun' : 'fa-moon');
-        }
-        localStorage.setItem('modoOscuro', esOscuro);
-    };
-
-    // Cargar preferencia guardada
-    const preferencia = localStorage.getItem('modoOscuro') === 'true';
-    if (preferencia) aplicarTema(true);
-
-    if (btnModoOscuro) {
-        btnModoOscuro.addEventListener('click', () => {
-            const esAhoraOscuro = !document.body.classList.contains('modo-oscuro');
-            aplicarTema(esAhoraOscuro);
-        });
+    if (esOscuro) {
+        if (esEmoji) iconoModo.textContent = '☀️';
+        if (esIcono) iconoModo.className = 'fas fa-sun';
+    } else {
+        if (esEmoji) iconoModo.textContent = '🌙';
+        if (esIcono) iconoModo.className = 'fas fa-moon';
     }
 }
 
+// Inicialización: Cargar preferencia guardada
+const preferenciaGuardada = localStorage.getItem('modoOscuro') === 'true';
+actualizarInterfazModo(preferenciaGuardada);
+
+// Evento de clic
+if (btnModoOscuro) {
+    btnModoOscuro.addEventListener('click', () => {
+        const estadoActual = document.body.classList.contains('modo-oscuro');
+        const nuevoEstado = !estadoActual;
+        
+        actualizarInterfazModo(nuevoEstado);
+        localStorage.setItem('modoOscuro', nuevoEstado);
+    });
+}
+// Cargar preferencia guardada
+if (localStorage.getItem('modoOscuro') === 'true') {
+    document.body.classList.add('modo-oscuro');
+    if (iconoModo) iconoModo.textContent = '☀️';
+}
+
+if (btnModoOscuro) {
+    btnModoOscuro.addEventListener('click', () => {
+        document.body.classList.toggle('modo-oscuro');
+        const esModoOscuro = document.body.classList.contains('modo-oscuro');
+        if (iconoModo) iconoModo.textContent = esModoOscuro ? '☀️' : '🌙';
+        localStorage.setItem('modoOscuro', esModoOscuro);
+    });
+}
+
+// ==========================================
+// MENÚ MÓVIL
+// ==========================================
+const menuToggle = document.getElementById('menuToggle');
+const navMenu = document.getElementById('navMenu');
+
+if (menuToggle && navMenu) {
+    menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+    
+    // Cerrar menú al hacer clic en un enlace
+    navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+    });
+}
+
+// ==========================================
+// HEADER SCROLL EFFECT
+// ==========================================
+window.addEventListener('scroll', () => {
+    const header = document.querySelector('.header');
+    if (!header) return;
+    
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll > 100) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+});
+
+// ==========================================
+// NAVEGACIÓN ACTIVA
+// ==========================================
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('nav a');
+
+window.addEventListener('scroll', () => {
+    let current = '';
+    
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= sectionTop - 200) {
+            current = section.getAttribute('id');
+        }
+    });
+    
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+            link.classList.add('active');
+        }
+    });
+});
+
+// ==========================================
+// VERSÍCULO DEL DÍA (CORREGIDO)
+// ==========================================
+async function cargarVersiculoDiario() {
+  const URL_JSON = "https://raw.githubusercontent.com/exequiel0808/poderoso-Dios/main/biblia-completa-rv1960.json";
+  const texto = document.getElementById("texto-dia");
+  const cita = document.getElementById("cita-dia");
+
+  if (!texto || !cita) {
+    console.error("❌ IDs del versículo no encontrados");
+    return;
+  }
+
+  try {
+    // Agregar timestamp para evitar caché
+    const cacheBuster = new Date().toISOString().slice(0, 10);
+    const res = await fetch(`${URL_JSON}?v=${cacheBuster}`);
+    
+    if (!res.ok) {
+      throw new Error(`Error HTTP: ${res.status}`);
+    }
+    
+    const data = await res.json();
+    
+    // Extraer todos los versículos
+    const versiculos = [];
+    
+    for (const libro in data) {
+      const bookData = data[libro];
+      if (bookData.chapters && Array.isArray(bookData.chapters)) {
+        bookData.chapters.forEach(chapter => {
+          if (chapter.verses && Array.isArray(chapter.verses)) {
+            chapter.verses.forEach(v => {
+              versiculos.push({
+                texto: v.text,
+                cita: `${bookData.book} ${chapter.chapter}:${v.verse}`
+              });
+            });
+          }
+        });
+      }
+    }
+
+    if (versiculos.length === 0) {
+      throw new Error("No se encontraron versículos en el JSON");
+    }
+
+
+    const diaDelAnio = Math.floor(Math.random() * versiculos.length);
+
+    // Seleccionar versículo basado en el día
+    const indice = diaDelAnio % versiculos.length;
+    const seleccionado = versiculos[indice];
+
+    // Mostrar versículo
+    texto.textContent = `"${seleccionado.texto}"`;
+    cita.textContent = seleccionado.cita;
+
+    console.log("✅ Versículo del día cargado:", seleccionado.cita);
+    console.log("📅 Día del año:", diaDelAnio);
+    console.log("📖 Total versículos:", versiculos.length);
+
+  } catch (error) {
+    console.error("❌ Error cargando versículo:", error);
+    texto.textContent = "Lámpara es a mis pies tu palabra, y lumbrera a mi camino.";
+    cita.textContent = "Salmos 119:105";
+  }
+}
 // ==========================================
 // 2. NAVEGACIÓN Y MENÚ MÓVIL
 // ==========================================
