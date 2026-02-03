@@ -21,10 +21,11 @@
         </div>
 
         <nav class="nav-links" id="navMenu">
-            <a href="#inicio" class="active">Inicio</a>
+            <a href="#inicio">Inicio</a>
+            <a href="#identidad">Identidad</a>
             <a href="#versiculos">Versículos</a>
             <a href="#predicas">Prédicas</a>
-            <a href="#oracion">Oración</a>
+            <a href="#fe">Fe</a>
             <a href="#contacto">Contacto</a>
         </nav>
 
@@ -32,49 +33,55 @@
             <button class="btn-modo-oscuro" id="btnModoOscuro" title="Cambiar Modo">
                 <i id="iconoModo" class="fas fa-moon"></i>
             </button>
-            <button class="menu-toggle" id="menuToggle">
-                <i class="fas fa-bars"></i>
-            </button>
         </div>
     </header>
 
     <main>
-        <section class="versiculo-del-dia">
-            <div class="versiculo-dia-container">
-                <span class="versiculo-dia-etiqueta">
-                    <i class="fas fa-star"></i> PALABRA DE HOY
-                </span>
-                <p id="texto-dia" class="versiculo-dia-texto">"Cargando palabra de vida..."</p>
-                <span id="cita-dia" class="versiculo-dia-cita"></span>
-            </div>
-        </section>
-
         <section class="hero" id="inicio">
-            <div class="hero-content">
-                <span class="pre-title">BIENVENIDO AL PORTAL</span>
-                <h1>Dios es Amor</h1>
-                <p>Un espacio sagrado para fortalecer tu fe, encontrar esperanza y descansar profundamente en Su Palabra eterna.</p>
-                <div class="hero-btns">
-                    <a href="#versiculos" class="btn-gold">📖 LEER PROMESAS</a>
-                    <a href="#oracion" class="btn-outline">🙏 PEDIR ORACIÓN</a>
-                </div>
-            </div>
-
             <div class="control-musica">
                 <button class="btn-musica" id="btnMusica">
                     <i class="fas fa-music"></i> <span>Música de Paz</span>
                 </button>
             </div>
+
             <audio id="audioFondo" loop>
                 <source src="https://www.bensound.com/bensound-music/bensound-memories.mp3" type="audio/mpeg">
             </audio>
+
+            <div class="hero-content">
+                <span class="pre-title">BIENVENIDO</span>
+                <h1>Dios es Amor</h1>
+                <p>Un espacio sagrado para fortalecer tu fe, encontrar esperanza y descansar profundamente en Su Palabra eterna.</p>
+                <div class="hero-btns">
+                    <a href="#versiculos" class="btn-gold">📖 LEER PALABRA</a>
+                    <a href="#oracion" class="btn-outline">🙏 PEDIR ORACIÓN</a>
+                </div>
+            </div>
         </section>
 
-        <section class="section" id="versiculos">
+        <section class="section" id="identidad">
+            <div class="container">
+                <h2 class="title-gold">Nuestra Identidad</h2>
+                <div class="grid-identidad">
+                    <div class="about-card">
+                        <i class="fas fa-cross card-icon"></i>
+                        <h3>Misión</h3>
+                        <p>Glorificar a Dios a través de la proclamación fiel de Su Palabra y el servicio al prójimo en amor y verdad.</p>
+                    </div>
+                    <div class="about-card">
+                        <i class="fas fa-dove card-icon"></i>
+                        <h3>Visión</h3>
+                        <p>Ser una comunidad que refleja la luz de Cristo, transformando vidas mediante el Evangelio en todo el mundo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="versiculos" style="background-color: #f4f7f6;">
             <div class="container">
                 <h2 class="title-gold">Alimento para el Alma</h2>
                 <div class="categorias-container" id="contenedorBotones"></div>
-                <div class="about-card card-versiculo">
+                <div class="card-versiculo">
                     <p id="texto-biblico">Selecciona una categoría para recibir una promesa de Dios...</p>
                     <span id="cita-biblica"></span>
                 </div>
@@ -89,90 +96,103 @@
                         <iframe src="https://www.youtube.com/embed/xKiBuxEiQyY" frameborder="0" allowfullscreen></iframe>
                     </div>
                     <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/OTRA_ID" frameborder="0" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/xKiBuxEiQyY" frameborder="0" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="section" id="faq">
+        <section class="section" id="fe">
             <div class="container">
                 <h2 class="title-gold">Fundamentos de Fe</h2>
                 <div class="faq-container">
                     <div class="faq-item">
-                        <button class="faq-question"> 
-                            ¿Quién es Dios? <i class="fas fa-plus"></i> 
+                        <button class="faq-question">
+                            ¿Quién es Dios? <i class="fas fa-plus"></i>
                         </button>
                         <div class="faq-answer">
-                            <p>Dios es el Creador eterno, santo e infinito en amor, quien se ha revelado a nosotros como nuestro Padre celestial a través de Jesucristo.</p>
+                            <p>Dios es el Creador eterno, santo e infinito en amor, quien se ha revelado como Padre, Hijo y Espíritu Santo.</p>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section-dark" id="oracion">
-            <div class="container" style="max-width: 700px;">
-                <h2>🙏 ¿Deseas que oremos por ti?</h2>
-                <form id="formOracion" class="contacto-card" style="background: rgba(255,255,255,0.05); border: 1px solid var(--dorado-lux); padding: 30px; border-radius: 15px; margin-top: 30px;">
-                    <input type="text" id="nombreInput" placeholder="Tu nombre completo" required 
-                           style="width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 8px; border: none;">
-                    
-                    <textarea id="peticionInput" rows="4" placeholder="Escribe aquí tu motivo de oración..." required 
-                              style="width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 8px; border: none;"></textarea>
-                    
-                    <button type="submit" class="btn-gold" style="width: 100%;">ENVIAR PETICIÓN 🙏</button>
-                </form>
-            </div>
-        </section>
-
-        <section class="section" id="contacto">
-            <div class="contacto-container">
-                <div class="contacto-info">
-                    <h2 class="title-gold" style="text-align: left;">Contáctanos</h2>
-                    <div class="info-item">
-                        <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
-                        <div class="info-text">
-                            <strong>Email</strong> 
-                            <span>contactopoderosodios@gmail.com</span>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            ¿Qué es la Salvación? <i class="fas fa-plus"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>La salvación es el regalo gratuito de Dios a través de la fe en Jesucristo, Su único Hijo, para perdón de pecados.</p>
                         </div>
                     </div>
-                </div>
-
-                <div class="contacto-card">
-                    <form id="formContacto">
-                        <div class="form-group">
-                            <label>Nombre</label>
-                            <input type="text" id="nombreC" placeholder="Tu nombre" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" id="emailC" placeholder="tu@email.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Mensaje</label>
-                            <textarea id="mensajeC" rows="4" placeholder="¿En qué podemos ayudarte?" required></textarea>
-                        </div>
-                        <button type="submit" class="btn-gold" style="width: 100%;">Enviar mensaje</button>
-                    </form>
                 </div>
             </div>
         </section>
     </main>
+<section class="section" id="contacto">
+    <div class="container">
+        <h2 class="title-gold">Contáctanos</h2>
 
-    <footer class="footer-principal">
+        <div class="contacto-wrapper">
+            
+            <div class="contacto-info-box">
+                <div class="info-item-lux">
+                    <i class="fas fa-envelope-open-text"></i>
+                    <div>
+                        <h4>Escríbenos</h4>
+                        <p>contactopoderosodios@gmail.com</p>
+                    </div>
+                </div>
+                
+                <div class="info-item-lux" style="margin-top: 30px;">
+                    <i class="fas fa-praying-hands"></i>
+                    <div>
+                        <h4>Peticiones</h4>
+                        <p>Estamos listos para orar por ti las 24 horas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contacto-form-card">
+                <form id="formContactoLux">
+                    
+                    <div class="input-group-lux">
+                        <label>Nombre Completo</label>
+                        <input type="text" placeholder="Tu nombre..." required>
+                    </div>
+
+                    <div class="input-group-lux">
+                        <label>Correo Electrónico</label>
+                        <input type="email" placeholder="tu@email.com" required>
+                    </div>
+
+                    <div class="input-group-lux">
+                        <label>¿En qué podemos ayudarte?</label>
+                        <textarea rows="4" placeholder="Escribe tu mensaje aquí..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-gold-block">
+                        Enviar Mensaje con Fe
+                    </button>
+                    
+                </form>
+            </div>
+
+        </div> </div> </section>
+    <footer>
         <div class="container">
             <div class="logo">PODEROSO<span>DIOS</span></div>
-            <p>Llevando la palabra de Dios a cada corazón. Una comunidad de fe y amor.</p>
-            <div class="social-icons" style="margin-top: 20px;">
-                <a href="#" style="color: var(--dorado-lux); margin: 0 10px; font-size: 1.5rem;"><i class="fab fa-facebook"></i></a>
-                <a href="#" style="color: var(--dorado-lux); margin: 0 10px; font-size: 1.5rem;"><i class="fab fa-instagram"></i></a>
+            <p>Llevando la Palabra de Vida con excelencia y amor.</p>
+            
+            <div class="social-links" style="margin-top: 25px; font-size: 1.5rem;">
+                <a href="#" style="color: var(--dorado-lux); margin: 0 15px;"><i class="fab fa-facebook"></i></a>
+                <a href="#" style="color: var(--dorado-lux); margin: 0 15px;"><i class="fab fa-instagram"></i></a>
             </div>
-            <p style="margin-top: 30px; opacity: 0.5;">&copy; 2025 Poderoso es Dios. Todos los derechos reservados.</p>
+            
+            <p style="margin-top: 40px; font-size: 0.8rem; opacity: 0.5;">
+                &copy; 2025 Poderoso es Dios. Todos los derechos reservados.
+            </p>
         </div>
     </footer>
 
     <script type="module" src="script.js"></script>
-</body>
 
+</body>
 </html>
