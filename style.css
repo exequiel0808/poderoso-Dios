@@ -5,41 +5,29 @@
 
 /* ===================================================
    1. CONFIGURACIÓN GLOBAL Y VARIABLES
-   =================================================== */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
-
-html {
-    scroll-behavior: smooth;
-}
+/* --- ESTILO PROFESIONAL DE ALTA GAMA --- */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Montserrat:wght@300;400;600;700&display=swap');
 
 :root {
-    --primario: #1a1d3e;
-    --secundario: #d4af37;
-    --acento: #6366f1;
-    --fondo: #f8f9fc;
-    --blanco: #ffffff;
-    --texto-oscuro: #2d3748;
-    --texto-gris: #718096;
-    --gradiente-card: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    --sombra-suave: 0 4px 20px rgba(0, 0, 0, 0.08);
-    --sombra-media: 0 10px 40px rgba(0, 0, 0, 0.12);
-    --sombra-fuerte: 0 20px 60px rgba(0, 0, 0, 0.15);
+  --azul-prime: #002d5b;
+  --azul-deep: #001a33;
+  --dorado-lux: #c5a059;
+  --blanco-puro: #ffffff;
+  --sombra-soft: 0 10px 30px rgba(0,0,0,0.1);
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--fondo);
-    color: var(--texto-oscuro);
-    line-height: 1.7;
-    overflow-x: hidden;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #fcfcfc;
+  color: #2c3e50;
+  line-height: 1.8;
 }
-
 /* ===================================================
    2. HEADER MODERNO CON GLASSMORPHISM
    =================================================== */
@@ -59,9 +47,11 @@ body {
 }
 
 .logo {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .logo img {
@@ -72,11 +62,7 @@ body {
 }
 
 .logo span {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 700;
-    color: var(--primario);
-    font-size: 1.5rem;
-    letter-spacing: 0.5px;
+  color: var(--dorado-lux);
 }
 
 nav a {
@@ -112,63 +98,33 @@ nav a:hover::after {
    3. HERO SECTION IMPACTANTE
    =================================================== */
 .hero {
-    position: relative;
-    height: 90vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: #ffffff;
-    background: url('img/manos.jpg') no-repeat center center/cover;
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.55),
-        rgba(0, 0, 0, 0.75)
-    );
-    z-index: 1;
-}
-
-.hero-overlay {
-    display: none;
-}
-.hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 800px;
-    padding: 40px;
-    margin-bottom: 100px;
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  height: 100vh;
+  background: linear-gradient(rgba(0, 26, 51, 0.6), rgba(0, 26, 51, 0.8)), url('https://images.unsplash.com/photo-1515162305285-0293e4767cc2?q=80&w=2071&auto=format&fit=crop');
+  background-size: cover;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
 }
 
 .hero-content h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 4.8rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
+  font-family: 'Playfair Display', serif;
+  font-size: 4.5rem;
+  font-style: italic;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  text-shadow: 2px 4px 10px rgba(0,0,0,0.5);
 }
 
 .hero-content p {
-    font-size: 1.3rem;
-    font-weight: 300;
-    line-height: 1.8;
-    opacity: 0.95;
+  font-size: 1.1rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+  max-width: 600px;
+  margin: 0 auto 40px;
+  opacity: 0.9;
 }
 
 /* ===================================================
@@ -199,27 +155,84 @@ nav a:hover::after {
 }
 
 .btn-cat {
-    background: #ffffff;
-    color: #1a1d3e;
-    font-weight: 600;
-    padding: 16px 36px;
-    border-radius: 40px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-    transition: all 0.3s ease;
-    margin-top: 80px;
-    text-decoration: none;
-    padding: 20px 45px;
-    font-size: 1.2rem;
-    display: inline-block;
+   background: var(--azul-prime);
+  color: white;
+  padding: 18px 45px;
+  text-decoration: none;
+  font-weight: 700;
+  border-radius: 50px;
+  box-shadow: 0 10px 20px rgba(0, 45, 91, 0.3);
+  transition: 0.4s;
+  display: inline-block;
 }
 
-.btn-cat::before {
-    display: none; /* elimina el efecto raro */
+/* --- SECCIONES ELEGANTES --- */
+.section {
+  padding: 100px 10%;
+  text-align: center;
+}
+
+.title-gold {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  color: var(--azul-prime);
+  margin-bottom: 50px;
+}
+
+.about-card {
+  background: white;
+  padding: 50px;
+  border-radius: 20px;
+  box-shadow: var(--sombra-soft);
+  border-top: 5px solid var(--dorado-lux);
+  transition: 0.3s;
+}
+
+.about-card:hover {
+  transform: scale(1.02);
+}
+
+/* --- FAQ OSCURO PROFESIONAL --- */
+.section-dark {
+  background: var(--azul-deep);
+  color: white;
+  padding: 100px 10%;
+}
+
+.faq-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(197, 160, 89, 0.2);
+  margin-bottom: 15px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.faq-question {
+  background: none;
+  width: 100%;
+  padding: 25px;
+  color: var(--dorado-lux);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  text-align: left;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* --- FOOTER --- */
+footer {
+  background: #000b1a;
+  color: #888;
+  padding: 60px 0;
+  text-align: center;
 }
 
 .btn-cat:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 45px rgba(0,0,0,0.35);
+  background: var(--dorado-lux);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 25px rgba(197, 160, 89, 0.4);
 }
 
 
@@ -1428,4 +1441,74 @@ body.modo-oscuro .btn-modo-oscuro:hover {
 /* Ajuste para Modo Oscuro */
 body.modo-oscuro .predicas-seccion {
     background: #0f1419;
+}
+/* ============================= */
+/* DISEÑO PREMIUM IMPORTADO */
+/* ============================= */
+
+.section {
+  padding: 100px 10%;
+  text-align: center;
+}
+
+.section-dark {
+  background: #001f3f;
+  color: white;
+  padding: 100px 10%;
+}
+
+.title-gold {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  color: #0b2a57;
+  margin-bottom: 50px;
+}
+
+/* CARDS */
+.about-card {
+  background: white;
+  padding: 50px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+  border-top: 5px solid #c5a059;
+  transition: 0.3s;
+}
+.about-card:hover {
+  transform: scale(1.02);
+}
+
+/* FAQ */
+.faq-item {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(197,160,89,0.2);
+  margin-bottom: 15px;
+  border-radius: 12px;
+}
+.faq-question {
+  background: none;
+  width: 100%;
+  padding: 25px;
+  color: #c5a059;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* FOOTER PREMIUM */
+footer {
+  background: #000b1a;
+  color: #aaa;
+  padding: 60px 0;
+  text-align: center;
+}
+.header {
+  background: rgba(0,31,63,0.95);
+  backdrop-filter: blur(8px);
+}
+
+.header.scrolled {
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }

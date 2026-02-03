@@ -143,13 +143,7 @@ async function cargarVersiculoDiario() {
       throw new Error("No se encontraron versículos en el JSON");
     }
 
-    // OPCIÓN 1: Versículo consistente por día (mismo todo el día)
-    // const hoy = new Date();
-    // const inicio = new Date(hoy.getFullYear(), 0, 0);
-    // const diferencia = hoy - inicio;
-    // const diaDelAnio = Math.floor(diferencia / 86400000);
-    
-    // OPCIÓN 2: Versículo aleatorio (ACTIVO)
+
     const diaDelAnio = Math.floor(Math.random() * versiculos.length);
 
     // Seleccionar versículo basado en el día
