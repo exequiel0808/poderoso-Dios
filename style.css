@@ -705,3 +705,34 @@ body.modo-oscuro #cita-biblica {
     text-transform: uppercase;
     font-size: 0.9rem;
 }
+/* --- SECCIÓN VERSÍCULO (INTEGRACIÓN FLUIDA) --- */
+.versiculo-del-dia {
+    width: 100%;
+    background: var(--azul-deep); /* Fondo sólido para que no sea un cuadro flotante */
+    padding: 60px 0 40px;
+    margin-top: 85px; /* Altura de la navbar para que no se tape */
+    text-align: center;
+    position: relative; /* Asegura que no flote sobre otros elementos */
+    border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+}
+
+.versiculo-dia-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.versiculo-dia-texto {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-style: italic;
+    color: white;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+/* Evitar que el HERO se suba */
+.hero {
+    height: calc(100vh - 85px); /* Ajustamos la altura para que respete el versículo */
+    margin-top: 0 !important; /* Quitamos cualquier margen que lo empuje hacia arriba */
+}
