@@ -15,26 +15,12 @@
 
 <body>
 
+    <!-- NAVEGACIÓN (SOLO LOGO Y MENÚ) -->
     <header class="navbar" id="header">
         <div class="logo">
             PODEROSO<span>DIOS</span>
         </div>
-<section class="versiculo-del-dia">
-    <div class="versiculo-dia-container">
-        <!-- Etiqueta dorada superior -->
-        <span class="versiculo-dia-etiqueta">
-            <i class="fas fa-star"></i> Palabra de Vida
-        </span>
-        
-        <!-- Aquí es donde tu función JS pondrá el versículo -->
-        <p id="texto-dia" class="versiculo-dia-texto">
-            Cargando palabra de esperanza...
-        </p>
-        
-        <!-- Aquí es donde tu función JS pondrá la cita (ej: Juan 3:16) -->
-        <span id="cita-dia" class="versiculo-dia-cita"></span>
-    </div>
-</section>
+
         <nav class="nav-links" id="navMenu">
             <a href="#inicio">Inicio</a>
             <a href="#identidad">Identidad</a>
@@ -46,13 +32,15 @@
 
         <div class="header-actions">
             <button id="btnModoOscuro" class="btn-modo-oscuro">
-    <span id="iconoModo">🌙</span>
-</button>
+                <span id="iconoModo">🌙</span>
+            </button>
         </div>
     </header>
 
     <main>
+        <!-- HERO SECTION CON VERSÍCULO DEL DÍA -->
         <section class="hero" id="inicio">
+            <!-- Control de música -->
             <div class="control-musica">
                 <button class="btn-musica" id="btnMusica">
                     <i class="fas fa-music"></i> <span>Música de Paz</span>
@@ -63,17 +51,37 @@
                 <source src="https://www.bensound.com/bensound-music/bensound-memories.mp3" type="audio/mpeg">
             </audio>
 
+            <!-- VERSÍCULO DEL DÍA - AHORA DENTRO DEL HERO -->
+            <div class="versiculo-del-dia">
+                <div class="versiculo-dia-container">
+                    <!-- Etiqueta dorada superior -->
+                    <span class="versiculo-dia-etiqueta">
+                        <i class="fas fa-star"></i> Palabra de Vida
+                    </span>
+                    
+                    <!-- Aquí es donde tu función JS pondrá el versículo -->
+                    <p id="texto-dia" class="versiculo-dia-texto">
+                        Cargando palabra de esperanza...
+                    </p>
+                    
+                    <!-- Aquí es donde tu función JS pondrá la cita (ej: Juan 3:16) -->
+                    <span id="cita-dia" class="versiculo-dia-cita"></span>
+                </div>
+            </div>
+
+            <!-- Contenido principal del hero -->
             <div class="hero-content">
                 <span class="pre-title">BIENVENIDO</span>
                 <h1>Dios es Amor</h1>
                 <p>Un espacio sagrado para fortalecer tu fe, encontrar esperanza y descansar profundamente en Su Palabra eterna.</p>
                 <div class="hero-btns">
                     <a href="#versiculos" class="btn-gold">📖 LEER PALABRA</a>
-                    <a href="#oracion" class="btn-outline">🙏 PEDIR ORACIÓN</a>
+                    <a href="#contacto" class="btn-outline">🙏 PEDIR ORACIÓN</a>
                 </div>
             </div>
         </section>
 
+        <!-- SECCIÓN IDENTIDAD -->
         <section class="section" id="identidad">
             <div class="container">
                 <h2 class="title-gold">Nuestra Identidad</h2>
@@ -92,17 +100,19 @@
             </div>
         </section>
 
+        <!-- SECCIÓN VERSÍCULOS -->
         <section class="section" id="versiculos" style="background-color: #f4f7f6;">
             <div class="container">
                 <h2 class="title-gold">Alimento para el Alma</h2>
                 <div class="categorias-container" id="contenedorBotones"></div>
-               <div class="about-card card-versiculo">
-    <p id="texto-biblico" style="transition: opacity 0.3s ease;">Selecciona una categoría para recibir una promesa...</p>
-    <span id="cita-biblica" style="transition: opacity 0.3s ease; font-weight: 700; color: var(--dorado-lux);"></span>
-</div>
+                <div class="about-card card-versiculo">
+                    <p id="texto-biblico" style="transition: opacity 0.3s ease;">Selecciona una categoría para recibir una promesa...</p>
+                    <span id="cita-biblica" style="transition: opacity 0.3s ease; font-weight: 700; color: var(--dorado-lux);"></span>
+                </div>
             </div>
         </section>
 
+        <!-- SECCIÓN PREDICACIONES -->
         <section class="section-dark" id="predicas">
             <div class="container">
                 <h2 class="title-gold" style="color: var(--dorado-lux);">Predicaciones</h2>
@@ -117,6 +127,7 @@
             </div>
         </section>
 
+        <!-- SECCIÓN FE (FAQ) -->
         <section class="section" id="fe">
             <div class="container">
                 <h2 class="title-gold">Fundamentos de Fe</h2>
@@ -140,57 +151,63 @@
                 </div>
             </div>
         </section>
+
+        <!-- SECCIÓN CONTACTO -->
+        <section class="section" id="contacto">
+            <div class="container">
+                <h2 class="title-gold">Contáctanos</h2>
+
+                <div class="contacto-wrapper">
+                    
+                    <div class="contacto-info-box">
+                        <div class="info-item-lux">
+                            <i class="fas fa-envelope-open-text"></i>
+                            <div>
+                                <h4>Escríbenos</h4>
+                                <p>contactopoderosodios@gmail.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item-lux" style="margin-top: 30px;">
+                            <i class="fas fa-praying-hands"></i>
+                            <div>
+                                <h4>Peticiones</h4>
+                                <p>Estamos listos para orar por ti las 24 horas.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contacto-form-card">
+                        <form id="formContactoLux">
+                            
+                            <div class="input-group-lux">
+                                <label>Nombre Completo</label>
+                                <input type="text" placeholder="Tu nombre..." required>
+                            </div>
+
+                            <div class="input-group-lux">
+                                <label>Correo Electrónico</label>
+                                <input type="email" placeholder="tu@email.com" required>
+                            </div>
+
+                            <div class="input-group-lux">
+                                <label>¿En qué podemos ayudarte?</label>
+                                <textarea rows="4" placeholder="Escribe tu mensaje aquí..." required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-gold-block">
+                                Enviar Mensaje con Fe
+                            </button>
+                            
+                        </form>
+                    </div>
+
+                </div> 
+            </div> 
+        </section>
     </main>
-<section class="section" id="contacto">
-    <div class="container">
-        <h2 class="title-gold">Contáctanos</h2>
 
-        <div class="contacto-wrapper">
-            
-            <div class="contacto-info-box">
-                <div class="info-item-lux">
-                    <i class="fas fa-envelope-open-text"></i>
-                    <div>
-                        <h4>Escríbenos</h4>
-                        <p>contactopoderosodios@gmail.com</p>
-                    </div>
-                </div>
-                
-                <div class="info-item-lux" style="margin-top: 30px;">
-                    <i class="fas fa-praying-hands"></i>
-                    <div>
-                        <h4>Peticiones</h4>
-                        <p>Estamos listos para orar por ti las 24 horas.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="contacto-form-card">
-                <form id="formContactoLux">
-                    
-                    <div class="input-group-lux">
-                        <label>Nombre Completo</label>
-                        <input type="text" placeholder="Tu nombre..." required>
-                    </div>
-
-                    <div class="input-group-lux">
-                        <label>Correo Electrónico</label>
-                        <input type="email" placeholder="tu@email.com" required>
-                    </div>
-
-                    <div class="input-group-lux">
-                        <label>¿En qué podemos ayudarte?</label>
-                        <textarea rows="4" placeholder="Escribe tu mensaje aquí..." required></textarea>
-                    </div>
-
-                    <button type="submit" class="btn-gold-block">
-                        Enviar Mensaje con Fe
-                    </button>
-                    
-                </form>
-            </div>
-
-        </div> </div> </section>
+    <!-- FOOTER -->
     <footer>
         <div class="container">
             <div class="logo">PODEROSO<span>DIOS</span></div>

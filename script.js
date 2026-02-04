@@ -14,7 +14,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // ==========================================
-// MODO OSCURO
+// 1. MODO OSCURO
 // ==========================================
 const btnModoOscuro = document.getElementById('btnModoOscuro');
 const iconoModo = document.getElementById('iconoModo');
@@ -32,138 +32,6 @@ if (btnModoOscuro) {
         if (iconoModo) iconoModo.textContent = esModoOscuro ? '☀️' : '🌙';
         localStorage.setItem('modoOscuro', esModoOscuro);
     });
-}
-
-// ==========================================
-// MENÚ MÓVIL
-// ==========================================
-const menuToggle = document.getElementById('menuToggle');
-const navMenu = document.getElementById('navMenu');
-
-if (menuToggle && navMenu) {
-    menuToggle.addEventListener('click', () => {
-        menuToggle.classList.toggle('active');
-        navMenu.classList.toggle('active');
-    });
-    
-    // Cerrar menú al hacer clic en un enlace
-    navMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            menuToggle.classList.remove('active');
-            navMenu.classList.remove('active');
-        });
-    });
-}
-
-// ==========================================
-// HEADER SCROLL EFFECT
-// ==========================================
-window.addEventListener('scroll', () => {
-    const header = document.querySelector('.header');
-    if (!header) return;
-    
-    const currentScroll = window.pageYOffset;
-    
-    if (currentScroll > 100) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
-    }
-});
-
-// ==========================================
-// NAVEGACIÓN ACTIVA
-// ==========================================
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('nav a');
-
-window.addEventListener('scroll', () => {
-    let current = '';
-    
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (pageYOffset >= sectionTop - 200) {
-            current = section.getAttribute('id');
-        }
-    });
-    
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${current}`) {
-            link.classList.add('active');
-        }
-    });
-});
-
-// ==========================================
-// VERSÍCULO DEL DÍA (CORREGIDO)
-// ==========================================
-async function cargarVersiculoDiario() {
-  const URL_JSON = "https://raw.githubusercontent.com/exequiel0808/poderoso-Dios/main/biblia-completa-rv1960.json";
-const textoDia = document.getElementById("texto-dia");
-const citaDia = document.getElementById("cita-dia");
-
-
-  if (!texto || !cita) {
-    console.error("❌ IDs del versículo no encontrados");
-    return;
-  }
-
-  try {
-    // Agregar timestamp para evitar caché
-    const cacheBuster = new Date().toISOString().slice(0, 10);
-    const res = await fetch(`${URL_JSON}?v=${cacheBuster}`);
-    
-    if (!res.ok) {
-      throw new Error(`Error HTTP: ${res.status}`);
-    }
-    
-    const data = await res.json();
-    
-    // Extraer todos los versículos
-    const versiculos = [];
-    
-    for (const libro in data) {
-      const bookData = data[libro];
-      if (bookData.chapters && Array.isArray(bookData.chapters)) {
-        bookData.chapters.forEach(chapter => {
-          if (chapter.verses && Array.isArray(chapter.verses)) {
-            chapter.verses.forEach(v => {
-              versiculos.push({
-                texto: v.text,
-                cita: `${bookData.book} ${chapter.chapter}:${v.verse}`
-              });
-            });
-          }
-        });
-      }
-    }
-
-    if (versiculos.length === 0) {
-      throw new Error("No se encontraron versículos en el JSON");
-    }
-
-
-    const diaDelAnio = Math.floor(Math.random() * versiculos.length);
-
-    // Seleccionar versículo basado en el día
-    const indice = diaDelAnio % versiculos.length;
-    const seleccionado = versiculos[indice];
-
-    // Mostrar versículo
-    texto.textContent = `"${seleccionado.texto}"`;
-    cita.textContent = seleccionado.cita;
-
-    console.log("✅ Versículo del día cargado:", seleccionado.cita);
-    console.log("📅 Día del año:", diaDelAnio);
-    console.log("📖 Total versículos:", versiculos.length);
-
-  } catch (error) {
-    console.error("❌ Error cargando versículo:", error);
-    texto.textContent = "Lámpara es a mis pies tu palabra, y lumbrera a mi camino.";
-    cita.textContent = "Salmos 119:105";
-  }
 }
 
 // ==========================================
@@ -198,7 +66,7 @@ function inicializarMenuMovil() {
 }
 
 // ==========================================
-// 3. ACORDEÓN DE FE (FAQ)
+// 3. ACORDEÓN DE FE (FAQ) - CORREGIDO
 // ==========================================
 function inicializarAcordeon() {
     const faqItems = document.querySelectorAll('.faq-item');
@@ -209,18 +77,23 @@ function inicializarAcordeon() {
 
         if (question && answer) {
             question.addEventListener('click', () => {
-                const isCurrentlyOpen = answer.style.display === 'block';
+                const isCurrentlyOpen = answer.style.maxHeight;
 
-                // Cerrar todos los demás para un efecto limpio
-                document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
+                // Cerrar todos los demás
+                document.querySelectorAll('.faq-answer').forEach(a => {
+                    a.style.maxHeight = null;
+                });
                 document.querySelectorAll('.faq-question i').forEach(i => {
-                    i.classList.replace('fa-minus', 'fa-plus');
+                    i.classList.remove('fa-minus');
+                    i.classList.add('fa-plus');
                 });
 
                 // Abrir el actual si estaba cerrado
                 if (!isCurrentlyOpen) {
-                    answer.style.display = 'block';
-                    question.querySelector('i').classList.replace('fa-plus', 'fa-minus');
+                    answer.style.maxHeight = answer.scrollHeight + "px";
+                    const icon = question.querySelector('i');
+                    icon.classList.remove('fa-plus');
+                    icon.classList.add('fa-minus');
                 }
             });
         }
@@ -228,51 +101,87 @@ function inicializarAcordeon() {
 }
 
 // ==========================================
-// 4. VERSÍCULO DEL DÍA (API JSON)
+// 4. VERSÍCULO DEL DÍA (CORREGIDO)
 // ==========================================
 async function cargarVersiculoDiario() {
     const URL_JSON = "https://raw.githubusercontent.com/exequiel0808/poderoso-Dios/main/biblia-completa-rv1960.json";
-    const contenedorTexto = document.getElementById("texto-dia");
-    const contenedorCita = document.getElementById("cita-dia");
+    const textoDia = document.getElementById("texto-dia");
+    const citaDia = document.getElementById("cita-dia");
 
-    if (!contenedorTexto) return;
+    if (!textoDia || !citaDia) {
+        console.error("❌ IDs del versículo no encontrados");
+        return;
+    }
 
     try {
-        const res = await fetch(`${URL_JSON}?v=${new Date().getDate()}`);
-        const data = await res.json();
-        const todosLosVersiculos = [];
+        // Agregar timestamp para evitar caché
+        const cacheBuster = new Date().toISOString().slice(0, 10);
+        const res = await fetch(`${URL_JSON}?v=${cacheBuster}`);
         
-        // Aplanamiento del JSON para selección aleatoria
-        Object.values(data).forEach(libro => {
-            libro.chapters.forEach(cap => {
-                cap.verses.forEach(v => {
-                    todosLosVersiculos.push({ 
-                        texto: v.text, 
-                        cita: `${libro.book} ${cap.chapter}:${v.verse}` 
-                    });
+        if (!res.ok) {
+            throw new Error(`Error HTTP: ${res.status}`);
+        }
+        
+        const data = await res.json();
+        
+        // Extraer todos los versículos
+        const versiculos = [];
+        
+        for (const libro in data) {
+            const bookData = data[libro];
+            if (bookData.chapters && Array.isArray(bookData.chapters)) {
+                bookData.chapters.forEach(chapter => {
+                    if (chapter.verses && Array.isArray(chapter.verses)) {
+                        chapter.verses.forEach(v => {
+                            versiculos.push({
+                                texto: v.text,
+                                cita: `${bookData.book} ${chapter.chapter}:${v.verse}`
+                            });
+                        });
+                    }
                 });
-            });
-        });
+            }
+        }
 
-        const random = todosLosVersiculos[Math.floor(Math.random() * todosLosVersiculos.length)];
-        contenedorTexto.textContent = `"${random.texto}"`;
-        if (contenedorCita) contenedorCita.textContent = random.cita;
+        if (versiculos.length === 0) {
+            throw new Error("No se encontraron versículos en el JSON");
+        }
+
+        // Usar el día del año para selección consistente
+        const ahora = new Date();
+        const inicioAnio = new Date(ahora.getFullYear(), 0, 0);
+        const diff = ahora - inicioAnio;
+        const unDia = 1000 * 60 * 60 * 24;
+        const diaDelAnio = Math.floor(diff / unDia);
+
+        // Seleccionar versículo basado en el día
+        const indice = diaDelAnio % versiculos.length;
+        const seleccionado = versiculos[indice];
+
+        // Mostrar versículo
+        textoDia.textContent = `"${seleccionado.texto}"`;
+        citaDia.textContent = seleccionado.cita;
+
+        console.log("✅ Versículo del día cargado:", seleccionado.cita);
 
     } catch (error) {
-        console.error("Error cargando versículo:", error);
-        contenedorTexto.textContent = "Lámpara es a mis pies tu palabra...";
-        if (contenedorCita) contenedorCita.textContent = "Salmos 119:105";
+        console.error("❌ Error cargando versículo:", error);
+        textoDia.textContent = "Lámpara es a mis pies tu palabra, y lumbrera a mi camino.";
+        citaDia.textContent = "Salmos 119:105";
     }
 }
 
 // ==========================================
-// 5. CONTROL DE MÚSICA AMBIENTAL
+// 5. CONTROL DE MÚSICA AMBIENTAL - CORREGIDO
 // ==========================================
 function inicializarMusica() {
     const btnMusica = document.getElementById('btnMusica');
     const audio = document.getElementById('audioFondo');
 
-    if (!btnMusica || !audio) return;
+    if (!btnMusica || !audio) {
+        console.error("❌ Botón de música o audio no encontrado");
+        return;
+    }
 
     audio.volume = 0.3; // Volumen suave por defecto
 
@@ -280,13 +189,17 @@ function inicializarMusica() {
         const isPaused = audio.paused;
         
         if (isPaused) {
-            audio.play();
+            audio.play().catch(err => {
+                console.error("Error reproduciendo audio:", err);
+            });
             btnMusica.classList.add('activo');
-            btnMusica.querySelector('span').textContent = 'Pausar Paz';
+            const span = btnMusica.querySelector('span');
+            if (span) span.textContent = 'Pausar Paz';
         } else {
             audio.pause();
             btnMusica.classList.remove('activo');
-            btnMusica.querySelector('span').textContent = 'Música de Paz';
+            const span = btnMusica.querySelector('span');
+            if (span) span.textContent = 'Música de Paz';
         }
     });
 }
@@ -302,7 +215,6 @@ async function cargarCategorias() {
     if (!contenedor) return;
 
     try {
-        // Nota: Asegúrate de que 'db' y 'getDocs' estén disponibles globalmente
         const querySnapshot = await getDocs(collection(db, "categorias"));
         contenedor.innerHTML = "";
 
@@ -318,7 +230,7 @@ async function cargarCategorias() {
                 if (displayTexto) {
                     displayTexto.style.opacity = 0;
                     setTimeout(() => {
-                        displayTexto.textContent = data.texto;
+                        displayTexto.textContent = `"${data.texto}"`;
                         if (displayCita) displayCita.textContent = data.cita;
                         displayTexto.style.opacity = 1;
                     }, 300);
@@ -331,3 +243,19 @@ async function cargarCategorias() {
         contenedor.innerHTML = "<p style='opacity:0.6'>Conectando con la palabra...</p>";
     }
 }
+
+// ==========================================
+// INICIALIZACIÓN AL CARGAR LA PÁGINA
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("🚀 Iniciando aplicación...");
+    
+    // Inicializar todas las funciones
+    inicializarMenuMovil();
+    inicializarAcordeon();
+    cargarVersiculoDiario();
+    inicializarMusica();
+    cargarCategorias();
+    
+    console.log("✅ Aplicación iniciada correctamente");
+});
