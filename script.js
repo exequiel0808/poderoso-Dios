@@ -1,6 +1,9 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, getDocs, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
+// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDg6RXRQLroOmsmIlziXlv1Rqnp3qaeEoM",
   authDomain: "poderoso-es-dios-b59f6.firebaseapp.com",
@@ -10,9 +13,8 @@ const firebaseConfig = {
   appId: "1:974573934460:web:67983211175a88811db6f9"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
 // ==========================================
 // 1. MODO OSCURO
 // ==========================================
@@ -165,6 +167,34 @@ async function cargarVersiculoDiario() {
         textoDia.textContent = "Lámpara es a mis pies tu palabra, y lumbrera a mi camino.";
         citaDia.textContent = "Salmos 119:105";
     }
+}
+// ==========================================
+// FORMULARIO DE ORACIÓN
+// ==========================================
+const formOracion = document.getElementById("formOracion");
+if (formOracion) {
+    formOracion.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const btn = formOracion.querySelector("button");
+        btn.textContent = "Enviando...";
+        btn.disabled = true;
+
+        try {
+            await addDoc(collection(db, "oraciones"), {
+                nombre: document.getElementById("nombreInput").value.trim(),
+                peticion: document.getElementById("peticionInput").value.trim(),
+                fecha: serverTimestamp()
+            });
+            alert("🙏 Tu petición ha sido recibida. Estaremos orando por ti.");
+            formOracion.reset();
+        } catch (error) {
+            console.error("Error:", error);
+            alert("❌ Lo sentimos, el límite de peticiones diarias se ha alcanzado. Intenta de nuevo mañana.");
+        } finally {
+            btn.textContent = "Enviar petición 🙏";
+            btn.disabled = false;
+        }
+    });
 }
 
 // ==========================================
