@@ -1,247 +1,267 @@
-<!DOCTYPE html>
-<html lang="es">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, getDocs, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poderoso es Dios | Un Espacio de Fe</title>
+const firebaseConfig = {
+  apiKey: "AIzaSyDg6RXRQLroOmsmIlziXlv1Rqnp3qaeEoM",
+  authDomain: "poderoso-es-dios-b59f6.firebaseapp.com",
+  projectId: "poderoso-es-dios-b59f6",
+  storageBucket: "poderoso-es-dios-b59f6.firebasestorage.app",
+  messagingSenderId: "974573934460",
+  appId: "1:974573934460:web:67983211175a88811db6f9"
+};
 
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Montserrat:wght@300;400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+// ==========================================
+// 1. MODO OSCURO
+// ==========================================
+const btnModoOscuro = document.getElementById('btnModoOscuro');
+const iconoModo = document.getElementById('iconoModo');
 
-    <link rel="stylesheet" href="style.css">
-</head>
+// Cargar preferencia guardada
+if (localStorage.getItem('modoOscuro') === 'true') {
+    document.body.classList.add('modo-oscuro');
+    if (iconoModo) iconoModo.textContent = '☀️';
+}
 
-<body>
+if (btnModoOscuro) {
+    btnModoOscuro.addEventListener('click', () => {
+        document.body.classList.toggle('modo-oscuro');
+        const esModoOscuro = document.body.classList.contains('modo-oscuro');
+        if (iconoModo) iconoModo.textContent = esModoOscuro ? '☀️' : '🌙';
+        localStorage.setItem('modoOscuro', esModoOscuro);
+    });
+}
 
-    <!-- NAVEGACIÓN (SOLO LOGO Y MENÚ) -->
-    <header class="navbar" id="header">
-        <div class="logo">
-            PODEROSO<span>DIOS</span>
-        </div>
+// ==========================================
+// 2. NAVEGACIÓN Y MENÚ MÓVIL
+// ==========================================
+function inicializarMenuMovil() {
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    const header = document.querySelector('.navbar');
 
-        <nav class="nav-links" id="navMenu">
-            <a href="#inicio">Inicio</a>
-            <a href="#identidad">Identidad</a>
-            <a href="#versiculos">Versículos</a>
-            <a href="#predicas">Prédicas</a>
-            <a href="#fe">Fe</a>
-            <a href="#contacto">Contacto</a>
-        </nav>
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = menuToggle.querySelector('i');
+            if (icon) icon.classList.toggle('fa-times');
+        });
 
-        <div class="header-actions">
-            <button id="btnModoOscuro" class="btn-modo-oscuro">
-                <span id="iconoModo">🌙</span>
-            </button>
-        </div>
-    </header>
-  <!-- VERSÍCULO DEL DÍA - AHORA DENTRO DEL HERO -->
-            <div class="versiculo-del-dia">
-                <div class="versiculo-dia-container">
-                    <!-- Etiqueta dorada superior -->
-                    <span class="versiculo-dia-etiqueta">
-                        <i class="fas fa-star"></i> Palabra de Vida
-                    </span>
-                    
-                    <!-- Aquí es donde tu función JS pondrá el versículo -->
-                    <p id="texto-dia" class="versiculo-dia-texto">
-                        Cargando palabra de esperanza...
-                    </p>
-                    
-                    <!-- Aquí es donde tu función JS pondrá la cita (ej: Juan 3:16) -->
-                    <span id="cita-dia" class="versiculo-dia-cita"></span>
-                </div>
-            </div>
+        // Cerrar menú al hacer click en un enlace
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                const icon = menuToggle.querySelector('i');
+                if (icon) icon.classList.remove('fa-times');
+            });
+        });
+    }
 
-    <main>
-        <!-- HERO SECTION CON VERSÍCULO DEL DÍA -->
-        <section class="hero" id="inicio">
-            <!-- Control de música -->
-            <div class="control-musica">
-                <button class="btn-musica" id="btnMusica">
-                    <i class="fas fa-music"></i> <span>Música de Paz</span>
-                </button>
-            </div>
+    // Efecto de scroll en Header
+    window.addEventListener('scroll', () => {
+        if (header) header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+}
 
-            <audio id="audioFondo" loop>
-                <source src="https://www.bensound.com/bensound-music/bensound-memories.mp3" type="audio/mpeg">
-            </audio>
+// ==========================================
+// 3. ACORDEÓN DE FE (FAQ) - CORREGIDO
+// ==========================================
+function inicializarAcordeon() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
 
-          
-            <!-- Contenido principal del hero -->
-            <div class="hero-content">
-                <span class="pre-title">BIENVENIDO</span>
-                <h1>Dios es Amor</h1>
-                <p>Un espacio sagrado para fortalecer tu fe, encontrar esperanza y descansar profundamente en Su Palabra eterna.</p>
-                <div class="hero-btns">
-                    <a href="#versiculos" class="btn-gold">📖 LEER PALABRA</a>
-                    <a href="#contacto" class="btn-outline">🙏 PEDIR ORACIÓN</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECCIÓN IDENTIDAD -->
-        <section class="section" id="identidad">
-            <div class="container">
-                <h2 class="title-gold">Nuestra Identidad</h2>
-                <div class="grid-identidad">
-                    <div class="about-card">
-                        <i class="fas fa-cross card-icon"></i>
-                        <h3>Misión</h3>
-                        <p>Glorificar a Dios a través de la proclamación fiel de Su Palabra y el servicio al prójimo en amor y verdad.</p>
-                    </div>
-                    <div class="about-card">
-                        <i class="fas fa-dove card-icon"></i>
-                        <h3>Visión</h3>
-                        <p>Ser una comunidad que refleja la luz de Cristo, transformando vidas mediante el Evangelio en todo el mundo.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECCIÓN VERSÍCULOS -->
-        <section class="section" id="versiculos" style="background-color: #f4f7f6;">
-            <div class="container">
-                <h2 class="title-gold">Alimento para el Alma</h2>
-                <div class="categorias-container" id="contenedorBotones"></div>
-                <div class="about-card card-versiculo">
-                    <p id="texto-biblico" style="transition: opacity 0.3s ease;">Selecciona una categoría para recibir una promesa...</p>
-                    <span id="cita-biblica" style="transition: opacity 0.3s ease; font-weight: 700; color: var(--dorado-lux);"></span>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECCIÓN PREDICACIONES -->
-        <section class="section-dark" id="predicas">
-            <div class="container">
-                <h2 class="title-gold" style="color: var(--dorado-lux);">Predicaciones</h2>
-                <div class="predicas-grid">
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/xKiBuxEiQyY" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/xKiBuxEiQyY" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECCIÓN FE (FAQ) -->
-        <section class="section" id="fe">
-            <div class="container">
-                <h2 class="title-gold">Fundamentos de Fe</h2>
-                <div class="faq-container">
-                    <div class="faq-item">
-                        <button class="faq-question">
-                            ¿Quién es Dios? <i class="fas fa-plus"></i>
-                        </button>
-                        <div class="faq-answer">
-                            <p>Dios es el Creador eterno, santo e infinito en amor, quien se ha revelado como Padre, Hijo y Espíritu Santo.</p>
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <button class="faq-question">
-                            ¿Qué es la Salvación? <i class="fas fa-plus"></i>
-                        </button>
-                        <div class="faq-answer">
-                            <p>La salvación es el regalo gratuito de Dios a través de la fe en Jesucristo, Su único Hijo, para perdón de pecados.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-  <!-- NUEVA SECCIÓN DE ORACIÓN -->
-        <section class="section-oracion" id="oracion">
-            <div class="container">
-                <div class="oracion-header">
-                    <i class="fas fa-praying-hands oracion-icon"></i>
-                    <h2 class="oracion-titulo">¿Deseas que oremos por ti?</h2>
-                    <p class="oracion-subtitulo">Dios escucha cada clamor. Déjanos tu petición abajo.</p>
-                </div>
-
-                <div class="oracion-form-wrapper">
-                    <form id="formOracion" class="oracion-form">
-                        <div class="oracion-input-group">
-                            <input type="text" placeholder="Tu nombre completo" required>
-                        </div>
-
-                        <div class="oracion-input-group">
-                            <textarea rows="5" placeholder="Escribe aquí tu motivo de oración..." required></textarea>
-                        </div>
-
-                        <button type="submit" class="btn-oracion">
-                            Enviar petición 🙏
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </section>
-        <!-- SECCIÓN CONTACTO -->
-        <section class="section" id="contacto">
-            <div class="container">
-                <h2 class="title-gold">Contáctanos</h2>
-
-                <div class="contacto-wrapper">
-                    
-                    <div class="contacto-info-box">
-                        <div class="info-item-lux">
-                            <i class="fas fa-envelope-open-text"></i>
-                            <div>
-                                <h4>Escríbenos</h4>
-                                <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="93f0fcfde7f2f0e7fce3fcf7f6e1fce0fcf7fafce0d3f4fef2faffbdf0fcfe">[email&#160;protected]</a></p>
-                            </div>
-                        </div>
-                        
-                        <div class="info-item-lux" style="margin-top: 30px;">
-                            <i class="fas fa-praying-hands"></i>
-                            <div>
-                                <h4>Peticiones</h4>
-                                <p>Estamos listos para orar por ti las 24 horas.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="contacto-form-card">
-                        <form id="formContactoLux">
-                            
-                            <div class="input-group-lux">
-                                <label>Nombre Completo</label>
-                                <input type="text" placeholder="Tu nombre..." required>
-                            </div>
-
-                            <div class="input-group-lux">
-                                <label>Correo Electrónico</label>
-                                <input type="email" placeholder="tu@email.com" required>
-                            </div>
-
-                            <div class="input-group-lux">
-                                <label>¿En qué podemos ayudarte?</label>
-                                <textarea rows="4" placeholder="Escribe tu mensaje aquí..." required></textarea>
-                            </div>
-
-                            <button type="submit" class="btn-gold-block">
-                                Enviar Mensaje con Fe
-                            </button>
-                            
-                        </form>
-                    </div>
-
-                </div> 
-            </div> 
-        </section>
-    </main>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="container">
-            <div class="logo">PODEROSO<span>DIOS</span></div>
-            <p>Llevando la Palabra de Vida con excelencia y amor.</p>
+        if (question && answer) {
+        if (question && answer) {
+            // Inicializar cerrado
+            answer.style.maxHeight = "0px";
+            answer.style.overflow = "hidden";
+            answer.style.transition = "max-height 0.3s ease";
             
-            <div class="social-links" style="margin-top: 25px; font-size: 1.5rem;">
-                <a href="#" style="color: var(--dorado-lux); margin: 0 15px;"><i class="fab fa-facebook"></i></a>
-                <a href="#" style="color: var(--dorado-lux); margin: 0 15px;"><i class="fab fa-instagram"></i></a>
-            </div>
+            question.addEventListener('click', () => {
+                const isOpen = answer.style.maxHeight !== "0px";
+
+                // Cerrar todos
+                document.querySelectorAll('.faq-answer').forEach(a => {
+                    a.style.maxHeight = "0px";
+                });
+                document.querySelectorAll('.faq-question i').forEach(i => {
+                    i.classList.remove('fa-minus');
+                    i.classList.add('fa-plus');
+                });
+
+                // Abrir si estaba cerrado
+                if (!isOpen) {
+                    answer.style.maxHeight = answer.scrollHeight + "px";
+                    const icon = question.querySelector('i');
+                    icon.classList.remove('fa-plus');
+                    icon.classList.add('fa-minus');
+                }
+            });
+        }
+    });
+}
+
+// ==========================================
+// 4. VERSÍCULO DEL DÍA (CORREGIDO)
+// ==========================================
+async function cargarVersiculoDiario() {
+    const URL_JSON = "https://raw.githubusercontent.com/exequiel0808/poderoso-Dios/main/biblia-completa-rv1960.json";
+    const textoDia = document.getElementById("texto-dia");
+    const citaDia = document.getElementById("cita-dia");
+
+    if (!textoDia || !citaDia) {
+        console.error("❌ IDs del versículo no encontrados");
+        return;
+    }
+
+    try {
+        // Agregar timestamp para evitar caché
+        const cacheBuster = new Date().toISOString().slice(0, 10);
+        const res = await fetch(`${URL_JSON}?v=${cacheBuster}`);
+        
+        if (!res.ok) {
+            throw new Error(`Error HTTP: ${res.status}`);
+        }
+        
+        const data = await res.json();
+        
+        // Extraer todos los versículos
+        const versiculos = [];
+        
+        for (const libro in data) {
+            const bookData = data[libro];
+            if (bookData.chapters && Array.isArray(bookData.chapters)) {
+                bookData.chapters.forEach(chapter => {
+                    if (chapter.verses && Array.isArray(chapter.verses)) {
+                        chapter.verses.forEach(v => {
+                            versiculos.push({
+                                texto: v.text,
+                                cita: `${bookData.book} ${chapter.chapter}:${v.verse}`
+                            });
+                        });
+                    }
+                });
+            }
+        }
+
+        if (versiculos.length === 0) {
+            throw new Error("No se encontraron versículos en el JSON");
+        }
+
+        // Usar el día del año para selección consistente
+        const ahora = new Date();
+        const inicioAnio = new Date(ahora.getFullYear(), 0, 0);
+        const diff = ahora - inicioAnio;
+        const unDia = 1000 * 60 * 60 * 24;
+        const diaDelAnio = Math.floor(diff / unDia);
+
+        // Seleccionar versículo basado en el día
+        const indice = diaDelAnio % versiculos.length;
+        const seleccionado = versiculos[indice];
+
+        // Mostrar versículo
+        textoDia.textContent = `"${seleccionado.texto}"`;
+        citaDia.textContent = seleccionado.cita;
+
+        console.log("✅ Versículo del día cargado:", seleccionado.cita);
+
+    } catch (error) {
+        console.error("❌ Error cargando versículo:", error);
+        textoDia.textContent = "Lámpara es a mis pies tu palabra, y lumbrera a mi camino.";
+        citaDia.textContent = "Salmos 119:105";
+    }
+}
+
+// ==========================================
+// 5. CONTROL DE MÚSICA AMBIENTAL - CORREGIDO
+// ==========================================
+function inicializarMusica() {
+    const btnMusica = document.getElementById('btnMusica');
+    const audio = document.getElementById('audioFondo');
+
+    if (!btnMusica || !audio) {
+        console.error("❌ Botón de música o audio no encontrado");
+        return;
+    }
+
+    audio.volume = 0.3; // Volumen suave por defecto
+
+    btnMusica.addEventListener('click', () => {
+        const isPaused = audio.paused;
+        
+        if (isPaused) {
+            audio.play().catch(err => {
+                console.error("Error reproduciendo audio:", err);
+            });
+            btnMusica.classList.add('activo');
+            const span = btnMusica.querySelector('span');
+            if (span) span.textContent = 'Pausar Paz';
+        } else {
+            audio.pause();
+            btnMusica.classList.remove('activo');
+            const span = btnMusica.querySelector('span');
+            if (span) span.textContent = 'Música de Paz';
+        }
+    });
+}
+
+// ==========================================
+// 6. CARGA DE CATEGORÍAS (Firebase / Dinámico)
+// ==========================================
+async function cargarCategorias() {
+    const contenedor = document.getElementById("contenedorBotones");
+    const displayTexto = document.getElementById("texto-biblico");
+    const displayCita = document.getElementById("cita-biblica");
+
+    if (!contenedor) return;
+
+    try {
+        const querySnapshot = await getDocs(collection(db, "categorias"));
+        contenedor.innerHTML = "";
+
+        querySnapshot.forEach(doc => {
+            const data = doc.data();
+            const btn = document.createElement("button");
             
-            <p style="margin-top: 40px; font-size: 0.8rem; opacity: 0.5;">
-                &copy; 2025 Poderoso es Dios. Todos los derechos re
+            btn.className = "btn-cat-dinamico";
+            btn.textContent = data.nombre;
+            
+            btn.onclick = () => {
+                // Efecto de transición suave
+                if (displayTexto) {
+                    displayTexto.style.opacity = 0;
+                    setTimeout(() => {
+                        displayTexto.textContent = `"${data.texto}"`;
+                        if (displayCita) displayCita.textContent = data.cita;
+                        displayTexto.style.opacity = 1;
+                    }, 300);
+                }
+            };
+            contenedor.appendChild(btn);
+        });
+    } catch (error) {
+        console.warn("Firebase no detectado o error de red. Usando marcadores de posición.");
+        contenedor.innerHTML = "<p style='opacity:0.6'>Conectando con la palabra...</p>";
+    }
+}
+
+// ==========================================
+// INICIALIZACIÓN AL CARGAR LA PÁGINA
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("🚀 Iniciando aplicación...");
+    
+    // Inicializar todas las funciones
+    inicializarMenuMovil();
+    inicializarAcordeon();
+    cargarVersiculoDiario();
+    inicializarMusica();
+    cargarCategorias();
+    
+    console.log("✅ Aplicación iniciada correctamente");
+});

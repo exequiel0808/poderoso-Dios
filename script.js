@@ -65,7 +65,6 @@ function inicializarMenuMovil() {
     });
 }
 
-
 // ==========================================
 // 3. ACORDEÓN DE FE (FAQ) - CORREGIDO
 // ==========================================
@@ -83,7 +82,7 @@ function inicializarAcordeon() {
             answer.style.transition = "max-height 0.3s ease";
             
             question.addEventListener('click', () => {
-                const isOpen = answer.style.maxHeight !== "0px" && answer.style.maxHeight !== "";
+                const isOpen = answer.style.maxHeight !== "0px";
 
                 // Cerrar todos los demás
                 document.querySelectorAll('.faq-answer').forEach(a => {
