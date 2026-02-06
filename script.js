@@ -65,6 +65,7 @@ function inicializarMenuMovil() {
     });
 }
 
+
 // ==========================================
 // 3. ACORDEÓN DE FE (FAQ) - CORREGIDO
 // ==========================================
@@ -76,12 +77,17 @@ function inicializarAcordeon() {
         const answer = item.querySelector('.faq-answer');
 
         if (question && answer) {
+            // Inicializar cerrado
+            answer.style.maxHeight = "0px";
+            answer.style.overflow = "hidden";
+            answer.style.transition = "max-height 0.3s ease";
+            
             question.addEventListener('click', () => {
-                const isCurrentlyOpen = answer.style.maxHeight;
+                const isOpen = answer.style.maxHeight !== "0px" && answer.style.maxHeight !== "";
 
                 // Cerrar todos los demás
                 document.querySelectorAll('.faq-answer').forEach(a => {
-                    a.style.maxHeight = null;
+                    a.style.maxHeight = "0px";
                 });
                 document.querySelectorAll('.faq-question i').forEach(i => {
                     i.classList.remove('fa-minus');
@@ -89,7 +95,7 @@ function inicializarAcordeon() {
                 });
 
                 // Abrir el actual si estaba cerrado
-                if (!isCurrentlyOpen) {
+                if (!isOpen) {
                     answer.style.maxHeight = answer.scrollHeight + "px";
                     const icon = question.querySelector('i');
                     icon.classList.remove('fa-plus');
