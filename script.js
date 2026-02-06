@@ -1,6 +1,6 @@
-// ==========================================
+// ======================================================
 // FIREBASE CONFIG
-// ==========================================
+// ======================================================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import {
   getFirestore,
@@ -22,11 +22,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// ==========================================
+// ======================================================
 // VERSÍCULO DEL DÍA (JSON DESDE GITHUB)
-// ==========================================
+// ======================================================
 async function cargarVersiculoDiario() {
-  const URL_JSON =
+  const URL =
     "https://raw.githubusercontent.com/exequiel0808/poderoso-Dios/main/biblia-completa-rv1960.json";
 
   const texto = document.getElementById("texto-dia");
@@ -35,67 +35,96 @@ async function cargarVersiculoDiario() {
   if (!texto || !cita) return;
 
   try {
-    const res = await fetch(URL_JSON + "?t=" + Date.now());
+    const res = await fetch(URL + "?v=" + Date.now());
     const biblia = await res.json();
 
     const hoy = new Date();
     const inicio = new Date(hoy.getFullYear(), 0, 0);
-    const diff = hoy - inicio;
-    const dia = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const dia = Math.floor((hoy - inicio) / (1000 * 60 * 60 * 24));
 
     const versiculo = biblia[dia % biblia.length];
 
     texto.textContent = `"${versiculo.texto}"`;
     cita.textContent = versiculo.cita;
   } catch (e) {
-    console.error("Error versículo diario:", e);
     texto.textContent =
       "Lámpara es a mis pies tu palabra, y lumbrera a mi camino.";
     cita.textContent = "Salmos 119:105";
   }
 }
 
-// ==========================================
-// CATEGORÍAS DE VERSÍCULOS (FIREBASE)
-// ==========================================
-async function cargarCategorias() {
-  const contenedor = document.getElementById("contenedorBotones");
-  const texto = document.getElementById("texto-biblico");
-  const cita = document.getElementById("cita-biblica");
+// ======================================================
+// MODO OSCURO
+// ======================================================
+function inicializarModoOscuro() {
+  const btn = document.getElementById("btnModoOscuro");
+  if (!btn) return;
 
-  if (!contenedor) return;
+  const estado = localStorage.getItem("modoOscuro");
+  if (estado === "on") document.body.classList.add("modo-oscuro");
 
-  contenedor.innerHTML = "Cargando categorías...";
-
-  try {
-    const snap = await getDocs(collection(db, "categorias"));
-    contenedor.innerHTML = "";
-
-    snap.forEach(doc => {
-      const data = doc.data();
-      const btn = document.createElement("button");
-      btn.className = "btn-cat";
-      btn.textContent = data.nombre;
-
-      btn.addEventListener("click", () => {
-        texto.textContent = data.texto;
-        cita.textContent = data.cita;
-      });
-
-      contenedor.appendChild(btn);
-    });
-  } catch (e) {
-    console.error(e);
-    contenedor.innerHTML =
-      "No se pudieron cargar las categorías en este momento.";
-  }
+  btn.addEventListener("click", () => {
+    document.body.classList.toggle("modo-oscuro");
+    localStorage.setItem(
+      "modoOscuro",
+      document.body.classList.contains("modo-oscuro") ? "on" : "off"
+    );
+  });
 }
 
-// ==========================================
-// FORMULARIO DE ORACIÓN (FIREBASE)
-// ==========================================
-const formOracion = document.getElementById("formOracion");
+// ======================================================
+// MÚSICA DE FONDO
+// ======================================================
+function inicializarMusica() {
+  const audio = document.getElementById("audioVersiculos");
+  const btn = document.getElementById("btnMusicaVersiculos");
 
+  if (!audio || !btn) return;
+
+  btn.addEventListener("click", () => {
+    if (audio.paused) {
+      audio.play();
+      btn.classList.add("activo");
+    } else {
+      audio.pause();
+      btn.classList.remove("activo");
+    }
+  });
+}
+
+// ======================================================
+// FAQ – FUNDAMENTOS DE FE (EL +)
+// ======================================================
+function inicializarFAQ() {
+  const items = document.querySelectorAll(".faq-item");
+
+  items.forEach(item => {
+    const question = item.querySelector(".faq-question");
+    const answer = item.querySelector(".faq-answer");
+    const icon = question.querySelector("i");
+
+    answer.style.display = "none";
+
+    question.addEventListener("click", () => {
+      const abierto = answer.style.display === "block";
+
+      items.forEach(i => {
+        i.querySelector(".faq-answer").style.display = "none";
+        i.querySelector("i").classList.replace("fa-minus", "fa-plus");
+      });
+
+      if (!abierto) {
+        answer.style.display = "block";
+        icon.classList.replace("fa-plus", "fa-minus");
+      }
+    });
+  });
+}
+
+// ======================================================
+// FORMULARIO DE ORACIÓN (FIREBASE)
+// ======================================================
+const formOracion = document.getElementById("formOracion");
 if (formOracion) {
   formOracion.addEventListener("submit", async e => {
     e.preventDefault();
@@ -115,11 +144,10 @@ if (formOracion) {
   });
 }
 
-// ==========================================
+// ======================================================
 // FORMULARIO DE CONTACTO (FIREBASE)
-// ==========================================
+// ======================================================
 const formContacto = document.getElementById("formContacto");
-
 if (formContacto) {
   formContacto.addEventListener("submit", async e => {
     e.preventDefault();
@@ -140,43 +168,12 @@ if (formContacto) {
   });
 }
 
-// ==========================================
-// FUNDAMENTOS DE FE – FAQ (ACORDEÓN)
-// ==========================================
-function inicializarAcordeon() {
-  const items = document.querySelectorAll(".faq-item");
-
-  items.forEach(item => {
-    const question = item.querySelector(".faq-question");
-    const answer = item.querySelector(".faq-answer");
-    const icon = question.querySelector("i");
-
-    question.addEventListener("click", () => {
-      const abierto = item.classList.contains("activo");
-
-      items.forEach(i => {
-        i.classList.remove("activo");
-        i.querySelector(".faq-answer").style.maxHeight = null;
-        const ic = i.querySelector("i");
-        ic.classList.remove("fa-minus");
-        ic.classList.add("fa-plus");
-      });
-
-      if (!abierto) {
-        item.classList.add("activo");
-        answer.style.maxHeight = answer.scrollHeight + "px";
-        icon.classList.remove("fa-plus");
-        icon.classList.add("fa-minus");
-      }
-    });
-  });
-}
-
-// ==========================================
+// ======================================================
 // INICIALIZACIÓN GENERAL
-// ==========================================
+// ======================================================
 window.addEventListener("DOMContentLoaded", () => {
   cargarVersiculoDiario();
-  cargarCategorias();
-  inicializarAcordeon();
+  inicializarModoOscuro();
+  inicializarMusica();
+  inicializarFAQ();
 });
