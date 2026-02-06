@@ -736,3 +736,200 @@ body.modo-oscuro #cita-biblica {
     height: calc(100vh - 85px); /* Ajustamos la altura para que respete el versículo */
     margin-top: 0 !important; /* Quitamos cualquier margen que lo empuje hacia arriba */
 }
+/* ==========================================================================
+   SECCIÓN DE ORACIÓN - ESTILOS COMPLETOS
+   ========================================================================== */
+.section-oracion {
+    background: linear-gradient(135deg, var(--azul-deep) 0%, var(--azul-prime) 100%);
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efecto de fondo sutil */
+.section-oracion::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle, rgba(197, 160, 89, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.oracion-header {
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+    z-index: 1;
+}
+
+.oracion-icon {
+    font-size: 3.5rem;
+    color: var(--dorado-lux);
+    margin-bottom: 20px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+.oracion-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: white;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.oracion-subtitulo {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.oracion-form-wrapper {
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.oracion-form {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 50px 40px;
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(197, 160, 89, 0.2);
+}
+
+/* Modo oscuro para el formulario */
+body.modo-oscuro .oracion-form {
+    background: rgba(15, 20, 25, 0.95);
+    border: 1px solid rgba(197, 160, 89, 0.3);
+}
+
+.oracion-input-group {
+    margin-bottom: 25px;
+}
+
+.oracion-input-group input,
+.oracion-input-group textarea {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    background: white;
+    color: #333;
+    transition: var(--transicion);
+    outline: none;
+}
+
+/* Modo oscuro para inputs */
+body.modo-oscuro .oracion-input-group input,
+body.modo-oscuro .oracion-input-group textarea {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(197, 160, 89, 0.3);
+    color: white;
+}
+
+.oracion-input-group input:focus,
+.oracion-input-group textarea:focus {
+    border-color: var(--dorado-lux);
+    box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.1);
+}
+
+.oracion-input-group input::placeholder,
+.oracion-input-group textarea::placeholder {
+    color: #999;
+}
+
+body.modo-oscuro .oracion-input-group input::placeholder,
+body.modo-oscuro .oracion-input-group textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.oracion-input-group textarea {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.6;
+}
+
+.btn-oracion {
+    width: 100%;
+    padding: 18px 30px;
+    background: linear-gradient(135deg, var(--dorado-lux), #d4af6a);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: var(--transicion);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 8px 20px rgba(197, 160, 89, 0.3);
+}
+
+.btn-oracion:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(197, 160, 89, 0.4);
+    background: linear-gradient(135deg, #d4af6a, var(--dorado-lux));
+}
+
+.btn-oracion:active {
+    transform: translateY(0);
+}
+
+/* Responsive para la sección de oración */
+@media (max-width: 768px) {
+    .oracion-titulo {
+        font-size: 2rem;
+    }
+    
+    .oracion-form {
+        padding: 35px 25px;
+    }
+    
+    .oracion-icon {
+        font-size: 2.5rem;
+    }
+}
+
+/* ==========================================================================
+   ESTILOS ADICIONALES PARA FAQ (ACORDEÓN)
+   ========================================================================== */
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+    padding-top: 15px;
+}
+
+/* Mejorar el comportamiento del ícono */
+.faq-question i {
+    transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-question i {
+    transform: rotate(180deg);
+}
