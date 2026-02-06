@@ -35,37 +35,38 @@
     </header>
 
     <main>
-        <section class="hero" id="inicio" style="display: flex; flex-direction: column; align-items: center;">
+        <section class="hero" id="inicio" style="display: flex; flex-direction: column; align-items: center; padding-top: 50px;">
             
-            <div class="versiculo-del-dia" style="width: 100%; position: relative;">
-                
-                <div class="control-musica" style="display: flex; justify-content: flex-end; padding: 20px 5% 0 0;">
+            <div class="versiculo-del-dia" style="width: 100%; max-width: 1200px; margin-bottom: 50px;">
+                <div class="control-musica" style="display: flex; justify-content: flex-end; padding-right: 20px; margin-bottom: 15px;">
                     <button class="btn-musica" id="btnMusicaVersiculos">
                         <i class="fas fa-music"></i> <span>Música de Paz</span>
                     </button>
-                    <audio id="audioVersiculos" loop>
-                        <source src="https://www.bensound.com/bensound-music/bensound-memories.mp3" type="audio/mpeg">
-                    </audio>
                 </div>
 
-                <div class="versiculo-dia-container" style="text-align: center; padding: 20px 5% 40px 5%;">
+                <audio id="audioVersiculos" loop>
+                    <source src="https://www.bensound.com/bensound-music/bensound-memories.mp3" type="audio/mpeg">
+                </audio>
+
+                <div class="versiculo-dia-container" style="text-align: center; width: 100%; background: rgba(0,0,0,0.2); padding: 30px; border-radius: 15px;">
                     <span class="versiculo-dia-etiqueta">
                         <i class="fas fa-star"></i> Palabra de Vida
                     </span>
-                    <p id="texto-dia" class="versiculo-dia-texto" style="font-size: 2.2rem; max-width: 100%;">
+                    <p id="texto-dia" class="versiculo-dia-texto" style="font-size: 2.5rem; line-height: 1.2; margin: 20px 0;">
                         Cargando palabra de esperanza...
                     </p>
-                    <span id="cita-dia" class="versiculo-dia-cita"></span>
+                    <span id="cita-dia" class="versiculo-dia-cita" style="font-weight: bold; letter-spacing: 2px;"></span>
                 </div>
             </div>
 
-            <div class="hero-content" style="text-align: center; margin-top: 20px;">
+            <div class="hero-content" style="text-align: center; max-width: 900px;">
                 <span class="pre-title">BIENVENIDO</span>
-                <h1>Dios es Amor</h1>
-                <p>Un espacio sagrado para fortalecer tu fe, encontrar esperanza y descansar profundamente en Su Palabra eterna.</p>
-                <div class="hero-btns">
-                    <a href="#versiculos" class="btn-gold">📖 LEER PALABRA</a>
-                    <a href="#contacto" class="btn-outline">🙏 PEDIR ORACIÓN</a>
+                <h1 style="font-size: 4.5rem; margin-bottom: 15px;">Dios es Amor</h1>
+                <p style="font-size: 1.2rem; margin-bottom: 35px;">Un espacio sagrado para fortalecer tu fe, encontrar esperanza y descansar profundamente en Su Palabra eterna.</p>
+                
+                <div class="hero-btns" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                    <a href="#versiculos" class="btn-gold" style="padding: 15px 40px; min-width: 220px; text-align: center;">📖 LEER PALABRA</a>
+                    <a href="#contacto" class="btn-outline" style="padding: 15px 40px; min-width: 220px; text-align: center;">🙏 PEDIR ORACIÓN</a>
                 </div>
             </div>
         </section>
@@ -206,13 +207,13 @@
         </section>
     </main>
 
-    <footer>
+    <footer style="padding: 60px 0; text-align: center; background: #0a192f; color: white;">
         <div class="container">
             <div class="logo">PODEROSO<span>DIOS</span></div>
             <p>Llevando la Palabra de Vida con excelencia y amor.</p>
             <div class="social-links" style="margin-top: 25px; font-size: 1.5rem;">
-                <a href="#" style="color: var(--dorado-lux); margin: 0 15px;"><i class="fab fa-facebook"></i></a>
-                <a href="#" style="color: var(--dorado-lux); margin: 0 15px;"><i class="fab fa-instagram"></i></a>
+                <a href="#" style="color: #d4af37; margin: 0 15px;"><i class="fab fa-facebook"></i></a>
+                <a href="#" style="color: #d4af37; margin: 0 15px;"><i class="fab fa-instagram"></i></a>
             </div>
             <p style="margin-top: 40px; font-size: 0.8rem; opacity: 0.5;">
                 &copy; 2025 Poderoso es Dios. Todos los derechos reservados.
