@@ -7,12 +7,15 @@
     <title>Poderoso es Dios | Un Espacio de Fe</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Montserrat:wght@300;400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+    <!-- NAVEGACIÓN (SOLO LOGO Y MENÚ) -->
     <header class="navbar" id="header">
         <div class="logo">
             PODEROSO<span>DIOS</span>
@@ -33,32 +36,40 @@
             </button>
         </div>
     </header>
-
-    <main>
-        <section class="hero" id="inicio">
-            
-            <div class="hero-top-full">
-                <div class="musica-wrapper">
-                    <button class="btn-musica" id="btnMusica">
-                        <i class="fas fa-music"></i> <span>Música de Paz</span>
-                    </button>
-                </div>
-
-                <div class="versiculo-del-dia">
-                    <div class="versiculo-dia-container">
-                        <span class="versiculo-dia-etiqueta">
-                            <i class="fas fa-star"></i> Palabra de Vida
-                        </span>
-                        
-                        <p id="texto-dia" class="versiculo-dia-texto">
-                            "Lámpara es a mis pies tu palabra, y lumbrera a mi camino."
-                        </p>
-                        
-                        <span id="cita-dia" class="versiculo-dia-cita">SALMOS 119:105</span>
-                    </div>
+  <!-- VERSÍCULO DEL DÍA - AHORA DENTRO DEL HERO -->
+            <div class="versiculo-del-dia">
+                <div class="versiculo-dia-container">
+                    <!-- Etiqueta dorada superior -->
+                    <span class="versiculo-dia-etiqueta">
+                        <i class="fas fa-star"></i> Palabra de Vida
+                    </span>
+                    
+                    <!-- Aquí es donde tu función JS pondrá el versículo -->
+                    <p id="texto-dia" class="versiculo-dia-texto">
+                        Cargando palabra de esperanza...
+                    </p>
+                    
+                    <!-- Aquí es donde tu función JS pondrá la cita (ej: Juan 3:16) -->
+                    <span id="cita-dia" class="versiculo-dia-cita"></span>
                 </div>
             </div>
 
+    <main>
+        <!-- HERO SECTION CON VERSÍCULO DEL DÍA -->
+        <section class="hero" id="inicio">
+            <!-- Control de música -->
+            <div class="control-musica">
+                <button class="btn-musica" id="btnMusica">
+                    <i class="fas fa-music"></i> <span>Música de Paz</span>
+                </button>
+            </div>
+
+            <audio id="audioFondo" loop>
+                <source src="https://www.bensound.com/bensound-music/bensound-memories.mp3" type="audio/mpeg">
+            </audio>
+
+          
+            <!-- Contenido principal del hero -->
             <div class="hero-content">
                 <span class="pre-title">BIENVENIDO</span>
                 <h1>Dios es Amor</h1>
@@ -68,12 +79,9 @@
                     <a href="#contacto" class="btn-outline">🙏 PEDIR ORACIÓN</a>
                 </div>
             </div>
-
-            <audio id="audioFondo" loop>
-                <source src="https://www.bensound.com/bensound-music/bensound-memories.mp3" type="audio/mpeg">
-            </audio>
         </section>
 
+        <!-- SECCIÓN IDENTIDAD -->
         <section class="section" id="identidad">
             <div class="container">
                 <h2 class="title-gold">Nuestra Identidad</h2>
@@ -92,6 +100,7 @@
             </div>
         </section>
 
+        <!-- SECCIÓN VERSÍCULOS -->
         <section class="section" id="versiculos" style="background-color: #f4f7f6;">
             <div class="container">
                 <h2 class="title-gold">Alimento para el Alma</h2>
@@ -103,6 +112,7 @@
             </div>
         </section>
 
+        <!-- SECCIÓN PREDICACIONES -->
         <section class="section-dark" id="predicas">
             <div class="container">
                 <h2 class="title-gold" style="color: var(--dorado-lux);">Predicaciones</h2>
@@ -117,6 +127,7 @@
             </div>
         </section>
 
+        <!-- SECCIÓN FE (FAQ) -->
         <section class="section" id="fe">
             <div class="container">
                 <h2 class="title-gold">Fundamentos de Fe</h2>
@@ -140,7 +151,7 @@
                 </div>
             </div>
         </section>
-
+  <!-- NUEVA SECCIÓN DE ORACIÓN -->
         <section class="section-oracion" id="oracion">
             <div class="container">
                 <div class="oracion-header">
@@ -166,18 +177,19 @@
                 </div>
             </div>
         </section>
-
+        <!-- SECCIÓN CONTACTO -->
         <section class="section" id="contacto">
             <div class="container">
                 <h2 class="title-gold">Contáctanos</h2>
 
                 <div class="contacto-wrapper">
+                    
                     <div class="contacto-info-box">
                         <div class="info-item-lux">
                             <i class="fas fa-envelope-open-text"></i>
                             <div>
                                 <h4>Escríbenos</h4>
-                                <p>contacto@poderosodios.com</p>
+                                <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="93f0fcfde7f2f0e7fce3fcf7f6e1fce0fcf7fafce0d3f4fef2faffbdf0fcfe">[email&#160;protected]</a></p>
                             </div>
                         </div>
                         
@@ -192,6 +204,7 @@
 
                     <div class="contacto-form-card">
                         <form id="formContactoLux">
+                            
                             <div class="input-group-lux">
                                 <label>Nombre Completo</label>
                                 <input type="text" placeholder="Tu nombre..." required>
@@ -210,13 +223,16 @@
                             <button type="submit" class="btn-gold-block">
                                 Enviar Mensaje con Fe
                             </button>
+                            
                         </form>
                     </div>
+
                 </div> 
             </div> 
         </section>
     </main>
 
+    <!-- FOOTER -->
     <footer>
         <div class="container">
             <div class="logo">PODEROSO<span>DIOS</span></div>
@@ -233,7 +249,8 @@
         </div>
     </footer>
 
-    <script type="module" src="script.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script type="module" src="script.js"></script>
 
 </body>
 </html>
