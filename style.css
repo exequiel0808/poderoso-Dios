@@ -247,11 +247,18 @@ body.modo-oscuro .faq-item {
 }
 
 .faq-answer {
-    display: none;
-    padding: 0 25px 25px;
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 25px;
     color: #666;
     font-size: 1.1rem;
+    transition: max-height 0.4s ease, padding 0.3s ease;
 }
+
+.faq-item.activo .faq-answer {
+    padding: 0 25px 25px;
+}
+
 
 body.modo-oscuro .faq-answer { color: #ccc; }
 

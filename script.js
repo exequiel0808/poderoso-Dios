@@ -66,41 +66,35 @@ function inicializarMenuMovil() {
 }
 
 function inicializarAcordeon() {
-    const faqItems = document.querySelectorAll('.faq-item');
-    
-    faqItems.forEach(item => {
+    const items = document.querySelectorAll('.faq-item');
+
+    items.forEach(item => {
         const question = item.querySelector('.faq-question');
         const answer = item.querySelector('.faq-answer');
+        const icon = question.querySelector('i');
 
-        if (question && answer) {
-            // Inicializar cerrado
-            answer.style.maxHeight = "0px";
-            answer.style.overflow = "hidden";
-            answer.style.transition = "max-height 0.3s ease";
-            
-            question.addEventListener('click', () => {
-                const isOpen = answer.style.maxHeight !== "0px";
+        question.addEventListener('click', () => {
+            const abierto = item.classList.contains('activo');
 
-                // Cerrar todos
-                document.querySelectorAll('.faq-answer').forEach(a => {
-                    a.style.maxHeight = "0px";
-                });
-                document.querySelectorAll('.faq-question i').forEach(i => {
-                    i.classList.remove('fa-minus');
-                    i.classList.add('fa-plus');
-                });
-
-                // Abrir si estaba cerrado
-                if (!isOpen) {
-                    answer.style.maxHeight = answer.scrollHeight + "px";
-                    const icon = question.querySelector('i');
-                    icon.classList.remove('fa-plus');
-                    icon.classList.add('fa-minus');
-                }
+            // Cerrar todos
+            items.forEach(i => {
+                i.classList.remove('activo');
+                i.querySelector('.faq-answer').style.maxHeight = null;
+                i.querySelector('i').classList.remove('fa-minus');
+                i.querySelector('i').classList.add('fa-plus');
             });
-        }
+
+            // Abrir el actual
+            if (!abierto) {
+                item.classList.add('activo');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                icon.classList.remove('fa-plus');
+                icon.classList.add('fa-minus');
+            }
+        });
     });
 }
+
 
 // ==========================================
 // 4. VERSÍCULO DEL DÍA (CORREGIDO)
