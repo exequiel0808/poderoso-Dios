@@ -878,3 +878,75 @@ body.modo-oscuro .oracion-input-group textarea::placeholder {
     padding-top: 15px;
     padding-bottom: 15px;
 }
+/* ==========================================================================
+   ESTILOS PARA FAQ ACORDEÓN
+   ========================================================================== */
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    margin-bottom: 15px;
+    border: 2px solid rgba(197, 160, 89, 0.3);
+    border-radius: 10px;
+    overflow: hidden;
+    background: white;
+}
+
+body.modo-oscuro .faq-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(197, 160, 89, 0.4);
+}
+
+.faq-question {
+    width: 100%;
+    padding: 20px 25px;
+    background: transparent;
+    border: none;
+    text-align: left;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--azul-prime);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+body.modo-oscuro .faq-question {
+    color: var(--dorado-lux);
+}
+
+.faq-question:hover {
+    background: rgba(197, 160, 89, 0.1);
+}
+
+.faq-question i {
+    color: var(--dorado-lux);
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background: rgba(197, 160, 89, 0.05);
+}
+
+body.modo-oscuro .faq-answer {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.faq-answer p {
+    padding: 20px 25px;
+    margin: 0;
+    line-height: 1.8;
+    color: #333;
+}
+
+body.modo-oscuro .faq-answer p {
+    color: rgba(255, 255, 255, 0.9);
+}
