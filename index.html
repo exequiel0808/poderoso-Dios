@@ -15,30 +15,18 @@
 
 <body>
 
+    <!-- NAVEGACIÓN (SOLO LOGO Y MENÚ) -->
     <header class="navbar" id="header">
         <div class="logo">
             PODEROSO<span>DIOS</span>
         </div>
-        <section class="versiculo-del-dia">
-            <div class="versiculo-dia-container">
-                <span class="versiculo-dia-etiqueta">
-                    <i class="fas fa-star"></i> Palabra de Vida
-                </span>
-                
-                <p id="texto-dia" class="versiculo-dia-texto">
-                    Cargando palabra de esperanza...
-                </p>
-                
-                <span id="cita-dia" class="versiculo-dia-cita"></span>
-            </div>
-        </section>
+
         <nav class="nav-links" id="navMenu">
             <a href="#inicio">Inicio</a>
             <a href="#identidad">Identidad</a>
             <a href="#versiculos">Versículos</a>
             <a href="#predicas">Prédicas</a>
             <a href="#fe">Fe</a>
-            <a href="#oracion">Oración</a>
             <a href="#contacto">Contacto</a>
         </nav>
 
@@ -50,7 +38,9 @@
     </header>
 
     <main>
+        <!-- HERO SECTION CON VERSÍCULO DEL DÍA -->
         <section class="hero" id="inicio">
+            <!-- Control de música -->
             <div class="control-musica">
                 <button class="btn-musica" id="btnMusica">
                     <i class="fas fa-music"></i> <span>Música de Paz</span>
@@ -61,17 +51,37 @@
                 <source src="https://www.bensound.com/bensound-music/bensound-memories.mp3" type="audio/mpeg">
             </audio>
 
+            <!-- VERSÍCULO DEL DÍA - AHORA DENTRO DEL HERO -->
+            <div class="versiculo-del-dia">
+                <div class="versiculo-dia-container">
+                    <!-- Etiqueta dorada superior -->
+                    <span class="versiculo-dia-etiqueta">
+                        <i class="fas fa-star"></i> Palabra de Vida
+                    </span>
+                    
+                    <!-- Aquí es donde tu función JS pondrá el versículo -->
+                    <p id="texto-dia" class="versiculo-dia-texto">
+                        Cargando palabra de esperanza...
+                    </p>
+                    
+                    <!-- Aquí es donde tu función JS pondrá la cita (ej: Juan 3:16) -->
+                    <span id="cita-dia" class="versiculo-dia-cita"></span>
+                </div>
+            </div>
+
+            <!-- Contenido principal del hero -->
             <div class="hero-content">
                 <span class="pre-title">BIENVENIDO</span>
                 <h1>Dios es Amor</h1>
                 <p>Un espacio sagrado para fortalecer tu fe, encontrar esperanza y descansar profundamente en Su Palabra eterna.</p>
                 <div class="hero-btns">
                     <a href="#versiculos" class="btn-gold">📖 LEER PALABRA</a>
-                    <a href="#oracion" class="btn-outline">🙏 PEDIR ORACIÓN</a>
+                    <a href="#contacto" class="btn-outline">🙏 PEDIR ORACIÓN</a>
                 </div>
             </div>
         </section>
 
+        <!-- SECCIÓN IDENTIDAD -->
         <section class="section" id="identidad">
             <div class="container">
                 <h2 class="title-gold">Nuestra Identidad</h2>
@@ -90,6 +100,7 @@
             </div>
         </section>
 
+        <!-- SECCIÓN VERSÍCULOS -->
         <section class="section" id="versiculos" style="background-color: #f4f7f6;">
             <div class="container">
                 <h2 class="title-gold">Alimento para el Alma</h2>
@@ -101,6 +112,7 @@
             </div>
         </section>
 
+        <!-- SECCIÓN PREDICACIONES -->
         <section class="section-dark" id="predicas">
             <div class="container">
                 <h2 class="title-gold" style="color: var(--dorado-lux);">Predicaciones</h2>
@@ -115,6 +127,7 @@
             </div>
         </section>
 
+        <!-- SECCIÓN FE (FAQ) -->
         <section class="section" id="fe">
             <div class="container">
                 <h2 class="title-gold">Fundamentos de Fe</h2>
@@ -139,34 +152,7 @@
             </div>
         </section>
 
-        <!-- NUEVA SECCIÓN DE ORACIÓN -->
-        <section class="section-oracion" id="oracion">
-            <div class="container">
-                <div class="oracion-header">
-                    <i class="fas fa-praying-hands oracion-icon"></i>
-                    <h2 class="oracion-titulo">¿Deseas que oremos por ti?</h2>
-                    <p class="oracion-subtitulo">Dios escucha cada clamor. Déjanos tu petición abajo.</p>
-                </div>
-
-                <div class="oracion-form-wrapper">
-                    <form id="formOracion" class="oracion-form">
-                        <div class="oracion-input-group">
-                            <input type="text" placeholder="Tu nombre completo" required>
-                        </div>
-
-                        <div class="oracion-input-group">
-                            <textarea rows="5" placeholder="Escribe aquí tu motivo de oración..." required></textarea>
-                        </div>
-
-                        <button type="submit" class="btn-oracion">
-                            Enviar petición 🙏
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECCIÓN DE CONTACTO (Original con correo) -->
+        <!-- SECCIÓN CONTACTO -->
         <section class="section" id="contacto">
             <div class="container">
                 <h2 class="title-gold">Contáctanos</h2>
@@ -183,10 +169,10 @@
                         </div>
                         
                         <div class="info-item-lux" style="margin-top: 30px;">
-                            <i class="fas fa-phone"></i>
+                            <i class="fas fa-praying-hands"></i>
                             <div>
-                                <h4>Llámanos</h4>
-                                <p>Estamos disponibles para ayudarte.</p>
+                                <h4>Peticiones</h4>
+                                <p>Estamos listos para orar por ti las 24 horas.</p>
                             </div>
                         </div>
                     </div>
@@ -221,6 +207,7 @@
         </section>
     </main>
 
+    <!-- FOOTER -->
     <footer>
         <div class="container">
             <div class="logo">PODEROSO<span>DIOS</span></div>
