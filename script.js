@@ -101,9 +101,10 @@ function inicializarAcordeon() {
 }
 
 // ==========================================
-// 4. VERSÍCULO DEL DÍA - VERSIÓN MODERNA
+// 4. VERSÍCULO DEL DÍA (CORREGIDO)
 // ==========================================
 async function cargarVersiculoDiario() {
+    const URL_JSON = "https://raw.githubusercontent.com/exequiel0808/poderoso-Dios/main/biblia-completa-rv1960.json";
     const textoDia = document.getElementById("texto-dia");
     const citaDia = document.getElementById("cita-dia");
 
@@ -112,44 +113,50 @@ async function cargarVersiculoDiario() {
         return;
     }
 
-    // 30 versículos populares en lenguaje moderno
-    const versiculosModernos = [
-        { texto: "Porque de tal manera amó Dios al mundo, que dio a su Hijo unigénito, para que todo aquel que cree en él no se pierda, sino que tenga vida eterna.", cita: "Juan 3:16" },
-        { texto: "Todo lo puedo en Cristo que me fortalece.", cita: "Filipenses 4:13" },
-        { texto: "Confía en el Señor de todo corazón, y no en tu propia inteligencia. Reconócelo en todos tus caminos, y él allanará tus sendas.", cita: "Proverbios 3:5-6" },
-        { texto: "El Señor es mi pastor, nada me falta.", cita: "Salmos 23:1" },
-        { texto: "No temas, porque yo estoy contigo; no desmayes, porque yo soy tu Dios que te fortalece; siempre te ayudaré, siempre te sustentaré con la diestra de mi justicia.", cita: "Isaías 41:10" },
-        { texto: "Porque yo sé muy bien los planes que tengo para ustedes —afirma el Señor—, planes de bienestar y no de calamidad, a fin de darles un futuro y una esperanza.", cita: "Jeremías 29:11" },
-        { texto: "Vengan a mí todos ustedes que están cansados y agobiados, y yo les daré descanso.", cita: "Mateo 11:28" },
-        { texto: "El Señor te bendiga y te guarde; el Señor te mire con agrado y te extienda su amor; el Señor te muestre su favor y te conceda la paz.", cita: "Números 6:24-26" },
-        { texto: "Si Dios está a favor nuestro, ¿quién puede estar en contra nuestra?", cita: "Romanos 8:31" },
-        { texto: "El amor es paciente, es bondadoso. El amor no es envidioso ni jactancioso ni orgulloso.", cita: "1 Corintios 13:4" },
-        { texto: "Echen todas sus ansiedades sobre él, porque él tiene cuidado de ustedes.", cita: "1 Pedro 5:7" },
-        { texto: "Alégrense siempre en el Señor. Insisto: ¡Alégrense!", cita: "Filipenses 4:4" },
-        { texto: "Busquen primeramente el reino de Dios y su justicia, y todas estas cosas les serán añadidas.", cita: "Mateo 6:33" },
-        { texto: "Porque donde dos o tres se reúnen en mi nombre, allí estoy yo en medio de ellos.", cita: "Mateo 18:20" },
-        { texto: "El Señor es mi luz y mi salvación; ¿a quién temeré? El Señor es el baluarte de mi vida; ¿quién podrá amedrentarme?", cita: "Salmos 27:1" },
-        { texto: "Dichosos los que tienen hambre y sed de justicia, porque serán saciados.", cita: "Mateo 5:6" },
-        { texto: "Yo soy el camino, la verdad y la vida. Nadie llega al Padre sino por mí.", cita: "Juan 14:6" },
-        { texto: "Den gracias al Señor, porque él es bueno; su gran amor perdura para siempre.", cita: "Salmos 107:1" },
-        { texto: "En ti confían los que conocen tu nombre, porque tú, Señor, jamás abandonas a los que te buscan.", cita: "Salmos 9:10" },
-        { texto: "Así que no temas, porque yo estoy contigo; no te angusties, porque yo soy tu Dios.", cita: "Isaías 41:10" },
-        { texto: "El que habita al abrigo del Altísimo se acoge a la sombra del Todopoderoso.", cita: "Salmos 91:1" },
-        { texto: "Ustedes son la luz del mundo. Una ciudad en lo alto de una colina no puede esconderse.", cita: "Mateo 5:14" },
-        { texto: "Por lo tanto, si alguno está en Cristo, es una nueva creación. ¡Lo viejo ha pasado, ha llegado ya lo nuevo!", cita: "2 Corintios 5:17" },
-        { texto: "No se inquieten por nada; más bien, en toda ocasión, con oración y ruego, presenten sus peticiones a Dios y denle gracias.", cita: "Filipenses 4:6" },
-        { texto: "Encomienda al Señor tu camino; confía en él, y él actuará.", cita: "Salmos 37:5" },
-        { texto: "Porque él nos salvó y nos llamó a una vida santa, no por nuestras propias obras, sino por su propia determinación y gracia.", cita: "2 Timoteo 1:9" },
-        { texto: "Ama al Señor tu Dios con todo tu corazón, con todo tu ser y con toda tu mente.", cita: "Mateo 22:37" },
-        { texto: "Y todo lo que hagan, de palabra o de obra, háganlo en el nombre del Señor Jesús, dando gracias a Dios el Padre por medio de él.", cita: "Colosenses 3:17" },
-        { texto: "El Señor es bueno; para siempre es su misericordia, y su fidelidad por todas las generaciones.", cita: "Salmos 100:5" },
-        { texto: "Tu palabra es una lámpara a mis pies; es una luz en mi sendero.", cita: "Salmos 119:105" }
-    ];
-
     try {
-        // Seleccionar un versículo aleatorio
-        const indice = Math.floor(Math.random() * versiculosModernos.length);
-        const seleccionado = versiculosModernos[indice];
+        // Agregar timestamp para evitar caché
+        const cacheBuster = new Date().toISOString().slice(0, 10);
+        const res = await fetch(`${URL_JSON}?v=${cacheBuster}`);
+        
+        if (!res.ok) {
+            throw new Error(`Error HTTP: ${res.status}`);
+        }
+        
+        const data = await res.json();
+        
+        // Extraer todos los versículos
+        const versiculos = [];
+        
+        for (const libro in data) {
+            const bookData = data[libro];
+            if (bookData.chapters && Array.isArray(bookData.chapters)) {
+                bookData.chapters.forEach(chapter => {
+                    if (chapter.verses && Array.isArray(chapter.verses)) {
+                        chapter.verses.forEach(v => {
+                            versiculos.push({
+                                texto: v.text,
+                                cita: `${bookData.book} ${chapter.chapter}:${v.verse}`
+                            });
+                        });
+                    }
+                });
+            }
+        }
+
+        if (versiculos.length === 0) {
+            throw new Error("No se encontraron versículos en el JSON");
+        }
+
+        // Usar el día del año para selección consistente
+        const ahora = new Date();
+        const inicioAnio = new Date(ahora.getFullYear(), 0, 0);
+        const diff = ahora - inicioAnio;
+        const unDia = 1000 * 60 * 60 * 24;
+        const diaDelAnio = Math.floor(diff / unDia);
+
+        // Seleccionar versículo basado en el día
+        const indice = diaDelAnio % versiculos.length;
+        const seleccionado = versiculos[indice];
 
         // Mostrar versículo
         textoDia.textContent = `"${seleccionado.texto}"`;
@@ -159,13 +166,13 @@ async function cargarVersiculoDiario() {
 
     } catch (error) {
         console.error("❌ Error cargando versículo:", error);
-        textoDia.textContent = "Tu palabra es una lámpara a mis pies; es una luz en mi sendero.";
+        textoDia.textContent = "Lámpara es a mis pies tu palabra, y lumbrera a mi camino.";
         citaDia.textContent = "Salmos 119:105";
     }
 }
 
 // ==========================================
-// 5. CONTROL DE MÚSICA AMBIENTAL
+// 5. CONTROL DE MÚSICA AMBIENTAL - CORREGIDO
 // ==========================================
 function inicializarMusica() {
     const btnMusica = document.getElementById('btnMusica');
@@ -176,7 +183,7 @@ function inicializarMusica() {
         return;
     }
 
-    audio.volume = 0.3;
+    audio.volume = 0.3; // Volumen suave por defecto
 
     btnMusica.addEventListener('click', () => {
         const isPaused = audio.paused;
@@ -198,7 +205,7 @@ function inicializarMusica() {
 }
 
 // ==========================================
-// 6. CARGA DE CATEGORÍAS
+// 6. CARGA DE CATEGORÍAS (Firebase / Dinámico)
 // ==========================================
 async function cargarCategorias() {
     const contenedor = document.getElementById("contenedorBotones");
@@ -219,6 +226,7 @@ async function cargarCategorias() {
             btn.textContent = data.nombre;
             
             btn.onclick = () => {
+                // Efecto de transición suave
                 if (displayTexto) {
                     displayTexto.style.opacity = 0;
                     setTimeout(() => {
@@ -231,17 +239,18 @@ async function cargarCategorias() {
             contenedor.appendChild(btn);
         });
     } catch (error) {
-        console.warn("Firebase no detectado o error de red.");
+        console.warn("Firebase no detectado o error de red. Usando marcadores de posición.");
         contenedor.innerHTML = "<p style='opacity:0.6'>Conectando con la palabra...</p>";
     }
 }
 
 // ==========================================
-// INICIALIZACIÓN
+// INICIALIZACIÓN AL CARGAR LA PÁGINA
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
     console.log("🚀 Iniciando aplicación...");
     
+    // Inicializar todas las funciones
     inicializarMenuMovil();
     inicializarAcordeon();
     cargarVersiculoDiario();

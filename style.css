@@ -173,18 +173,6 @@ body {
     transition: var(--transicion);
 }
 
-/* Modo móvil - hacer el botón circular */
-@media (max-width: 768px) {
-    .btn-musica {
-        width: 45px;
-        height: 45px;
-        padding: 0;
-        border-radius: 50%;
-        justify-content: center;
-        gap: 0;
-    }
-}
-
 .btn-musica:hover {
     background: var(--dorado-lux);
     transform: translateY(-2px);
@@ -687,234 +675,90 @@ body.modo-oscuro #cita-biblica {
    14. RESPONSIVIDAD (MOBILE)
    ========================================================================== */
 @media (max-width: 768px) {
-    /* Navbar */
     .navbar {
         padding: 0 5%;
         height: 70px;
-        flex-wrap: nowrap;
     }
 
     .logo {
-        font-size: 1.3rem;
-        letter-spacing: 1px;
+        font-size: 1.4rem;
     }
 
     .nav-links {
         display: none;
     }
 
-    .btn-modo-oscuro {
-        font-size: 1.3rem;
-        margin-left: 10px;
-    }
-
-    /* Hero Section */
-    .hero {
-        min-height: auto;
-        padding-top: 70px;
-    }
-
-    .versiculo-del-dia {
-        padding: 25px 5%;
-        margin-top: 70px;
-    }
-
-    .versiculo-dia-etiqueta {
-        font-size: 0.7rem;
-        padding: 6px 15px;
-    }
-
-    .versiculo-dia-texto {
-        font-size: 1.2rem !important;
-        line-height: 1.5;
-        padding: 0 10px;
-    }
-
-    .versiculo-dia-cita {
-        font-size: 0.8rem;
-    }
-
-    .hero-content {
-        padding: 30px 15px;
-    }
-
     .hero-content h1 {
-        font-size: 2.2rem !important;
-        margin-top: 20px;
-        line-height: 1.2;
+        font-size: 2.5rem !important;
+        margin-top: 40px;
     }
 
     .hero-content p {
-        font-size: 0.95rem;
-        padding: 0 10px;
-        line-height: 1.6;
+        font-size: 1rem;
+        padding: 0 15px;
     }
 
     .hero-btns {
         flex-direction: column;
-        gap: 12px;
-        width: 100%;
-        align-items: center;
+        gap: 15px;
     }
 
     .btn-gold, 
     .btn-outline {
-        width: 90%;
-        max-width: 300px;
+        width: 85%;
         margin: 0 !important;
-        padding: 14px 20px;
-        text-align: center;
-        font-size: 0.9rem;
+        padding: 15px 0;
     }
 
-    /* Control de música - ya está definido arriba globalmente */
     .control-musica {
-        top: 80px;
+        top: 85px;
         right: 15px;
     }
 
-    /* Secciones */
-    .section {
-        padding: 50px 0;
-    }
-
-    .container {
-        padding: 0 1rem;
-    }
-
-    .title-gold {
-        font-size: 2rem !important;
-        padding: 0 15px;
-        margin-bottom: 30px;
-    }
-
-    /* Cards */
-    .about-card {
-        padding: 25px 20px;
-        margin: 0 10px 20px;
-    }
-
-    .card-versiculo {
-        padding: 25px 15px;
-        margin: 0 10px;
-    }
-
-    #texto-biblico {
-        font-size: 1.1rem !important;
-        line-height: 1.6;
-    }
-
-    #cita-biblica {
-        font-size: 0.9rem;
-        margin-top: 10px;
-    }
-
-    /* Grids */
-    .grid-identidad {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 0 5%;
-    }
-
-    .predicas-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    /* Botones de categorías */
-    .categorias-container {
-        gap: 10px;
-        padding: 0 10px;
-    }
-
-    .categorias-container button {
-        padding: 10px 20px;
+    .btn-musica {
+        padding: 8px 15px;
         font-size: 0.75rem;
     }
 
-    /* FAQ */
-    .faq-container {
-        padding: 0 10px;
-    }
-
-    .faq-question {
-        font-size: 1.1rem;
-        padding: 20px 15px;
-    }
-
-    .faq-answer {
-        padding: 0 15px;
-        font-size: 0.95rem;
-    }
-
-    /* Contacto */
-    .contacto-wrapper {
-        grid-template-columns: 1fr;
-        gap: 25px;
-        padding: 0 10px;
-    }
-
-    .contacto-form-card {
-        padding: 25px 20px;
-    }
-
-    .input-group-lux input,
-    .input-group-lux textarea {
-        font-size: 1rem;
-    }
-
-    /* Footer */
-    footer {
-        padding: 40px 20px;
-    }
-
-    footer .logo {
-        font-size: 1.4rem;
-    }
-}
-
-/* Pantallas extra pequeñas */
-@media (max-width: 480px) {
-    .hero-content h1 {
-        font-size: 1.8rem !important;
-    }
-
-    .versiculo-dia-texto {
-        font-size: 1.1rem !important;
+    .section {
+        padding: 60px 0;
     }
 
     .title-gold {
-        font-size: 1.8rem !important;
+        font-size: 2.2rem !important;
+    }
+
+    .about-card {
+        padding: 30px 20px;
+        margin: 0 15px;
+    }
+
+    .contacto-wrapper {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .versiculo-dia-texto {
+        font-size: 1.4rem;
+    }
+
+    .versiculo-del-dia {
+        padding: 30px 4%;
+    }
+}
+
+@media (max-width: 380px) {
+    .hero-content h1 {
+        font-size: 2rem !important;
+    }
+
+    .logo {
+        font-size: 1.1rem;
     }
 
     .btn-gold, 
     .btn-outline {
         width: 95%;
-        font-size: 0.85rem;
-        padding: 12px 15px;
-    }
-
-    .about-card {
-        padding: 20px 15px;
-    }
-}
-
-/* Muy pequeñas (iPhone SE, etc) */
-@media (max-width: 360px) {
-    .logo {
-        font-size: 1.1rem;
-    }
-
-    .hero-content h1 {
-        font-size: 1.6rem !important;
-    }
-
-    .versiculo-dia-texto {
-        font-size: 1rem !important;
-    }
-
-    .btn-gold, 
-    .btn-outline {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
     }
 }
