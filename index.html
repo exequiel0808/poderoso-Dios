@@ -7,15 +7,12 @@
     <title>Poderoso es Dios | Un Espacio de Fe</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Montserrat:wght@300;400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- NAVEGACIÓN (SOLO LOGO Y MENÚ) -->
     <header class="navbar" id="header">
         <div class="logo">
             PODEROSO<span>DIOS</span>
@@ -36,40 +33,31 @@
             </button>
         </div>
     </header>
-  <!-- VERSÍCULO DEL DÍA - AHORA DENTRO DEL HERO -->
+
+    <main>
+        <section class="hero" id="inicio">
+            
+            <div class="control-musica">
+                <button class="btn-musica" id="btnMusicaVersiculos">
+                    <i class="fas fa-music"></i> <span>Música de Paz</span>
+                </button>
+                <audio id="audioVersiculos" loop>
+                    <source src="https://www.bensound.com/bensound-music/bensound-memories.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+
             <div class="versiculo-del-dia">
                 <div class="versiculo-dia-container">
-                    <!-- Etiqueta dorada superior -->
                     <span class="versiculo-dia-etiqueta">
                         <i class="fas fa-star"></i> Palabra de Vida
                     </span>
-                    
-                    <!-- Aquí es donde tu función JS pondrá el versículo -->
                     <p id="texto-dia" class="versiculo-dia-texto">
                         Cargando palabra de esperanza...
                     </p>
-                    
-                    <!-- Aquí es donde tu función JS pondrá la cita (ej: Juan 3:16) -->
                     <span id="cita-dia" class="versiculo-dia-cita"></span>
                 </div>
             </div>
 
-    <main>
-        <!-- HERO SECTION CON VERSÍCULO DEL DÍA -->
-        <section class="hero" id="inicio">
-            <!-- Control de música -->
-            <div class="control-musica">
-                <button class="btn-musica" id="btnMusicaVersiculos">
-  <i class="fas fa-music"></i> <span>Música de Paz</span>
-</button>
-
-<audio id="audioVersiculos" loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-memories.mp3" type="audio/mpeg">
-</audio>
-
-
-          
-            <!-- Contenido principal del hero -->
             <div class="hero-content">
                 <span class="pre-title">BIENVENIDO</span>
                 <h1>Dios es Amor</h1>
@@ -81,7 +69,6 @@
             </div>
         </section>
 
-        <!-- SECCIÓN IDENTIDAD -->
         <section class="section" id="identidad">
             <div class="container">
                 <h2 class="title-gold">Nuestra Identidad</h2>
@@ -100,7 +87,6 @@
             </div>
         </section>
 
-        <!-- SECCIÓN VERSÍCULOS -->
         <section class="section" id="versiculos" style="background-color: #f4f7f6;">
             <div class="container">
                 <h2 class="title-gold">Alimento para el Alma</h2>
@@ -112,7 +98,6 @@
             </div>
         </section>
 
-        <!-- SECCIÓN PREDICACIONES -->
         <section class="section-dark" id="predicas">
             <div class="container">
                 <h2 class="title-gold" style="color: var(--dorado-lux);">Predicaciones</h2>
@@ -127,7 +112,6 @@
             </div>
         </section>
 
-        <!-- SECCIÓN FE (FAQ) -->
         <section class="section" id="fe">
             <div class="container">
                 <h2 class="title-gold">Fundamentos de Fe</h2>
@@ -140,18 +124,10 @@
                             <p>Dios es el Creador eterno, santo e infinito en amor, quien se ha revelado como Padre, Hijo y Espíritu Santo.</p>
                         </div>
                     </div>
-                    <div class="faq-item">
-                        <button class="faq-question">
-                            ¿Qué es la Salvación? <i class="fas fa-plus"></i>
-                        </button>
-                        <div class="faq-answer">
-                            <p>La salvación es el regalo gratuito de Dios a través de la fe en Jesucristo, Su único Hijo, para perdón de pecados.</p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
-  <!-- NUEVA SECCIÓN DE ORACIÓN -->
+
         <section class="section-oracion" id="oracion">
             <div class="container">
                 <div class="oracion-header">
@@ -159,98 +135,69 @@
                     <h2 class="oracion-titulo">¿Deseas que oremos por ti?</h2>
                     <p class="oracion-subtitulo">Dios escucha cada clamor. Déjanos tu petición abajo.</p>
                 </div>
-
                 <div class="oracion-form-wrapper">
                     <form id="formOracion" class="oracion-form">
                         <div class="oracion-input-group">
                             <input type="text" placeholder="Tu nombre completo" required>
                         </div>
-
                         <div class="oracion-input-group">
                             <textarea rows="5" placeholder="Escribe aquí tu motivo de oración..." required></textarea>
                         </div>
-
-                        <button type="submit" class="btn-oracion">
-                            Enviar petición 🙏
-                        </button>
+                        <button type="submit" class="btn-oracion">Enviar petición 🙏</button>
                     </form>
                 </div>
             </div>
         </section>
-        <!-- SECCIÓN CONTACTO -->
+
         <section class="section" id="contacto">
             <div class="container">
                 <h2 class="title-gold">Contáctanos</h2>
-
                 <div class="contacto-wrapper">
-                    
                     <div class="contacto-info-box">
                         <div class="info-item-lux">
                             <i class="fas fa-envelope-open-text"></i>
                             <div>
                                 <h4>Escríbenos</h4>
-                                <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="93f0fcfde7f2f0e7fce3fcf7f6e1fce0fcf7fafce0d3f4fef2faffbdf0fcfe">[email&#160;protected]</a></p>
-                            </div>
-                        </div>
-                        
-                        <div class="info-item-lux" style="margin-top: 30px;">
-                            <i class="fas fa-praying-hands"></i>
-                            <div>
-                                <h4>Peticiones</h4>
-                                <p>Estamos listos para orar por ti las 24 horas.</p>
+                                <p>contacto@poderosodios.com</p>
                             </div>
                         </div>
                     </div>
-
                     <div class="contacto-form-card">
                         <form id="formContactoLux">
-                            
                             <div class="input-group-lux">
                                 <label>Nombre Completo</label>
                                 <input type="text" placeholder="Tu nombre..." required>
                             </div>
-
                             <div class="input-group-lux">
                                 <label>Correo Electrónico</label>
                                 <input type="email" placeholder="tu@email.com" required>
                             </div>
-
                             <div class="input-group-lux">
-                                <label>¿En qué podemos ayudarte?</label>
+                                <label>Mensaje</label>
                                 <textarea rows="4" placeholder="Escribe tu mensaje aquí..." required></textarea>
                             </div>
-
-                            <button type="submit" class="btn-gold-block">
-                                Enviar Mensaje con Fe
-                            </button>
-                            
+                            <button type="submit" class="btn-gold-block">Enviar Mensaje con Fe</button>
                         </form>
                     </div>
-
                 </div> 
             </div> 
         </section>
     </main>
 
-    <!-- FOOTER -->
     <footer>
         <div class="container">
             <div class="logo">PODEROSO<span>DIOS</span></div>
             <p>Llevando la Palabra de Vida con excelencia y amor.</p>
-            
             <div class="social-links" style="margin-top: 25px; font-size: 1.5rem;">
                 <a href="#" style="color: var(--dorado-lux); margin: 0 15px;"><i class="fab fa-facebook"></i></a>
                 <a href="#" style="color: var(--dorado-lux); margin: 0 15px;"><i class="fab fa-instagram"></i></a>
             </div>
-            
             <p style="margin-top: 40px; font-size: 0.8rem; opacity: 0.5;">
                 &copy; 2025 Poderoso es Dios. Todos los derechos reservados.
             </p>
         </div>
     </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-<script type="module" src="script.js"></script>
-
+    <script type="module" src="script.js"></script>
 </body>
 </html>
