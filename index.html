@@ -30,8 +30,6 @@
             <a href="#contacto">Contacto</a>
         </nav>
 
-
-
         <div class="header-actions">
             <button id="btnModoOscuro" class="btn-modo-oscuro">
                 <span id="iconoModo">🌙</span>
@@ -55,6 +53,7 @@
                     <span id="cita-dia" class="versiculo-dia-cita"></span>
                 </div>
             </div>
+
     <main>
         <!-- HERO SECTION CON VERSÍCULO DEL DÍA -->
         <section class="hero" id="inicio">
@@ -70,7 +69,6 @@
             </audio>
 
           
-
             <!-- Contenido principal del hero -->
             <div class="hero-content">
                 <span class="pre-title">BIENVENIDO</span>
@@ -153,7 +151,32 @@
                 </div>
             </div>
         </section>
+  <!-- NUEVA SECCIÓN DE ORACIÓN -->
+        <section class="section-oracion" id="oracion">
+            <div class="container">
+                <div class="oracion-header">
+                    <i class="fas fa-praying-hands oracion-icon"></i>
+                    <h2 class="oracion-titulo">¿Deseas que oremos por ti?</h2>
+                    <p class="oracion-subtitulo">Dios escucha cada clamor. Déjanos tu petición abajo.</p>
+                </div>
 
+                <div class="oracion-form-wrapper">
+                    <form id="formOracion" class="oracion-form">
+                        <div class="oracion-input-group">
+                            <input type="text" placeholder="Tu nombre completo" required>
+                        </div>
+
+                        <div class="oracion-input-group">
+                            <textarea rows="5" placeholder="Escribe aquí tu motivo de oración..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-oracion">
+                            Enviar petición 🙏
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
         <!-- SECCIÓN CONTACTO -->
         <section class="section" id="contacto">
             <div class="container">
