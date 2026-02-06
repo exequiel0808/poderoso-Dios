@@ -866,3 +866,15 @@ body.modo-oscuro .oracion-input-group textarea::placeholder {
         padding: 35px 25px;
     }
 }
+/* Estilos para el acordeón FAQ */
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding: 0 20px;
+}
+
+.faq-answer p {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
