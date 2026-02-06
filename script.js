@@ -256,55 +256,6 @@ document.addEventListener('DOMContentLoaded', () => {
     cargarVersiculoDiario();
     inicializarMusica();
     cargarCategorias();
-    inicializarFormularioOracion();
     
     console.log("✅ Aplicación iniciada correctamente");
 });
-// ==========================================
-// 7. FORMULARIO DE ORACIÓN - FIREBASE
-// ==========================================
-function inicializarFormularioOracion() {
-    const formOracion = document.getElementById('formOracion');
-    
-    if (!formOracion) return;
-
-    formOracion.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const nombreInput = formOracion.querySelector('input[type="text"]');
-        const mensajeTextarea = formOracion.querySelector('textarea');
-        const btnSubmit = formOracion.querySelector('button[type="submit"]');
-
-        const nombre = nombreInput.value.trim();
-        const mensaje = mensajeTextarea.value.trim();
-
-        if (!nombre || !mensaje) {
-            alert('Por favor, completa todos los campos');
-            return;
-        }
-
-        const textoOriginal = btnSubmit.textContent;
-        btnSubmit.disabled = true;
-        btnSubmit.textContent = 'Enviando...';
-
-        try {
-            await addDoc(collection(db, "oraciones"), {
-                nombre: nombre,
-                peticion: mensaje,
-                fecha: serverTimestamp(),
-                estado: 'pendiente'
-            });
-
-            alert('✅ ¡Tu petición ha sido enviada! Estaremos orando por ti.');
-            nombreInput.value = '';
-            mensajeTextarea.value = '';
-
-        } catch (error) {
-            console.error('Error:', error);
-            alert('❌ Hubo un error. Intenta nuevamente.');
-        } finally {
-            btnSubmit.disabled = false;
-            btnSubmit.textContent = textoOriginal;
-        }
-    });
-}
