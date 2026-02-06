@@ -65,9 +65,6 @@ function inicializarMenuMovil() {
     });
 }
 
-// ==========================================
-// 3. ACORDEÓN DE FE (FAQ) - CORREGIDO
-// ==========================================
 function inicializarAcordeon() {
     const faqItems = document.querySelectorAll('.faq-item');
     
@@ -84,7 +81,7 @@ function inicializarAcordeon() {
             question.addEventListener('click', () => {
                 const isOpen = answer.style.maxHeight !== "0px";
 
-                // Cerrar todos los demás
+                // Cerrar todos
                 document.querySelectorAll('.faq-answer').forEach(a => {
                     a.style.maxHeight = "0px";
                 });
@@ -93,7 +90,7 @@ function inicializarAcordeon() {
                     i.classList.add('fa-plus');
                 });
 
-                // Abrir el actual si estaba cerrado
+                // Abrir si estaba cerrado
                 if (!isOpen) {
                     answer.style.maxHeight = answer.scrollHeight + "px";
                     const icon = question.querySelector('i');
