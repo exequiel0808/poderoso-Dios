@@ -76,35 +76,24 @@ function inicializarAcordeon() {
         const answer = item.querySelector('.faq-answer');
 
         if (question && answer) {
-            // Inicializar estado cerrado
-            answer.style.maxHeight = "0";
-            answer.style.overflow = "hidden";
-            answer.style.transition = "max-height 0.3s ease";
-            
             question.addEventListener('click', () => {
-                const isOpen = answer.style.maxHeight && answer.style.maxHeight !== "0px";
+                const isCurrentlyOpen = answer.style.maxHeight;
 
                 // Cerrar todos los demás
                 document.querySelectorAll('.faq-answer').forEach(a => {
-                    a.style.maxHeight = "0";
+                    a.style.maxHeight = null;
                 });
                 document.querySelectorAll('.faq-question i').forEach(i => {
                     i.classList.remove('fa-minus');
                     i.classList.add('fa-plus');
                 });
-                document.querySelectorAll('.faq-item').forEach(faqItem => {
-                    faqItem.classList.remove('active');
-                });
 
                 // Abrir el actual si estaba cerrado
-                if (!isOpen) {
+                if (!isCurrentlyOpen) {
                     answer.style.maxHeight = answer.scrollHeight + "px";
                     const icon = question.querySelector('i');
-                    if (icon) {
-                        icon.classList.remove('fa-plus');
-                        icon.classList.add('fa-minus');
-                    }
-                    item.classList.add('active');
+                    icon.classList.remove('fa-plus');
+                    icon.classList.add('fa-minus');
                 }
             });
         }
@@ -183,7 +172,7 @@ async function cargarVersiculoDiario() {
 }
 
 // ==========================================
-// 5. CONTROL DE MÚSICA AMBIENTAL
+// 5. CONTROL DE MÚSICA AMBIENTAL - CORREGIDO
 // ==========================================
 function inicializarMusica() {
     const btnMusica = document.getElementById('btnMusica');
@@ -256,73 +245,6 @@ async function cargarCategorias() {
 }
 
 // ==========================================
-// 7. FORMULARIO DE ORACIÓN - CONECTADO A FIREBASE
-// ==========================================
-function inicializarFormularioOracion() {
-    const formOracion = document.getElementById('formOracion');
-    
-    if (!formOracion) {
-        console.warn("❌ Formulario de oración no encontrado");
-        return;
-    }
-
-    formOracion.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const nombreInput = formOracion.querySelector('input[type="text"]');
-        const mensajeTextarea = formOracion.querySelector('textarea');
-        const btnSubmit = formOracion.querySelector('button[type="submit"]');
-        
-        if (!nombreInput || !mensajeTextarea) {
-            alert('Error: No se encontraron los campos del formulario');
-            return;
-        }
-
-        const nombre = nombreInput.value.trim();
-        const mensaje = mensajeTextarea.value.trim();
-
-        if (!nombre || !mensaje) {
-            alert('Por favor, completa todos los campos');
-            return;
-        }
-
-        // Deshabilitar botón mientras se envía
-        const textoOriginal = btnSubmit.textContent;
-        btnSubmit.disabled = true;
-        btnSubmit.textContent = 'Enviando...';
-        btnSubmit.style.opacity = '0.6';
-
-        try {
-            // Guardar en Firebase
-            await addDoc(collection(db, "oraciones"), {
-                nombre: nombre,
-                peticion: mensaje,
-                fecha: serverTimestamp(),
-                estado: 'pendiente'
-            });
-
-            // Mostrar mensaje de éxito
-            alert('✅ ¡Tu petición ha sido enviada! Estaremos orando por ti.');
-            
-            // Limpiar formulario
-            nombreInput.value = '';
-            mensajeTextarea.value = '';
-            
-            console.log('✅ Petición de oración guardada exitosamente');
-
-        } catch (error) {
-            console.error('❌ Error al guardar petición:', error);
-            alert('❌ Hubo un error al enviar tu petición. Por favor, intenta nuevamente.');
-        } finally {
-            // Rehabilitar botón
-            btnSubmit.disabled = false;
-            btnSubmit.textContent = textoOriginal;
-            btnSubmit.style.opacity = '1';
-        }
-    });
-}
-
-// ==========================================
 // INICIALIZACIÓN AL CARGAR LA PÁGINA
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
@@ -334,7 +256,55 @@ document.addEventListener('DOMContentLoaded', () => {
     cargarVersiculoDiario();
     inicializarMusica();
     cargarCategorias();
-    inicializarFormularioOracion(); // ✅ Nueva función agregada
+    inicializarFormularioOracion();
     
     console.log("✅ Aplicación iniciada correctamente");
 });
+// ==========================================
+// 7. FORMULARIO DE ORACIÓN - FIREBASE
+// ==========================================
+function inicializarFormularioOracion() {
+    const formOracion = document.getElementById('formOracion');
+    
+    if (!formOracion) return;
+
+    formOracion.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const nombreInput = formOracion.querySelector('input[type="text"]');
+        const mensajeTextarea = formOracion.querySelector('textarea');
+        const btnSubmit = formOracion.querySelector('button[type="submit"]');
+
+        const nombre = nombreInput.value.trim();
+        const mensaje = mensajeTextarea.value.trim();
+
+        if (!nombre || !mensaje) {
+            alert('Por favor, completa todos los campos');
+            return;
+        }
+
+        const textoOriginal = btnSubmit.textContent;
+        btnSubmit.disabled = true;
+        btnSubmit.textContent = 'Enviando...';
+
+        try {
+            await addDoc(collection(db, "oraciones"), {
+                nombre: nombre,
+                peticion: mensaje,
+                fecha: serverTimestamp(),
+                estado: 'pendiente'
+            });
+
+            alert('✅ ¡Tu petición ha sido enviada! Estaremos orando por ti.');
+            nombreInput.value = '';
+            mensajeTextarea.value = '';
+
+        } catch (error) {
+            console.error('Error:', error);
+            alert('❌ Hubo un error. Intenta nuevamente.');
+        } finally {
+            btnSubmit.disabled = false;
+            btnSubmit.textContent = textoOriginal;
+        }
+    });
+}

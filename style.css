@@ -737,52 +737,23 @@ body.modo-oscuro #cita-biblica {
     margin-top: 0 !important; /* Quitamos cualquier margen que lo empuje hacia arriba */
 }
 /* ==========================================================================
-   SECCIÓN DE ORACIÓN - ESTILOS COMPLETOS
+   SECCIÓN DE ORACIÓN - ESTILOS MEJORADOS
    ========================================================================== */
 .section-oracion {
     background: linear-gradient(135deg, var(--azul-deep) 0%, var(--azul-prime) 100%);
     padding: 80px 0;
     position: relative;
-    overflow: hidden;
-}
-
-/* Efecto de fondo sutil */
-.section-oracion::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: radial-gradient(circle, rgba(197, 160, 89, 0.05) 1px, transparent 1px);
-    background-size: 50px 50px;
-    opacity: 0.3;
-    pointer-events: none;
 }
 
 .oracion-header {
     text-align: center;
     margin-bottom: 50px;
-    position: relative;
-    z-index: 1;
 }
 
 .oracion-icon {
     font-size: 3.5rem;
     color: var(--dorado-lux);
     margin-bottom: 20px;
-    animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    50% {
-        transform: scale(1.1);
-        opacity: 0.8;
-    }
 }
 
 .oracion-titulo {
@@ -790,37 +761,32 @@ body.modo-oscuro #cita-biblica {
     font-size: 2.5rem;
     color: white;
     margin-bottom: 15px;
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .oracion-subtitulo {
     font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.9);
     max-width: 600px;
     margin: 0 auto;
-    line-height: 1.6;
 }
 
 .oracion-form-wrapper {
     max-width: 700px;
     margin: 0 auto;
-    position: relative;
-    z-index: 1;
 }
 
 .oracion-form {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(0, 45, 91, 0.4);
     padding: 50px 40px;
     border-radius: 15px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(197, 160, 89, 0.2);
+    border: 2px solid rgba(197, 160, 89, 0.3);
 }
 
-/* Modo oscuro para el formulario */
 body.modo-oscuro .oracion-form {
-    background: rgba(15, 20, 25, 0.95);
-    border: 1px solid rgba(197, 160, 89, 0.3);
+    background: rgba(10, 14, 18, 0.6);
+    border: 2px solid rgba(197, 160, 89, 0.4);
 }
 
 .oracion-input-group {
@@ -831,38 +797,45 @@ body.modo-oscuro .oracion-form {
 .oracion-input-group textarea {
     width: 100%;
     padding: 15px 20px;
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-family: 'Montserrat', sans-serif;
-    border: 2px solid #e0e0e0;
+    border: 2px solid rgba(197, 160, 89, 0.5);
     border-radius: 10px;
-    background: white;
-    color: #333;
-    transition: var(--transicion);
+    background: rgba(255, 255, 255, 0.95);
+    color: #1a1a1a;
+    transition: all 0.3s ease;
     outline: none;
+    font-weight: 500;
 }
 
-/* Modo oscuro para inputs */
 body.modo-oscuro .oracion-input-group input,
 body.modo-oscuro .oracion-input-group textarea {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(197, 160, 89, 0.3);
-    color: white;
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(197, 160, 89, 0.6);
+    color: #ffffff;
 }
 
 .oracion-input-group input:focus,
 .oracion-input-group textarea:focus {
     border-color: var(--dorado-lux);
-    box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.1);
+    box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.2);
+    background: white;
+}
+
+body.modo-oscuro .oracion-input-group input:focus,
+body.modo-oscuro .oracion-input-group textarea:focus {
+    background: rgba(255, 255, 255, 0.18);
 }
 
 .oracion-input-group input::placeholder,
 .oracion-input-group textarea::placeholder {
-    color: #999;
+    color: #666;
+    font-weight: 400;
 }
 
 body.modo-oscuro .oracion-input-group input::placeholder,
 body.modo-oscuro .oracion-input-group textarea::placeholder {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .oracion-input-group textarea {
@@ -881,7 +854,7 @@ body.modo-oscuro .oracion-input-group textarea::placeholder {
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    transition: var(--transicion);
+    transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
     box-shadow: 0 8px 20px rgba(197, 160, 89, 0.3);
@@ -889,15 +862,10 @@ body.modo-oscuro .oracion-input-group textarea::placeholder {
 
 .btn-oracion:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(197, 160, 89, 0.4);
-    background: linear-gradient(135deg, #d4af6a, var(--dorado-lux));
+    box-shadow: 0 12px 30px rgba(197, 160, 89, 0.5);
 }
 
-.btn-oracion:active {
-    transform: translateY(0);
-}
-
-/* Responsive para la sección de oración */
+/* Responsive */
 @media (max-width: 768px) {
     .oracion-titulo {
         font-size: 2rem;
@@ -906,30 +874,4 @@ body.modo-oscuro .oracion-input-group textarea::placeholder {
     .oracion-form {
         padding: 35px 25px;
     }
-    
-    .oracion-icon {
-        font-size: 2.5rem;
-    }
-}
-
-/* ==========================================================================
-   ESTILOS ADICIONALES PARA FAQ (ACORDEÓN)
-   ========================================================================== */
-.faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-}
-
-.faq-item.active .faq-answer {
-    padding-top: 15px;
-}
-
-/* Mejorar el comportamiento del ícono */
-.faq-question i {
-    transition: transform 0.3s ease;
-}
-
-.faq-item.active .faq-question i {
-    transform: rotate(180deg);
 }
