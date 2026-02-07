@@ -87,7 +87,8 @@ body {
    4. HERO SECTION Y CONTROLES
    ========================================================================== */
 .hero {
-    height: 110vh;
+    height: auto;
+    min-height: 100vh;
     background: linear-gradient(rgba(0, 26, 51, 0.6), rgba(0, 26, 51, 0.8)), 
                 url('https://images.unsplash.com/photo-1515162305285-0293e4767cc2?q=80&w=2071&auto=format&fit=crop');
     background-size: cover;
@@ -121,7 +122,7 @@ body {
 }
 
 .hero-content {
-    padding-bottom: 150px;
+    padding-bottom: 60px;
 }
 .hero-content h1 {
     font-family: 'Playfair Display', serif;
@@ -736,7 +737,8 @@ body.modo-oscuro #cita-biblica {
 
 /* Evitar que el HERO se suba */
 .hero {
-    height: calc(100vh - 85px); /* Ajustamos la altura para que respete el versículo */
+    height: auto; /* Ajustado para que se adapte al contenido */
+    min-height: 100vh;
     margin-top: 0 !important; /* Quitamos cualquier margen que lo empuje hacia arriba */
 }
 /* ==========================================================================
@@ -868,4 +870,9 @@ body.modo-oscuro .oracion-input-group textarea::placeholder {
     .oracion-form {
         padding: 35px 25px;
     }
+}
+
+/* Más espacio para los botones del hero */
+.hero-btns {
+    margin-bottom: 80px;
 }
