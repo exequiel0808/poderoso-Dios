@@ -120,6 +120,9 @@ body {
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
+.hero-content {
+    padding-bottom: 80px;
+}
 .hero-content h1 {
     font-family: 'Playfair Display', serif;
     font-size: 4.5rem;
