@@ -23,6 +23,23 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // ======================================================
+// DEBUG: Verificar conexión a Firebase
+// ======================================================
+async function testFirebase() {
+    try {
+        console.log("🔍 Probando conexión a Firebase...");
+        const snapshot = await getDocs(collection(db, "categorias"));
+        console.log("✅ Conexión exitosa");
+        console.log("📊 Documentos encontrados en categorias:", snapshot.size);
+        snapshot.forEach(doc => {
+            console.log("📄 Documento:", doc.id, doc.data());
+        });
+    } catch (error) {
+        console.error("❌ Error de conexión:", error);
+    }
+}
+
+// ======================================================
 // VERSÍCULO DEL DÍA (JSON DESDE GITHUB)
 // ======================================================
 async function cargarVersiculoDiario() {
@@ -52,11 +69,81 @@ async function cargarVersiculoDiario() {
     cita.textContent = "Salmos 119:105";
   }
 }
+
 // ======================================================
-// CARGAR PRÉDICAS DESDE FIREBASE (VERSIÓN MEJORADA)
+// CARGAR CATEGORÍAS DESDE FIREBASE (VERSIÓN CORREGIDA)
+// ======================================================
+async function cargarCategorias() {
+    const contenedor = document.getElementById("contenedorBotones");
+    const textoBiblico = document.getElementById("texto-biblico");
+    const citaBiblica = document.getElementById("cita-biblica");
+    
+    if (!contenedor) {
+        console.log("❌ No se encontró el contenedor de botones");
+        return;
+    }
+    
+    try {
+        console.log("Cargando categorías...");
+        contenedor.innerHTML = '<p style="color: var(--dorado-lux);">Cargando categorías...</p>';
+        
+        const querySnapshot = await getDocs(collection(db, "categorias"));
+        console.log("Categorías encontradas:", querySnapshot.size);
+        
+        if (querySnapshot.empty) {
+            contenedor.innerHTML = '<p>No hay categorías disponibles. Agrega algunas desde el panel admin.</p>';
+            return;
+        }
+        
+        contenedor.innerHTML = '';
+        
+        querySnapshot.forEach(doc => {
+            const cat = doc.data();
+            console.log("Categoría:", cat);
+            
+            const boton = document.createElement('button');
+            boton.className = 'btn-categoria';
+            boton.setAttribute('data-id', cat.id || doc.id);
+            boton.setAttribute('data-texto', cat.texto || '');
+            boton.setAttribute('data-cita', cat.cita || '');
+            boton.textContent = cat.nombre || 'Categoría';
+            
+            boton.addEventListener('click', () => {
+                document.querySelectorAll('.btn-categoria').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                boton.classList.add('active');
+                
+                textoBiblico.style.opacity = '0';
+                citaBiblica.style.opacity = '0';
+                
+                setTimeout(() => {
+                    textoBiblico.textContent = `"${cat.texto || ''}"`;
+                    citaBiblica.textContent = cat.cita || '';
+                    textoBiblico.style.opacity = '1';
+                    citaBiblica.style.opacity = '1';
+                }, 300);
+            });
+            
+            contenedor.appendChild(boton);
+        });
+        
+        if (contenedor.firstChild) {
+            contenedor.firstChild.click();
+        }
+        
+    } catch (error) {
+        console.error("Error al cargar categorías:", error);
+        contenedor.innerHTML = '<p>Error al cargar las categorías. Revisa la consola.</p>';
+    }
+}
+
+// ======================================================
+// CARGAR PRÉDICAS DESDE FIREBASE
 // ======================================================
 async function cargarPredicas() {
-    const contenedor = document.getElementById("contenedorPredicas");
+    const contenedor = document.querySelector(".predicas-grid");
     if (!contenedor) {
         console.log("No se encontró el contenedor de predicas");
         return;
@@ -65,78 +152,17 @@ async function cargarPredicas() {
     try {
         console.log("Cargando predicas...");
         const querySnapshot = await getDocs(collection(db, "predicas"));
+        console.log("Prédicas encontradas:", querySnapshot.size);
         
         if (querySnapshot.empty) {
-            contenedor.innerHTML = '<p style="color: var(--dorado-lux); text-align: center;">No hay prédicas disponibles. Próximamente...</p>';
+            contenedor.innerHTML = '<p style="color: var(--dorado-lux); text-align: center;">No hay prédicas disponibles próximamente.</p>';
             return;
         }
         
         let html = '';
         querySnapshot.forEach(doc => {
             const predica = doc.data();
-            console.log("Predica encontrada:", predica);
-            
-            let videoId = '';
-            const url = predica.url || '';
-            
-            // Extraer ID del video de YouTube
-            if (url.includes('youtu.be/')) {
-                videoId = url.split('youtu.be/')[1]?.split('?')[0];
-            } else if (url.includes('youtube.com/watch?v=')) {
-                videoId = url.split('v=')[1]?.split('&')[0];
-            } else if (url.includes('youtube.com/embed/')) {
-                videoId = url.split('embed/')[1]?.split('?')[0];
-            }
-            
-            if (videoId) {
-                html += `
-                    <div class="video-card">
-                        <div class="video-container">
-                            <iframe 
-                                src="https://www.youtube.com/embed/${videoId}" 
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen>
-                            </iframe>
-                        </div>
-                        <div style="margin-top: 15px; text-align: left; padding: 0 10px;">
-                            <h3 style="color: var(--dorado-lux); font-size: 1.2rem; margin-bottom: 5px;">${predica.nombre || 'Prédica'}</h3>
-                            ${predica.predicador ? `<p style="color: white; opacity: 0.8;">🎤 ${predica.predicador}</p>` : ''}
-                        </div>
-                    </div>
-                `;
-            }
-        });
-        
-        if (html === '') {
-            contenedor.innerHTML = '<p style="color: var(--dorado-lux); text-align: center;">No hay videos válidos para mostrar.</p>';
-        } else {
-            contenedor.innerHTML = html;
-        }
-        
-    } catch (error) {
-        console.error("Error al cargar prédicas:", error);
-        contenedor.innerHTML = '<p style="color: red; text-align: center;">Error al cargar las prédicas.</p>';
-    }
-}
-// ======================================================
-// CARGAR PRÉDICAS DESDE FIREBASE
-// ======================================================
-async function cargarPredicas() {
-    const contenedor = document.querySelector(".predicas-grid");
-    if (!contenedor) return;
-    
-    try {
-        const querySnapshot = await getDocs(collection(db, "predicas"));
-        
-        if (querySnapshot.empty) {
-            contenedor.innerHTML = '<p style="color: var(--dorado-lux);">No hay prédicas disponibles próximamente.</p>';
-            return;
-        }
-        
-        let html = '';
-        querySnapshot.forEach(doc => {
-            const predica = doc.data();
+            console.log("Prédica:", predica);
             
             let videoId = '';
             const url = predica.url || '';
@@ -147,8 +173,6 @@ async function cargarPredicas() {
                 videoId = url.split('v=')[1]?.split('&')[0];
             } else if (url.includes('youtube.com/embed/')) {
                 videoId = url.split('embed/')[1]?.split('?')[0];
-            } else if (url.includes('youtube.com/shorts/')) {
-                videoId = url.split('shorts/')[1]?.split('?')[0];
             }
             
             if (videoId) {
@@ -171,10 +195,15 @@ async function cargarPredicas() {
             }
         });
         
-        contenedor.innerHTML = html;
+        if (html === '') {
+            contenedor.innerHTML = '<p style="color: var(--dorado-lux); text-align: center;">No hay videos válidos para mostrar.</p>';
+        } else {
+            contenedor.innerHTML = html;
+        }
         
     } catch (error) {
         console.error("Error al cargar prédicas:", error);
+        contenedor.innerHTML = '<p style="color: red; text-align: center;">Error al cargar las prédicas.</p>';
     }
 }
 
@@ -299,29 +328,13 @@ if (formContacto) {
     }
   });
 }
-// ======================================================
-// DEBUG: Verificar conexión a Firebase
-// ======================================================
-async function testFirebase() {
-    try {
-        console.log("🔍 Probando conexión a Firebase...");
-        const snapshot = await getDocs(collection(db, "categorias"));
-        console.log("✅ Conexión exitosa");
-        console.log("📊 Documentos encontrados:", snapshot.size);
-        snapshot.forEach(doc => {
-            console.log("📄 Documento:", doc.id, doc.data());
-        });
-    } catch (error) {
-        console.error("❌ Error de conexión:", error);
-    }
-}
 
-// Llámala al inicio
-testFirebase();
 // ======================================================
 // INICIALIZACIÓN GENERAL
 // ======================================================
 window.addEventListener("DOMContentLoaded", () => {
+  console.log("🚀 Iniciando aplicación...");
+  testFirebase();
   cargarVersiculoDiario();
   cargarCategorias();
   cargarPredicas();
