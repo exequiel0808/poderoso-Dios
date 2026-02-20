@@ -52,6 +52,131 @@ async function cargarVersiculoDiario() {
     cita.textContent = "Salmos 119:105";
   }
 }
+// ======================================================
+// CARGAR PRÉDICAS DESDE FIREBASE (VERSIÓN MEJORADA)
+// ======================================================
+async function cargarPredicas() {
+    const contenedor = document.getElementById("contenedorPredicas");
+    if (!contenedor) {
+        console.log("No se encontró el contenedor de predicas");
+        return;
+    }
+    
+    try {
+        console.log("Cargando predicas...");
+        const querySnapshot = await getDocs(collection(db, "predicas"));
+        
+        if (querySnapshot.empty) {
+            contenedor.innerHTML = '<p style="color: var(--dorado-lux); text-align: center;">No hay prédicas disponibles. Próximamente...</p>';
+            return;
+        }
+        
+        let html = '';
+        querySnapshot.forEach(doc => {
+            const predica = doc.data();
+            console.log("Predica encontrada:", predica);
+            
+            let videoId = '';
+            const url = predica.url || '';
+            
+            // Extraer ID del video de YouTube
+            if (url.includes('youtu.be/')) {
+                videoId = url.split('youtu.be/')[1]?.split('?')[0];
+            } else if (url.includes('youtube.com/watch?v=')) {
+                videoId = url.split('v=')[1]?.split('&')[0];
+            } else if (url.includes('youtube.com/embed/')) {
+                videoId = url.split('embed/')[1]?.split('?')[0];
+            }
+            
+            if (videoId) {
+                html += `
+                    <div class="video-card">
+                        <div class="video-container">
+                            <iframe 
+                                src="https://www.youtube.com/embed/${videoId}" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div style="margin-top: 15px; text-align: left; padding: 0 10px;">
+                            <h3 style="color: var(--dorado-lux); font-size: 1.2rem; margin-bottom: 5px;">${predica.nombre || 'Prédica'}</h3>
+                            ${predica.predicador ? `<p style="color: white; opacity: 0.8;">🎤 ${predica.predicador}</p>` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+        });
+        
+        if (html === '') {
+            contenedor.innerHTML = '<p style="color: var(--dorado-lux); text-align: center;">No hay videos válidos para mostrar.</p>';
+        } else {
+            contenedor.innerHTML = html;
+        }
+        
+    } catch (error) {
+        console.error("Error al cargar prédicas:", error);
+        contenedor.innerHTML = '<p style="color: red; text-align: center;">Error al cargar las prédicas.</p>';
+    }
+}
+// ======================================================
+// CARGAR PRÉDICAS DESDE FIREBASE
+// ======================================================
+async function cargarPredicas() {
+    const contenedor = document.querySelector(".predicas-grid");
+    if (!contenedor) return;
+    
+    try {
+        const querySnapshot = await getDocs(collection(db, "predicas"));
+        
+        if (querySnapshot.empty) {
+            contenedor.innerHTML = '<p style="color: var(--dorado-lux);">No hay prédicas disponibles próximamente.</p>';
+            return;
+        }
+        
+        let html = '';
+        querySnapshot.forEach(doc => {
+            const predica = doc.data();
+            
+            let videoId = '';
+            const url = predica.url || '';
+            
+            if (url.includes('youtu.be/')) {
+                videoId = url.split('youtu.be/')[1]?.split('?')[0];
+            } else if (url.includes('youtube.com/watch?v=')) {
+                videoId = url.split('v=')[1]?.split('&')[0];
+            } else if (url.includes('youtube.com/embed/')) {
+                videoId = url.split('embed/')[1]?.split('?')[0];
+            } else if (url.includes('youtube.com/shorts/')) {
+                videoId = url.split('shorts/')[1]?.split('?')[0];
+            }
+            
+            if (videoId) {
+                html += `
+                    <div class="video-card">
+                        <div class="video-container">
+                            <iframe 
+                                src="https://www.youtube.com/embed/${videoId}" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div style="margin-top: 15px; text-align: left;">
+                            <h3 style="color: var(--dorado-lux); font-size: 1.2rem;">${predica.nombre || 'Prédica'}</h3>
+                            ${predica.predicador ? `<p style="color: white; opacity: 0.8;">🎤 ${predica.predicador}</p>` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+        });
+        
+        contenedor.innerHTML = html;
+        
+    } catch (error) {
+        console.error("Error al cargar prédicas:", error);
+    }
+}
 
 // ======================================================
 // MODO OSCURO
@@ -130,15 +255,19 @@ if (formOracion) {
     e.preventDefault();
 
     try {
+      const nombreInput = formOracion.querySelector('input[type="text"]');
+      const peticionInput = formOracion.querySelector('textarea');
+      
       await addDoc(collection(db, "oraciones"), {
-        nombre: document.getElementById("nombreInput").value.trim(),
-        peticion: document.getElementById("peticionInput").value.trim(),
+        nombre: nombreInput ? nombreInput.value.trim() : "Anónimo",
+        peticion: peticionInput ? peticionInput.value.trim() : "",
         fecha: serverTimestamp()
       });
 
       alert("🙏 Tu petición fue enviada. Estamos orando por ti.");
       formOracion.reset();
     } catch (e) {
+      console.error(e);
       alert("❌ No se pudo enviar la petición.");
     }
   });
@@ -147,32 +276,55 @@ if (formOracion) {
 // ======================================================
 // FORMULARIO DE CONTACTO (FIREBASE)
 // ======================================================
-const formContacto = document.getElementById("formContacto");
+const formContacto = document.getElementById("formContactoLux");
 if (formContacto) {
   formContacto.addEventListener("submit", async e => {
     e.preventDefault();
 
     try {
+      const inputs = formContacto.querySelectorAll('input, textarea');
+      
       await addDoc(collection(db, "contacto"), {
-        nombre: document.getElementById("nombreC").value.trim(),
-        email: document.getElementById("emailC").value.trim(),
-        mensaje: document.getElementById("mensajeC").value.trim(),
+        nombre: inputs[0] ? inputs[0].value.trim() : "",
+        email: inputs[1] ? inputs[1].value.trim() : "",
+        mensaje: inputs[2] ? inputs[2].value.trim() : "",
         fecha: serverTimestamp()
       });
 
       alert("📩 Mensaje enviado correctamente.");
       formContacto.reset();
     } catch (e) {
+      console.error(e);
       alert("❌ Error al enviar el mensaje.");
     }
   });
 }
+// ======================================================
+// DEBUG: Verificar conexión a Firebase
+// ======================================================
+async function testFirebase() {
+    try {
+        console.log("🔍 Probando conexión a Firebase...");
+        const snapshot = await getDocs(collection(db, "categorias"));
+        console.log("✅ Conexión exitosa");
+        console.log("📊 Documentos encontrados:", snapshot.size);
+        snapshot.forEach(doc => {
+            console.log("📄 Documento:", doc.id, doc.data());
+        });
+    } catch (error) {
+        console.error("❌ Error de conexión:", error);
+    }
+}
 
+// Llámala al inicio
+testFirebase();
 // ======================================================
 // INICIALIZACIÓN GENERAL
 // ======================================================
 window.addEventListener("DOMContentLoaded", () => {
   cargarVersiculoDiario();
+  cargarCategorias();
+  cargarPredicas();
   inicializarModoOscuro();
   inicializarMusica();
   inicializarFAQ();
