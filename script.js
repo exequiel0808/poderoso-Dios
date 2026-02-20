@@ -40,33 +40,70 @@ async function testFirebase() {
 }
 
 // ======================================================
-// VERSÍCULO DEL DÍA (JSON DESDE GITHUB)
+// VERSÍCULO DEL DÍA (JSON DESDE GITHUB) - VERSIÓN CORREGIDA
 // ======================================================
 async function cargarVersiculoDiario() {
-  const URL =
-    "https://raw.githubusercontent.com/exequiel0808/poderoso-Dios/main/biblia-completa-rv1960.json";
-
   const texto = document.getElementById("texto-dia");
   const cita = document.getElementById("cita-dia");
 
   if (!texto || !cita) return;
 
-  try {
-    const res = await fetch(URL + "?v=" + Date.now());
-    const biblia = await res.json();
+  // Mostrar mensaje de carga
+  texto.textContent = "Cargando palabra de esperanza...";
+  cita.textContent = "";
 
+  try {
+    // PRIMERO: Intentar con la URL que tienes
+    const URL = "https://raw.githubusercontent.com/exequiel0808/poderoso-Dios/main/biblia-completa-rv1960.json";
+    
+    console.log("📖 Cargando versículo del día desde:", URL);
+    
+    const res = await fetch(URL + "?v=" + Date.now());
+    
+    if (!res.ok) {
+      throw new Error(`Error HTTP: ${res.status}`);
+    }
+    
+    const biblia = await res.json();
+    console.log("✅ Biblia cargada. Versículos:", biblia.length);
+    
+    // Calcular día del año para tener un versículo diferente cada día
     const hoy = new Date();
     const inicio = new Date(hoy.getFullYear(), 0, 0);
     const dia = Math.floor((hoy - inicio) / (1000 * 60 * 60 * 24));
-
-    const versiculo = biblia[dia % biblia.length];
-
-    texto.textContent = `"${versiculo.texto}"`;
-    cita.textContent = versiculo.cita;
-  } catch (e) {
-    texto.textContent =
-      "Lámpara es a mis pies tu palabra, y lumbrera a mi camino.";
-    cita.textContent = "Salmos 119:105";
+    
+    // Seleccionar versículo basado en el día
+    const indice = dia % biblia.length;
+    const versiculo = biblia[indice];
+    
+    console.log(`📅 Día ${dia}, Índice ${indice}:`, versiculo);
+    
+    // Mostrar el versículo
+    if (versiculo && versiculo.texto && versiculo.cita) {
+      texto.textContent = `"${versiculo.texto}"`;
+      cita.textContent = versiculo.cita;
+    } else {
+      throw new Error("Estructura de versículo incorrecta");
+    }
+    
+  } catch (error) {
+    console.error("❌ Error al cargar versículo:", error);
+    
+    // VERSÍCULOS DE RESPALDO (por si falla la carga)
+    const versiculosRespaldo = [
+      { texto: "Lámpara es a mis pies tu palabra, y lumbrera a mi camino.", cita: "Salmos 119:105" },
+      { texto: "Porque de tal manera amó Dios al mundo, que ha dado a su Hijo unigénito, para que todo aquel que en él cree no se pierda, mas tenga vida eterna.", cita: "Juan 3:16" },
+      { texto: "Todo lo puedo en Cristo que me fortalece.", cita: "Filipenses 4:13" },
+      { texto: "Jehová es mi pastor; nada me faltará.", cita: "Salmos 23:1" },
+      { texto: "El Señor te bendiga y te guarde.", cita: "Números 6:24" }
+    ];
+    
+    // Seleccionar uno aleatorio para hoy (basado en la fecha)
+    const dia = new Date().getDate();
+    const respaldo = versiculosRespaldo[dia % versiculosRespaldo.length];
+    
+    texto.textContent = `"${respaldo.texto}"`;
+    cita.textContent = respaldo.cita;
   }
 }
 
@@ -129,9 +166,14 @@ async function cargarCategorias() {
             contenedor.appendChild(boton);
         });
         
-        if (contenedor.firstChild) {
-            contenedor.firstChild.click();
-        }
+        // 👇 ELIMINAR O COMENTAR ESTAS LÍNEAS
+        // if (contenedor.firstChild) {
+        //     contenedor.firstChild.click();
+        // }
+        
+        // 👇 AGREGAR ESTO PARA RESTAURAR EL TEXTO INICIAL
+        textoBiblico.textContent = "Selecciona una categoría para recibir una promesa...";
+        citaBiblica.textContent = "";
         
     } catch (error) {
         console.error("Error al cargar categorías:", error);
